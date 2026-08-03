@@ -24,3 +24,9 @@ Thumbs.db
 
 # Python cache folders
 .pytest_cache/
+
+# Database
+database.db
+
+# Internship Documents
+Internship_Report/
