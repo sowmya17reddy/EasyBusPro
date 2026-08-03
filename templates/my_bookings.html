@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Bookings
+{% endblock %}
+
+{% block content %}
+
+<section class="results-page">
+
+    <div class="results-container">
+
+        <div class="results-header">
+
+            <div>
+                <span class="results-label">
+                    MY BOOKINGS
+                </span>
+
+                <h1>My Bookings</h1>
+                
+                <p>
+                    View all your booked bus tickets in one place.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% if bookings %}
+
+            {% for booking in bookings %}
+
+            <div class="result-bus-card">
+
+                <h2>{{ booking['bus_name'] }}</h2>
+                
+                <p style="color:green;font-weight:bold;">
+                    ✅ Confirmed
+                </p>
+
+                <br>
+
+                <p><strong>Route:</strong>
+                    {{ booking['from_city'] }}
+                    →
+                    {{ booking['to_city'] }}
+                </p>
+
+                <p><strong>Date:</strong>
+                    {{ booking['journey_date'] }}
+                </p>
+
+                <p><strong>Seats:</strong>
+                    {{ booking['seat_numbers'] }}
+                </p>
+
+                <p><strong>Passengers:</strong>
+                    {{ booking['passengers'] }}
+                </p>
+
+                <p><strong>Amount:</strong>
+                    ₹{{ booking['amount'] }}
+                </p>
+
+                <p><strong>Booking ID:</strong>
+                    EB{{ booking['booking_id'] }}
+                </p>
+
+                <p><strong>Payment:</strong>
+                    {{ booking['payment_method'] }}
+                </p>
+
+                <br>
+                
+                <a href="/search" class="select-seat-btn">
+                    🚌 Book Another Trip
+                </a>
+
+            </div>
+
+            <br>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="result-bus-card">
+
+                <h2>No Bookings Yet</h2>
+                
+                <p>
+                    You haven't booked any bus yet.
+                </p>
+                
+                <br>
+                
+                <a href="/search" class="select-seat-btn">
+                    Search Buses
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

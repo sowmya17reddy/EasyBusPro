@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Panel
+{% endblock %}
+
+{% block content %}
+
+<section class="results-page">
+
+    <div class="results-container">
+
+        <div class="results-header">
+            <div>
+                <span class="results-label">ADMIN PANEL</span>
+                <h1>Add New Bus</h1>
+            </div>
+        </div>
+
+        <form action="/admin" method="POST" class="auth-form">
+
+            <input type="text" name="bus_name" placeholder="Bus Name" required>
+
+            <input type="text" name="from_city" placeholder="From City" required>
+
+            <input type="text" name="to_city" placeholder="To City" required>
+
+            <input type="text" name="departure" placeholder="Departure Time" required>
+
+            <input type="text" name="arrival" placeholder="Arrival Time" required>
+
+            <input type="number" name="price" placeholder="Ticket Price" required>
+
+            <input type="number" name="available_seats" placeholder="Available Seats" required>
+
+            <br><br>
+
+            <button class="search-btn" type="submit">
+                Add Bus
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

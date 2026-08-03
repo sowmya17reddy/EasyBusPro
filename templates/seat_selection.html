@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}
+Select Seats | EasyBus Pro
+{% endblock %}
+
+{% block content %}
+
+<section class="seat-page">
+
+    <div class="seat-page-header">
+        <span>SELECT YOUR SEATS</span>
+        <h1>{{ bus_name }}</h1>
+        <p>
+            {{ from_city }} → {{ to_city }}
+            &nbsp; • &nbsp; 📅 {{ date }}
+            &nbsp; • &nbsp; 👤 {{ passengers }} Passenger(s)
+        </p>
+    </div>
+
+    <div class="seat-layout">
+
+        <!-- SEAT SELECTION -->
+        <div class="seat-selection-card">
+
+            <div class="seat-card-header">
+                <div>
+                    <h2>Choose Your Seats</h2>
+                    <p>Select {{ passengers }} seat(s) to continue</p>
+                </div>
+
+                <div class="seat-legend">
+                    <span><i class="legend-box available"></i> Available</span>
+                    <span><i class="legend-box selected"></i> Selected</span>
+                    <span><i class="legend-box booked"></i> Booked</span>
+                </div>
+            </div>
+
+            <div class="bus-layout">
+
+                <div class="driver">◯ Steering</div>
+
+                <div class="seat-grid">
+
+                    {% for row in range(1, 7) %}
+
+                        <button class="seat" data-seat="A{{ row }}">
+                            A{{ row }}
+                        </button>
+
+                        <button class="seat" data-seat="B{{ row }}">
+                            B{{ row }}
+                        </button>
+
+                        <div class="seat-aisle"></div>
+
+                        <button class="seat" data-seat="C{{ row }}">
+                            C{{ row }}
+                        </button>
+
+                        <button class="seat" data-seat="D{{ row }}">
+                            D{{ row }}
+                        </button>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOKING SUMMARY -->
+        <div class="seat-summary-card">
+
+            <span class="summary-label">BOOKING SUMMARY</span>
+            <h2>Your Journey</h2>
+
+            <div class="summary-item">
+                <span>Bus</span>
+                <strong>{{ bus_name }}</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Route</span>
+                <strong>{{ from_city }} → {{ to_city }}</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Date</span>
+                <strong>{{ date }}</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Selected Seats</span>
+                <strong id="selectedSeats">None</strong>
+            </div>
+
+            <hr>
+
+            <div class="summary-item">
+                <span>Price per Seat</span>
+                <strong>₹{{ price }}</strong>
+            </div>
+
+            <div class="summary-total">
+                <span>Total Amount</span>
+                <strong>₹<span id="totalAmount">0</span></strong>
+            </div>
+
+            <form action="/payment" method="GET">
+
+                <input type="hidden" name="bus" value="{{ bus_name }}">
+                <input type="hidden" name="from" value="{{ from_city }}">
+                <input type="hidden" name="to" value="{{ to_city }}">
+                <input type="hidden" name="date" value="{{ date }}">
+                <input type="hidden" name="passengers" value="{{ passengers }}">
+                <input type="hidden" name="price" value="{{ price }}">
+
+                <input type="hidden" name="seats" id="seatsInput">
+                <input type="hidden" name="total" id="totalInput">
+
+                <button type="submit"
+                        id="continueBtn"
+                        class="continue-payment-btn"
+                        disabled>
+                    Continue to Payment →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    const seats = document.querySelectorAll(".seat");
+    const selectedSeatsText = document.getElementById("selectedSeats");
+    const totalAmount = document.getElementById("totalAmount");
+    const seatsInput = document.getElementById("seatsInput");
+    const totalInput = document.getElementById("totalInput");
+    const continueBtn = document.getElementById("continueBtn");
+
+    const maxSeats = Number("{{ passengers }}");
+    const pricePerSeat = Number("{{ price }}");
+
+    let selectedSeats = [];
+
+    seats.forEach(seat => {
+
+        seat.addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            const seatNumber = this.dataset.seat;
+
+            if (selectedSeats.includes(seatNumber)) {
+
+                selectedSeats =
+                    selectedSeats.filter(seat => seat !== seatNumber);
+
+                this.classList.remove("seat-selected");
+
+            } else {
+
+                if (selectedSeats.length >= maxSeats) {
+                    alert(
+                        "You can select only " +
+                        maxSeats +
+                        " seat(s)."
+                    );
+                    return;
+                }
+
+                selectedSeats.push(seatNumber);
+                this.classList.add("seat-selected");
+            }
+
+            selectedSeatsText.textContent =
+                selectedSeats.length > 0
+                    ? selectedSeats.join(", ")
+                    : "None";
+
+            const total =
+                selectedSeats.length * pricePerSeat;
+
+            totalAmount.textContent = total;
+            seatsInput.value = selectedSeats.join(",");
+            totalInput.value = total;
+
+            continueBtn.disabled =
+                selectedSeats.length !== maxSeats;
+        });
+
+    });
+
+</script>
+
+{% endblock %}

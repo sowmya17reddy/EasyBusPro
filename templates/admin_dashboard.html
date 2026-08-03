@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<section class="results-page">
+
+    <div class="results-container">
+
+        <div class="results-header">
+
+            <div>
+                <span class="results-label">ADMIN DASHBOARD</span>
+                <h1>Manage Buses</h1>
+            </div>
+
+            <a href="/admin" class="modify-search-btn">
+                + Add New Bus
+            </a>
+
+        </div>
+
+        <table border="1" width="100%" cellpadding="10">
+
+            <tr>
+                <th>ID</th>
+                <th>Bus Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Price</th>
+                <th>Seats</th>
+            </tr>
+
+            {% for bus in buses %}
+
+            <tr>
+
+                <td>{{ bus['id'] }}</td>
+                <td>{{ bus['bus_name'] }}</td>
+                <td>{{ bus['from_city'] }}</td>
+                <td>{{ bus['to_city'] }}</td>
+                <td>{{ bus['departure'] }}</td>
+                <td>{{ bus['arrival'] }}</td>
+                <td>₹{{ bus['price'] }}</td>
+                <td>{{ bus['available_seats'] }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}

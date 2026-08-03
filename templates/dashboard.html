@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | EasyBus Pro
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="dashboard-header">
+        <div>
+            <span class="dashboard-label">MY DASHBOARD</span>
+            <h1>Welcome back 👋</h1>
+            <p>Plan your next journey and manage your bookings.</p>
+        </div>
+
+        <a href="/search" class="dashboard-book-btn">
+            + Book New Journey
+        </a>
+    </div>
+
+    <!-- DASHBOARD CARDS -->
+    <div class="dashboard-stats">
+
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon">🎫</div>
+            <div>
+                <span>Total Bookings</span>
+                <h2>0</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon">🚌</div>
+            <div>
+                <span>Upcoming Trips</span>
+                <h2>0</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-stat-card">
+            <div class="dashboard-stat-icon">✓</div>
+            <div>
+                <span>Completed Trips</span>
+                <h2>0</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="dashboard-content">
+
+        <div class="dashboard-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>What would you like to do?</p>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+
+                <a href="/search" class="quick-action-card">
+                    <span>🔍</span>
+                    <div>
+                        <h3>Search Buses</h3>
+                        <p>Find buses for your next journey.</p>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <span>🎫</span>
+                    <div>
+                        <h3>My Bookings</h3>
+                        <p>View and manage your bookings.</p>
+                    </div>
+                </a>
+
+                <a href="#" class="quick-action-card">
+                    <span>❌</span>
+                    <div>
+                        <h3>Cancel Ticket</h3>
+                        <p>Manage ticket cancellations.</p>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- UPCOMING JOURNEY -->
+        <div class="dashboard-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Upcoming Journey</h2>
+                    <p>Your next scheduled trip.</p>
+                </div>
+            </div>
+
+            <div class="empty-booking">
+                <div class="empty-booking-icon">🚌</div>
+                <h3>No upcoming journeys</h3>
+                <p>Your booked journeys will appear here.</p>
+                <a href="/search">Book Your First Journey →</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

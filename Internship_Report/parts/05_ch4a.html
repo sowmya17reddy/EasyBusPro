@@ -1,0 +1,402 @@
+﻿
+<!-- ============ CHAPTER 4 ============ -->
+<h1>CHAPTER 4: PROJECT &ndash; EASYBUS PRO</h1>
+
+<h2>4.1 PROJECT OVERVIEW</h2>
+
+<p><b>Project Title:</b> EasyBus Pro &ndash; A Bus Ticket Booking System using Python, Flask and
+SQLite3.</p>
+
+<p>EasyBus Pro is a web application through which a traveller can search for buses between two
+cities, examine the options available, reserve specific seats, pay for the ticket and retain a
+permanent record of the booking. Every action taken by the user results in a corresponding database
+operation: registration writes a row into the <i>users</i> table, a search executes a filtered SELECT
+on the <i>bus</i> table, and a confirmed booking writes a row into the <i>bookings</i> table that
+references both of the other two tables &mdash; which is what distinguishes the project from a static
+website.</p>
+
+<p><b>Problem statement.</b> Intercity bus ticketing for many small and medium operators is still
+handled at counters or over the telephone. A passenger must contact the operator directly to learn
+what buses are available, has no way to compare operators at the same time, cannot see the seat
+layout before choosing a seat, and receives only a paper slip &mdash; easily lost &mdash; as proof of
+booking. The operator, in turn, maintains availability in a register or spreadsheet that must be
+consulted and updated manually for every enquiry.</p>
+
+<p><b>Motivation.</b> A booking system was chosen because it exercises almost every concept the
+internship was meant to teach &mdash; related entities, a multi-step transaction spread across
+several pages, state preserved between requests, authentication and a permanent database record
+&mdash; while remaining a domain that needs no explanation to an examiner or a mentor.</p>
+
+<p><b>Objective.</b> To design and implement an application that lets a passenger register and log
+in securely, search buses by route and date, view a visual seat layout and select exactly the seats
+required, pay through a chosen method, receive a stored, confirmed booking with an electronic ticket,
+review the complete booking history at any time, and lets an administrator add new buses to the
+system.</p>
+
+<p><b>Solution approach.</b> The application is organised as a three-tier system. The presentation
+tier is thirteen Jinja2 templates styled by one stylesheet; the application tier is a Flask program
+of fifteen routes, each reading input, performing the required database operation and rendering a
+template; the data tier is a single SQLite3 file with three tables. The user's <b>identity</b> is
+kept in the server-side session because it must be available on every page and must not be editable
+by the user; the <b>details of the journey being booked</b> are carried forward as URL parameters and
+hidden form fields because they are meaningful only for the duration of that one booking. This
+distinction, and its consequences, are discussed further in Sections 4.6 and 4.12.</p>
+
+<h2>4.2 EXISTING SYSTEM AND ITS LIMITATIONS</h2>
+
+<p>The existing system considered here is the conventional counter- or telephone-based booking
+practice: a passenger contacts the operator, the operator consults a register to check availability,
+the fare and timing are quoted verbally, the seat is recorded by hand against payment in cash, and a
+paper slip is issued. Its limitations are listed in the order they were identified during requirement
+analysis.</p>
+
+<ol>
+<li><b>Restricted availability</b> &mdash; bookings are possible only during counter hours.</li>
+<li><b>No basis for comparison</b> &mdash; each operator answers only for its own buses, so comparing
+three operators means three separate enquiries.</li>
+<li><b>Seat selection is not visual</b> &mdash; the passenger is told a seat number with no idea of
+its position in the coach.</li>
+<li><b>Manual record-keeping errors</b> &mdash; registers are subject to double booking and illegible
+or missed entries.</li>
+<li><b>No permanent record for the passenger</b> &mdash; a lost slip leaves no proof of booking and
+no history of past journeys.</li>
+<li><b>Cash dependence</b> and <b>duplicated staff effort</b> for every enquiry, whether or not it
+results in a booking.</li>
+</ol>
+
+<h2>4.3 PROPOSED SYSTEM AND ITS ADVANTAGES</h2>
+
+<p>EasyBus Pro replaces this manual process with a web application. A passenger registers once, logs
+in with an e-mail address and password, searches by source, destination, date and passenger count,
+compares every matching bus on one screen, selects seats from a visual layout that enforces the
+correct seat count, pays through UPI, card or net banking, and receives an on-screen electronic
+ticket that is also stored permanently under My Bookings.</p>
+
+<p class="tblcap">Table 4.1: Existing system versus proposed system</p>
+<table>
+<tr><th style="width:2.3in;">Existing (manual) system</th><th>EasyBus Pro (proposed system)</th></tr>
+<tr><td>Available only during counter/call hours</td><td>Available at any time from any browser</td></tr>
+<tr><td>One operator's information per enquiry</td><td>All matching buses compared on one screen</td></tr>
+<tr><td>Seat number quoted verbally</td><td>Visual seat layout with click-to-select</td></tr>
+<tr><td>Fare totalled by hand</td><td>Total computed automatically as seats &times; fare</td></tr>
+<tr><td>Paper slip, easily lost</td><td>Permanent record in the bookings table, viewable anytime</td></tr>
+<tr><td>Register updated manually per booking</td><td>Record created automatically as part of the booking transaction</td></tr>
+</table>
+
+<h2>4.4 SYSTEM REQUIREMENTS</h2>
+
+<p class="tblcap">Table 4.2: Functional requirements of EasyBus Pro</p>
+<table>
+<tr><th style="width:0.55in;">ID</th><th style="width:1.4in;">Requirement</th><th>Description</th></tr>
+<tr><td>FR-01</td><td>User registration</td><td>Create an account with name, e-mail, phone and
+password (entered twice); reject on password mismatch or duplicate e-mail.</td></tr>
+<tr><td>FR-02</td><td>User login</td><td>Authenticate against stored credentials; reject invalid
+attempts with a message.</td></tr>
+<tr><td>FR-03</td><td>Session management</td><td>Create a session on login holding user id, name and
+e-mail; show the user's name in the navigation bar.</td></tr>
+<tr><td>FR-04</td><td>Access control</td><td>Redirect an unauthenticated visitor to login when a
+personal-data page is requested.</td></tr>
+<tr><td>FR-05</td><td>Bus search</td><td>Accept source, destination, date and passenger count; return
+matching buses.</td></tr>
+<tr><td>FR-06</td><td>Display of results</td><td>Show operator, timings, fare, seats available and
+amenities for each match; show a clear message when none match.</td></tr>
+<tr><td>FR-07</td><td>Seat selection</td><td>Display a seat layout; allow selection up to, but not
+beyond, the number of passengers entered.</td></tr>
+<tr><td>FR-08</td><td>Fare calculation</td><td>Compute and update the total as fare &times; seats
+selected.</td></tr>
+<tr><td>FR-09</td><td>Payment method selection</td><td>Offer UPI, card and net banking; require one
+choice before confirming.</td></tr>
+<tr><td>FR-10</td><td>Booking confirmation</td><td>Insert the booking into the database and display
+an electronic ticket.</td></tr>
+<tr><td>FR-11</td><td>Booking history</td><td>List all bookings of the logged-in user, most recent
+first, via a JOIN with the bus table.</td></tr>
+<tr><td>FR-12</td><td>Profile and logout</td><td>Display account details; clear the session on
+logout.</td></tr>
+<tr><td>FR-13</td><td>Bus administration</td><td>Allow an administrator to add and list bus
+records.</td></tr>
+</table>
+
+<p class="tblcap">Table 4.3: Non-functional requirements of EasyBus Pro</p>
+<table>
+<tr><th style="width:0.9in;">Requirement</th><th>How it is addressed</th></tr>
+<tr><td>Usability</td><td>Consistent navigation bar, clear labels, a visible seat-and-price summary
+during selection</td></tr>
+<tr><td>Performance</td><td>Single-table and two-table queries against a small database respond in
+well under a second</td></tr>
+<tr><td>Reliability</td><td>Every write is committed immediately, so confirmed bookings survive a
+server restart</td></tr>
+<tr><td>Security</td><td>Parameterised SQL prevents injection; signed sessions prevent tampering;
+Jinja2 auto-escaping prevents script injection (password storage weakness noted in Section 4.12)</td></tr>
+<tr><td>Maintainability</td><td>Shared base template and single stylesheet; one route/template per
+page</td></tr>
+<tr><td>Portability</td><td>Runs anywhere Python is installed, with the database as a single file</td></tr>
+<tr><td>Responsiveness</td><td>Media queries collapse multi-column layouts on narrow screens</td></tr>
+</table>
+
+<p class="tblcap">Table 4.4: Software and hardware requirements</p>
+<table>
+<tr><th style="width:1.6in;">Category</th><th>Specification</th></tr>
+<tr><td>Operating system</td><td>Windows 10/11 (development); any OS with Python 3 support</td></tr>
+<tr><td>Language / framework</td><td>Python 3.x, Flask (with Werkzeug, Jinja2)</td></tr>
+<tr><td>Database</td><td>SQLite3 via the built-in <i>sqlite3</i> module</td></tr>
+<tr><td>Front end</td><td>HTML5, CSS3, JavaScript</td></tr>
+<tr><td>Editor / browser</td><td>Visual Studio Code; Chrome, Firefox or Edge</td></tr>
+<tr><td>Processor / RAM (minimum)</td><td>Dual-core 1.6 GHz / 2 GB RAM</td></tr>
+<tr><td>Processor / RAM (used)</td><td>Intel Core i5 equivalent / 8 GB RAM</td></tr>
+<tr><td>Disk space</td><td>Approximately 500 MB &ndash; 1 GB</td></tr>
+</table>
+
+<h2>4.5 MODULES OF THE SYSTEM</h2>
+
+<p>The application is organised into the modules listed in Table 4.5. A module here means a
+self-contained route in <i>app.py</i> together with the template it renders and the database
+operations it performs. Each module below is described under a uniform structure &mdash; purpose,
+workflow, inputs, outputs, screenshot and explanation.</p>
+
+<p class="tblcap">Table 4.5: Module list with corresponding routes and templates</p>
+<table>
+<tr><th style="width:0.35in;">#</th><th style="width:1.3in;">Module</th><th style="width:1.2in;">Route</th><th style="width:1.2in;">Template</th><th>Database access</th></tr>
+<tr><td>1</td><td>Landing / Home</td><td>/</td><td>landing.html</td><td>None</td></tr>
+<tr><td>2</td><td>User Login</td><td>/signin</td><td>signin.html</td><td>SELECT users</td></tr>
+<tr><td>3</td><td>User Registration</td><td>/signup</td><td>signup.html</td><td>INSERT users</td></tr>
+<tr><td>4</td><td>Dashboard</td><td>/dashboard</td><td>dashboard.html</td><td>None</td></tr>
+<tr><td>5</td><td>Search Bus</td><td>/search</td><td>search.html</td><td>None</td></tr>
+<tr><td>6</td><td>Bus Results</td><td>/results</td><td>results.html</td><td>SELECT bus</td></tr>
+<tr><td>7</td><td>Seat Selection</td><td>/seat_selection</td><td>seat_selection.html</td><td>None</td></tr>
+<tr><td>8</td><td>Payment</td><td>/payment</td><td>payment.html</td><td>None</td></tr>
+<tr><td>9</td><td>Booking Confirmation</td><td>/success</td><td>success.html</td><td>SELECT bus, INSERT bookings</td></tr>
+<tr><td>10</td><td>My Bookings</td><td>/my_bookings</td><td>my_bookings.html</td><td>SELECT with JOIN</td></tr>
+<tr><td>11</td><td>Profile</td><td>/profile</td><td>profile.html</td><td>SELECT users</td></tr>
+<tr><td>12</td><td>About</td><td>/about</td><td>about.html</td><td>None</td></tr>
+<tr><td>13</td><td>Contact</td><td>/contact</td><td>contact.html</td><td>None</td></tr>
+<tr><td>14</td><td>Logout</td><td>/logout</td><td>&mdash; (redirect)</td><td>None</td></tr>
+<tr><td>15</td><td>Bus Administration</td><td>/admin, /admin_dashboard</td><td>admin.html, admin_dashboard.html</td><td>INSERT / SELECT bus</td></tr>
+<tr><td>16</td><td>Navigation Bar &amp; Footer</td><td>&mdash; (shared)</td><td>base.html</td><td>Reads session only</td></tr>
+</table>
+
+<h3>4.5.1 Landing / Home Page</h3>
+<p><b>Purpose &amp; workflow:</b> The entry point of the site. The route <i>/</i> renders
+<i>landing.html</i> without touching the database, presenting a hero section with an embedded search
+form, a &ldquo;why choose us&rdquo; feature grid, a statistics band, popular routes and a coach
+showcase. Submitting the embedded search sends a GET request straight to <i>/results</i>.<br>
+<b>Inputs:</b> none on arrival; optionally source, destination, date, passengers if the search form is
+used.<br>
+<b>Outputs:</b> the rendered home page, or a redirect to the results page.</p>
+
+<img class="shotimg" src="screenshots/fig_4_1_home.png" alt="Home page of EasyBus Pro">
+<p class="figcap">Figure 4.1: Home page of EasyBus Pro</p>
+
+<p><b>Explanation:</b> The navigation bar shows <i>Sign In</i>/<i>Get Started</i> when logged out and
+switches to a welcome message with <i>My Bookings</i>, <i>Profile</i> and <i>Logout</i> once logged in
+(Section 4.5.16). The statistics and popular-route figures are static content written into the
+template rather than values read from the database.</p>
+
+<h3>4.5.2 User Login</h3>
+<p><b>Purpose &amp; workflow:</b> Verifies a returning user's credentials and establishes the session
+that represents that user for the rest of the visit. <i>/signin</i> renders the form on GET; on POST
+it reads the e-mail and password, executes a parameterised SELECT against <i>users</i>, and if a row
+is returned, stores the user's id, name and e-mail in the session before redirecting to the
+dashboard.<br>
+<b>Inputs:</b> e-mail, password (POST).<br>
+<b>Outputs:</b> a populated session and redirect to <i>/dashboard</i>, or an error message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_2_login.png" alt="User login page">
+<p class="figcap">Figure 4.2: User login page</p>
+
+<pre class="code">if user:
+    session["user_id"]    = user[0]
+    session["user_name"]  = user[1]
+    session["user_email"] = user[2]
+    return redirect('/dashboard')</pre>
+
+<p><b>Explanation:</b> These three lines are the mechanism that lets every later page recognise the
+user. Because the cookie is signed, editing it to change <i>user_id</i> simply invalidates the
+session rather than granting access to another account &mdash; verified using the browser's developer
+tools. The password is compared in plain text because it is stored in plain text; this is the most
+significant weakness of the present version and is addressed in Section 4.12.</p>
+
+<h3>4.5.3 User Registration</h3>
+<p><b>Purpose &amp; workflow:</b> Creates a new account. <i>/signup</i> renders the form on GET; on
+POST it compares the two password fields and rejects the request if they differ, then attempts an
+INSERT into <i>users</i> inside a <i>try</i> block, catching <i>sqlite3.IntegrityError</i> if the
+e-mail already exists (enforced by a UNIQUE constraint) rather than performing a separate check
+first.<br>
+<b>Inputs:</b> name, e-mail, phone, password, confirm password (POST).<br>
+<b>Outputs:</b> a new row in <i>users</i> and redirect to <i>/signin</i>, or an error message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_3_registration.png" alt="User registration page">
+<p class="figcap">Figure 4.3: User registration page</p>
+
+<p><b>Explanation:</b> Letting the database enforce uniqueness, instead of a SELECT-then-INSERT
+sequence, was a code-review suggestion that removes a possible race condition. This path was tested
+by registering the same e-mail twice; the result is test case UT-04 (Section 4.11).</p>
+
+<h3>4.5.4 Dashboard</h3>
+<p><b>Purpose &amp; workflow:</b> A personal landing page reached after login, from which the common
+actions are started. <i>/dashboard</i> renders <i>dashboard.html</i>; the greeting is produced by the
+base template from the session, so this route does not query the database.<br>
+<b>Inputs:</b> none directly (session supplies the name).<br>
+<b>Outputs:</b> summary cards, quick-action links and an upcoming-journey panel.</p>
+
+<img class="shotimg" src="screenshots/fig_4_4_dashboard.png" alt="User dashboard after login">
+<p class="figcap">Figure 4.4: User dashboard after successful login</p>
+
+<p><b>Explanation:</b> The three summary cards and the Upcoming Journey panel show placeholder values
+rather than figures calculated from the <i>bookings</i> table, since priority went to completing the
+booking cycle before the internship ended. Making them live &mdash; a <i>SELECT COUNT(*)</i> filtered
+by <i>user_id</i>, and a date comparison for upcoming versus completed &mdash; is listed first among
+the corrections in Section 4.12.</p>
+
+<h3>4.5.5 Search Bus</h3>
+<p><b>Purpose &amp; workflow:</b> Collects journey details for a fresh search. <i>/search</i> renders
+a GET-method form whose action is <i>/results</i>, so the four values are appended to the URL as a
+query string. No database access occurs here.<br>
+<b>Inputs:</b> source, destination, date, passengers.<br>
+<b>Outputs:</b> a GET request to <i>/results</i> carrying these four values.</p>
+
+<img class="shotimg" src="screenshots/fig_4_5_search.png" alt="Bus search page">
+<p class="figcap">Figure 4.5: Bus search page</p>
+
+<p><b>Explanation:</b> GET, not POST, is used because the search does not modify server state, the
+result can be bookmarked, and pressing the back button after viewing results does not trigger a
+resubmission warning. The same reasoning does not apply to login or registration, whose POST forms
+keep a password out of the URL and the browser history.</p>
+
+<h3>4.5.6 Bus Results</h3>
+<p><b>Purpose &amp; workflow:</b> Queries the buses matching the requested route. <i>/results</i>
+reads the four query parameters, sets <i>conn.row_factory = sqlite3.Row</i>, executes a SELECT
+filtered by source and destination, and renders the matches with the original search values (needed
+by the next page).<br>
+<b>Inputs:</b> query-string from, to, date, passengers.<br>
+<b>Outputs:</b> a list of bus cards, or a &ldquo;no buses found&rdquo; message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_6_results.png" alt="Bus results page">
+<p class="figcap">Figure 4.6: Search results showing available buses</p>
+
+<p><b>Explanation:</b> Handling the empty case was added after a review in which the mentor searched
+a route absent from the database and was shown a blank page &mdash; indistinguishable from a broken
+site. The <i>Select Seats</i> link on each card carries the bus name, route, date, passenger count and
+fare forward using <i>url_for()</i>, which is where the reserved-keyword difficulty with the parameter
+<i>from</i> arose (Section 4.10, Challenge 4). The query filters on city names only; the date entered
+is stored with the eventual booking but does not itself restrict which buses are shown, since the
+<i>bus</i> table represents a daily schedule rather than dated departures (Section 4.12).</p>
+
+<h3>4.5.7 Seat Selection</h3>
+<p><b>Purpose &amp; workflow:</b> Presents a visual coach layout and restricts selection to the
+requested passenger count. <i>/seat_selection</i> only forwards the values received from the results
+page to the template; all interactivity is client-side JavaScript, which toggles a seat's selected
+state, refuses a selection beyond the passenger count, and recalculates the running total.<br>
+<b>Inputs:</b> bus, from, to, date, passengers, price (query string).<br>
+<b>Outputs:</b> a GET request to <i>/payment</i> carrying the selected seats and total.</p>
+
+<img class="shotimg" src="screenshots/fig_4_7_seat_selection.png" alt="Seat selection page">
+<p class="figcap">Figure 4.7: Seat selection screen with bus layout</p>
+
+<p><b>Explanation:</b> The seats are laid out as a 24-seat, four-column grid (A&ndash;D, rows 1&ndash;6)
+using CSS Grid with a central gap representing the aisle. The <i>Continue to Payment</i> button stays
+disabled until the number of seats selected exactly equals the passenger count, which is enforced in
+the click handler shown below.</p>
+
+<pre class="code">if (selectedSeats.length >= maxSeats) {
+    alert("You can select only " + maxSeats + " seat(s).");
+    return;
+}
+selectedSeats.push(seatNumber);
+continueBtn.disabled = selectedSeats.length !== maxSeats;</pre>
+
+<h3>4.5.8 Payment</h3>
+<p><b>Purpose &amp; workflow:</b> Offers a choice of payment method and shows a journey summary
+before the booking is confirmed. <i>/payment</i> forwards the received values into the template,
+which presents UPI, card and net-banking options as required radio buttons in a form whose action is
+<i>/success</i>.<br>
+<b>Inputs:</b> bus, from, to, date, passengers, seats, total (query string).<br>
+<b>Outputs:</b> a GET request to <i>/success</i> including the chosen payment method.</p>
+
+<img class="shotimg" src="screenshots/fig_4_8_payment.png" alt="Payment page">
+<p class="figcap">Figure 4.8: Payment method selection page</p>
+
+<p><b>Explanation:</b> No real payment gateway is contacted; the page simulates the choice, which was
+agreed with the mentor as outside the scope of an academic project (Section 1.3). The <i>required</i>
+attribute on the radio group ensures a method must be chosen before the form can be submitted.</p>
+
+<h3>4.5.9 Booking Confirmation</h3>
+<p><b>Purpose &amp; workflow:</b> Finalises the booking and writes it to the database.
+<i>/success</i> first checks <i>"user_id" not in session</i> and redirects to login if the user is
+not authenticated, then looks up the bus id from its name, inserts a row into <i>bookings</i> with the
+user id, bus id, date, seats, passenger count, amount and payment method, commits the transaction and
+renders an electronic ticket.<br>
+<b>Inputs:</b> all journey and payment values (query string); session user id.<br>
+<b>Outputs:</b> a new row in <i>bookings</i> and a rendered ticket.</p>
+
+<img class="shotimg" src="screenshots/fig_4_9_success.png" alt="Booking confirmation page">
+<p class="figcap">Figure 4.9: Booking confirmation page with e-ticket</p>
+
+<p><b>Explanation:</b> This is the one page in the application that both reads and writes the
+database in the same request, and the session check placed at the top of the function is what
+prevents an unauthenticated visitor from reaching a URL that would otherwise insert a booking with no
+associated user. The booking identifier shown on the ticket in the present version is generated as a
+random number for display rather than read back from the row just inserted &mdash; a cosmetic
+shortcut that is corrected in the recommendation given in Section 4.12.</p>
+
+<h3>4.5.10 My Bookings</h3>
+<p><b>Purpose &amp; workflow:</b> Displays the complete booking history of the logged-in user.
+<i>/my_bookings</i> checks the session, then executes a SELECT that joins <i>bookings</i> with
+<i>bus</i> on <i>bookings.bus_id = bus.id</i>, filtered by <i>user_id</i> and ordered by
+<i>booking_time</i> descending.<br>
+<b>Inputs:</b> session user id.<br>
+<b>Outputs:</b> a list of past bookings with route, date, seats, amount and payment method, or an
+empty-state message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_10_my_bookings.png" alt="My Bookings page">
+<p class="figcap">Figure 4.10: My Bookings page listing past tickets</p>
+
+<p><b>Explanation:</b> This module is the clearest demonstration of why the <i>bookings</i> table
+stores a <i>bus_id</i> foreign key rather than repeating the bus name as text: the JOIN reconstructs
+the full journey detail from two small tables instead of duplicating that data into every booking
+row. The screenshot above happens to show three separate bookings for the same Royal Travels journey
+&mdash; these were created while reproducing the refresh-duplication defect described as Challenge 5
+in Section 4.10 and test case IT-03 in Section 4.11, and are left visible here as genuine evidence of
+that behaviour rather than tidied away.</p>
+
+<h3>4.5.11 Profile</h3>
+<p><b>Purpose &amp; workflow:</b> Displays the logged-in user's account details. <i>/profile</i>
+checks the session, then selects the matching row from <i>users</i> by id.<br>
+<b>Inputs:</b> session user id.<br>
+<b>Outputs:</b> name, e-mail and phone number.</p>
+
+<img class="shotimg" src="screenshots/fig_4_11_profile.png" alt="User profile page">
+<p class="figcap">Figure 4.11: User profile page</p>
+
+<p><b>Explanation:</b> The page is read-only in the present version; an editable profile with an
+UPDATE query is listed under Future Enhancements.</p>
+
+<h3>4.5.12 About and 4.5.13 Contact</h3>
+<p><b>Purpose &amp; workflow:</b> Static informational pages reachable from the navigation bar on
+every screen, rendered directly without any database access.<br>
+<b>Inputs:</b> none. <b>Outputs:</b> the rendered page.</p>
+
+<img class="shotimg" src="screenshots/fig_4_12_about.png" alt="About page">
+<p class="figcap">Figure 4.12: About page</p>
+
+<img class="shotimg" src="screenshots/fig_4_13_contact.png" alt="Contact page">
+<p class="figcap">Figure 4.13: Contact page</p>
+
+<p><b>Explanation:</b> Both pages inherit the same base template as every other page, so they carry
+the identical navigation bar and footer without any additional code.</p>
+
+<h3>4.5.14 Logout, 4.5.15 Bus Administration and 4.5.16 Navigation Bar &amp; Footer</h3>
+
+<p><b>Logout</b> (<i>/logout</i>) calls <i>session.clear()</i> and redirects to the home page,
+removing the user id, name and e-mail from the session in one call.</p>
+
+<p><b>Bus Administration</b> (<i>/admin</i>, <i>/admin_dashboard</i>) lets an administrator insert a
+new bus record through a form (bus name, cities, timings, price, seats) and lists every bus currently
+stored. It was built so that new routes could be added for testing without editing the database file
+directly, and carries no access restriction in the present version &mdash; a limitation noted in
+Section 4.12.</p>
+
+<p>The <b>navigation bar and footer</b>, defined once in <i>base.html</i>, read the session to decide
+whether to show <i>Sign In</i>/<i>Get Started</i> or the welcome message with <i>My Bookings</i>,
+<i>Profile</i> and <i>Logout</i>. The footer repeats this structure on every page through template
+inheritance (Section 3.3), and is the reason a single edit is enough to change a link across all
+thirteen templates at once.</p>

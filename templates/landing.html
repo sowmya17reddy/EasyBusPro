@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}
+EasyBus Pro | Travel Smarter
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+
+<section class="hero-section">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <span class="hero-badge">✨ Your Journey, Our Priority</span>
+
+        <h1>
+            Travel Smarter.<br>
+            <span>Travel Better.</span>
+        </h1>
+
+        <p>
+            Discover comfortable and reliable bus journeys across India.
+            Search, select and book your perfect trip in minutes.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="/search" class="primary-btn">Search Buses →</a>
+            <a href="/about" class="secondary-btn">Explore More</a>
+        </div>
+
+        <div class="search-box">
+
+            <form action="/results" method="GET" class="search-form">
+
+                <div class="search-field">
+                    <label>From</label>
+                    <input type="text" name="from" placeholder="Enter departure city" required>
+                </div>
+
+                <div class="swap-icon">⇄</div>
+
+                <div class="search-field">
+                    <label>To</label>
+                    <input type="text" name="to" placeholder="Enter destination city" required>
+                </div>
+
+                <div class="search-field">
+                    <label>Journey Date</label>
+                    <input type="date" name="date" required>
+                </div>
+
+                <div class="search-field">
+                    <label>Passengers</label>
+                    <select name="passengers">
+                        <option>1 Passenger</option>
+                        <option>2 Passengers</option>
+                        <option>3 Passengers</option>
+                        <option>4 Passengers</option>
+                    </select>
+                </div>
+
+                <button class="search-btn">
+                    Search Buses
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- WHY CHOOSE US -->
+
+<section class="features-section">
+
+    <div class="section-heading">
+        <span>WHY CHOOSE US</span>
+        <h2>Travel Made Simple & Comfortable</h2>
+        <p>Everything you need for a safe, smooth and enjoyable journey.</p>
+    </div>
+
+    <div class="features-grid">
+
+        <div class="feature-card">
+            <div class="feature-icon">🚌</div>
+            <h3>500+ Bus Routes</h3>
+            <p>Travel easily between major cities with our wide network of routes.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💺</div>
+            <h3>Comfortable Travel</h3>
+            <p>Choose comfortable seating and enjoy a relaxing journey.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Booking</h3>
+            <p>Your booking and payment information is handled securely.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🎧</div>
+            <h3>24/7 Support</h3>
+            <p>Get assistance whenever you need help with your journey.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STATISTICS SECTION -->
+
+<section class="stats-section">
+    <div class="stats-container">
+
+        <div class="stat-item">
+            <h2>500+</h2>
+            <p>Bus Routes</p>
+        </div>
+
+        <div class="stat-item">
+            <h2>50+</h2>
+            <p>Cities Connected</p>
+        </div>
+
+        <div class="stat-item">
+            <h2>10K+</h2>
+            <p>Happy Travellers</p>
+        </div>
+
+        <div class="stat-item">
+            <h2>24/7</h2>
+            <p>Customer Support</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- POPULAR ROUTES SECTION -->
+
+<section class="routes-section">
+
+    <div class="section-heading">
+        <span>POPULAR ROUTES</span>
+        <h2>Explore Top Destinations</h2>
+        <p>Discover some of the most popular journeys booked by our travellers.</p>
+    </div>
+
+    <div class="routes-grid">
+
+        <div class="route-card">
+            <div class="route-icon">🏙️</div>
+            <div class="route-info">
+                <h3>Hyderabad <span>→</span> Bangalore</h3>
+                <p>⏱ 9h 30m &nbsp; • &nbsp; 🚌 Multiple buses</p>
+            </div>
+            <div class="route-price">
+                <small>Starting from</small>
+                <strong>₹850</strong>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-icon">🌆</div>
+            <div class="route-info">
+                <h3>Hyderabad <span>→</span> Chennai</h3>
+                <p>⏱ 11h &nbsp; • &nbsp; 🚌 Multiple buses</p>
+            </div>
+            <div class="route-price">
+                <small>Starting from</small>
+                <strong>₹950</strong>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-icon">🏛️</div>
+            <div class="route-info">
+                <h3>Bangalore <span>→</span> Chennai</h3>
+                <p>⏱ 6h 30m &nbsp; • &nbsp; 🚌 Multiple buses</p>
+            </div>
+            <div class="route-price">
+                <small>Starting from</small>
+                <strong>₹650</strong>
+            </div>
+        </div>
+
+        <div class="route-card">
+            <div class="route-icon">🌄</div>
+            <div class="route-info">
+                <h3>Hyderabad <span>→</span> Tirupati</h3>
+                <p>⏱ 10h &nbsp; • &nbsp; 🚌 Multiple buses</p>
+            </div>
+            <div class="route-price">
+                <small>Starting from</small>
+                <strong>₹800</strong>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- POPULAR BUS EXPERIENCES -->
+
+<section class="popular-section">
+
+    <div class="section-heading">
+        <span>TRAVEL IN YOUR STYLE</span>
+        <h2>Choose Your Perfect Journey</h2>
+        <p>From affordable travel to premium comfort, find the bus that suits your journey.</p>
+    </div>
+
+    <div class="bus-card-grid">
+
+        <div class="bus-card">
+            <div class="bus-image">
+                <img src="{{ url_for('static', filename='images/bus1.jpg') }}" alt="Express Bus">
+                <span class="bus-tag">Popular</span>
+            </div>
+
+            <div class="bus-card-content">
+                <h3>Express Travel</h3>
+                <p>Fast and reliable travel for your everyday journeys.</p>
+
+                <div class="bus-features">
+                    <span>❄️ AC</span>
+                    <span>💺 Comfortable</span>
+                    <span>🔌 Charging</span>
+                </div>
+
+                <a href="/search" class="explore-link">Explore Buses →</a>
+            </div>
+        </div>
+
+
+        <div class="bus-card">
+            <div class="bus-image">
+                <img src="{{ url_for('static', filename='images/bus2.jpg') }}" alt="Luxury Bus">
+                <span class="bus-tag">Premium</span>
+            </div>
+
+            <div class="bus-card-content">
+                <h3>Luxury Travel</h3>
+                <p>Experience premium comfort and a relaxing journey.</p>
+
+                <div class="bus-features">
+                    <span>📶 Wi-Fi</span>
+                    <span>💺 Premium Seats</span>
+                    <span>❄️ AC</span>
+                </div>
+
+                <a href="/search" class="explore-link">Explore Buses →</a>
+            </div>
+        </div>
+
+
+        <div class="bus-card">
+            <div class="bus-image">
+                <img src="{{ url_for('static', filename='images/bus3.jpg') }}" alt="Sleeper Bus">
+                <span class="bus-tag">Comfort</span>
+            </div>
+
+            <div class="bus-card-content">
+                <h3>Sleeper Travel</h3>
+                <p>Rest comfortably during long-distance and overnight journeys.</p>
+
+                <div class="bus-features">
+                    <span>🛏️ Sleeper</span>
+                    <span>🧳 Luggage</span>
+                    <span>🔌 Charging</span>
+                </div>
+
+                <a href="/search" class="explore-link">Explore Buses →</a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

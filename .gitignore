@@ -1,0 +1,26 @@
+# Virtual Environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code
+.vscode/
+
+# Environment files
+.env
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# SQLite temporary files
+*.db-journal
+
+# Python cache folders
+.pytest_cache/

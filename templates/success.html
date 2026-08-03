@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+Booking Confirmed | EasyBus Pro
+{% endblock %}
+
+{% block content %}
+
+<section class="success-page">
+
+    <div class="success-container">
+
+        <div class="success-icon">✓</div>
+
+        <span class="success-label">BOOKING CONFIRMED</span>
+
+        <h1>Your Journey Is Confirmed!</h1>
+
+        <p class="success-message">
+            Your bus ticket has been booked successfully.
+            Have a safe and comfortable journey.
+        </p>
+
+        <div class="ticket-card">
+
+            <div class="ticket-header">
+                <div>
+                    <span>EasyBus Pro</span>
+                    <h2>E-Ticket</h2>
+                </div>
+
+                <div class="confirmed-badge">
+                    ✓ CONFIRMED
+                </div>
+            </div>
+
+            <div class="ticket-route">
+
+                <div>
+                    <span>FROM</span>
+                    <h2>{{ from_city }}</h2>
+                </div>
+
+                <div class="ticket-route-line">
+                    <span>🚌</span>
+                    <div></div>
+                </div>
+
+                <div class="destination">
+                    <span>TO</span>
+                    <h2>{{ to_city }}</h2>
+                </div>
+
+            </div>
+
+            <div class="ticket-details">
+
+                <div>
+                    <span>Bus Operator</span>
+                    <strong>{{ bus_name }}</strong>
+                </div>
+
+                <div>
+                    <span>Journey Date</span>
+                    <strong>{{ date }}</strong>
+                </div>
+
+                <div>
+                    <span>Passengers</span>
+                    <strong>{{ passengers }}</strong>
+                </div>
+
+                <div>
+                    <span>Seat Number(s)</span>
+                    <strong>{{ seats }}</strong>
+                </div>
+
+                <div>
+                    <span>Payment Method</span>
+                    <strong>{{ payment_method }}</strong>
+                </div>
+
+                <div>
+                    <span>Amount Paid</span>
+                    <strong>₹{{ total }}</strong>
+                </div>
+
+            </div>
+
+            <div>
+                <span>Booking ID</span>
+                <strong>EB{{ range(10000,99999) | random }}</strong>
+            </div>
+
+            <div class="ticket-footer">
+                <span>🎫 Please keep this ticket available during your journey.</span>
+            </div>
+
+        </div>
+        
+        <p class="success-message">
+            ❤️ Thank you for choosing EasyBus Pro.
+            We wish you a safe and pleasant journey!
+        </p>
+
+        <div class="success-actions">
+
+            <a href="/" class="home-btn">
+                Back to Home
+            </a>
+
+            <a href="/my_bookings" class="home-btn">
+                My Bookings
+            </a>
+
+            <button onclick="window.print()" class="print-ticket-btn">
+                🖨 Print Ticket
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

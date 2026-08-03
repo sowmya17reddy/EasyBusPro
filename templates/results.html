@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}
+Available Buses | EasyBus Pro
+{% endblock %}
+
+{% block content %}
+
+<section class="results-page">
+
+    <div class="results-container">
+
+        <!-- Journey Header -->
+        <div class="results-header">
+
+            <div>
+                <span class="results-label">AVAILABLE BUSES</span>
+
+                <h1>
+                    {{ from_city }}
+                    <span>→</span>
+                    {{ to_city }}
+                </h1>
+
+                <p>
+                    📅 {{ date }}
+                    &nbsp; • &nbsp;
+                    👤 {{ passengers }} Passenger(s)
+                </p>
+
+            </div>
+
+            <a href="/search" class="modify-search-btn">
+                Modify Search
+            </a>
+
+        </div>
+
+
+        {% if buses %}
+
+            {% for bus in buses %}
+
+            <div class="result-bus-card">
+
+                <div class="bus-main-info">
+
+                    <div class="bus-company">
+
+                        <div class="bus-logo">🚌</div>
+
+                        <div>
+
+                            <h2>{{ bus['bus_name'] }}</h2>
+
+                            <p>AC Sleeper • Premium Coach</p>
+
+                            <span class="rating">★ 4.7</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bus-timing">
+
+                        <div>
+                            <strong>{{ bus['departure'] }}</strong>
+                            <span>{{ from_city }}</span>
+                        </div>
+
+                        <div class="duration">
+                            <span>Direct</span>
+                            <div class="route-line"></div>
+                            <small>Comfort Ride</small>
+                        </div>
+
+                        <div>
+                            <strong>{{ bus['arrival'] }}</strong>
+                            <span>{{ to_city }}</span>
+                        </div>
+
+                    </div>
+
+                    <div class="bus-price">
+
+                        <small>Starting From</small>
+
+                        <h2>₹{{ bus['price'] }}</h2>
+
+                        <span>{{ bus['available_seats'] }} Seats Available</span>
+
+                        <a href="{{ url_for(
+                            'seat',
+                            bus=bus['bus_name'],
+                            from=from_city,
+                            to=to_city,
+                            date=date,
+                            passengers=passengers,
+                            price=bus['price']
+                        ) }}"
+                        class="select-seat-btn">
+
+                            Select Seats
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="bus-amenities">
+
+                    <span>❄️ AC</span>
+                    <span>📶 Wi-Fi</span>
+                    <span>🔌 Charging Point</span>
+                    <span>💺 Pushback Seats</span>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="result-bus-card">
+
+                <h2>No buses found for this route.</h2>
+
+                <p>Please try another source or destination.</p>
+
+                <br>
+
+                <a href="/search" class="modify-search-btn">
+                    Search Again
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

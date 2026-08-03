@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}
+Payment | EasyBus Pro
+{% endblock %}
+
+{% block content %}
+
+<section class="payment-page">
+
+    <div class="payment-header">
+        <span>SECURE CHECKOUT</span>
+        <h1>Complete Your Payment</h1>
+        <p>Review your journey details and complete your booking.</p>
+    </div>
+
+    <div class="payment-layout">
+
+        <div class="payment-card">
+
+            <h2>Choose Payment Method</h2>
+
+            <form action="/success" method="GET">
+
+                <!-- Carry booking details -->
+                <input type="hidden" name="bus" value="{{ bus_name }}">
+                <input type="hidden" name="from" value="{{ from_city }}">
+                <input type="hidden" name="to" value="{{ to_city }}">
+                <input type="hidden" name="date" value="{{ date }}">
+                <input type="hidden" name="passengers" value="{{ passengers }}">
+                <input type="hidden" name="seats" value="{{ seats }}">
+                <input type="hidden" name="total" value="{{ total }}">
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="UPI"
+                           required>
+                    <span>📱</span>
+                    <div>
+                        <strong>UPI Payment</strong>
+                        <p>Google Pay, PhonePe, Paytm and other UPI apps</p>
+                    </div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="Card"
+                           required>
+                    <span>💳</span>
+                    <div>
+                        <strong>Credit / Debit Card</strong>
+                        <p>Visa, Mastercard and RuPay cards</p>
+                    </div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="Net Banking"
+                           required>
+                    <span>🏦</span>
+                    <div>
+                        <strong>Net Banking</strong>
+                        <p>Pay securely using your bank account</p>
+                    </div>
+                </label>
+
+                <button type="submit" class="pay-now-btn">
+                    Pay ₹{{ total }} & Confirm Booking →
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="payment-summary">
+
+            <span class="summary-label">JOURNEY SUMMARY</span>
+            <h2>Booking Details</h2>
+
+            <div class="summary-item">
+                <span>Bus</span>
+                <strong>{{ bus_name }}</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Route</span>
+                <strong>
+                    {{ from_city }} → {{ to_city }}
+                </strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Date</span>
+                <strong>{{ date }}</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Passengers</span>
+                <strong>{{ passengers }}</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Selected Seats</span>
+                <strong>{{ seats }}</strong>
+            </div>
+
+            <hr>
+
+            <div class="payment-total">
+                <span>Total Amount</span>
+                <strong>₹{{ total }}</strong>
+            </div>
+
+            <div class="secure-payment">
+                🔒 Your payment information is securely processed.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

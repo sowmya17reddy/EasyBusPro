@@ -1,0 +1,383 @@
+﻿
+<h2>4.6 SYSTEM ARCHITECTURE</h2>
+
+<p>EasyBus Pro follows a three-tier architecture, separating what the user sees, what processes the
+request, and what stores the data. The three tiers communicate in one direction only &mdash; the
+browser never accesses the database directly, and every database operation is mediated by a Flask
+route.</p>
+
+<pre class="diagram">
++-----------------------------------------------------------------------------+
+|                         PRESENTATION TIER (Client)                          |
+|   Browser  ->  HTML5 / CSS3 pages rendered from Jinja2 templates            |
+|               (landing, signin, signup, dashboard, search, results,         |
+|                seat_selection, payment, success, my_bookings, profile,      |
+|                about, contact)  +  client-side JavaScript (seat selection)  |
++-------------------------------------+-----------------------------------------+
+                                      | HTTP request  (GET / POST)
+                                      v
++-----------------------------------------------------------------------------+
+|                         APPLICATION TIER (Flask - app.py)                   |
+|  Routing  ->  View functions  ->  Session management  ->  Template render   |
+|  15 routes: /, /signin, /signup, /dashboard, /search, /results,             |
+|  /seat_selection, /payment, /success, /my_bookings, /profile, /about,      |
+|  /contact, /logout, /admin, /admin_dashboard                                |
++-------------------------------------+-----------------------------------------+
+                                      | sqlite3 module (parameterised SQL)
+                                      v
++-----------------------------------------------------------------------------+
+|                         DATA TIER (SQLite3 - database.db)                   |
+|          users            bus              bookings                        |
+|      (id, name, email, (id, bus_name,   (booking_id, user_id, bus_id,       |
+|       phone, password)   from_city,      journey_date, seat_numbers,       |
+|                           to_city,        passengers, amount,               |
+|                           departure,      payment_method, booking_time)     |
+|                           arrival,                                          |
+|                           price,                                            |
+|                           available_seats)                                  |
++-----------------------------------------------------------------------------+
+</pre>
+<p class="figcap">Figure 4.14: Three-tier system architecture of EasyBus Pro</p>
+
+<p>The <b>presentation tier</b> has no knowledge of the database; it only receives values that the
+application tier has already fetched and formatted. The <b>application tier</b> is the only layer
+permitted to open a database connection, and every route follows the same pattern &mdash; connect,
+execute a parameterised query, fetch, close &mdash; described in Section 3.4. The <b>data tier</b> is
+a single portable file, which is why the application could be copied and demonstrated on different
+laptops without any database server installation.</p>
+
+<p>Table 4.6 lists the complete route map of the application, summarising the fifteen routes defined
+in <i>app.py</i> and the method(s) each accepts.</p>
+
+<p class="tblcap">Table 4.6: Complete route map of the application</p>
+<table>
+<tr><th style="width:1.4in;">Route</th><th style="width:0.8in;">Method(s)</th><th>Purpose</th></tr>
+<tr><td>/</td><td>GET</td><td>Home / landing page</td></tr>
+<tr><td>/signin</td><td>GET, POST</td><td>Login form and authentication</td></tr>
+<tr><td>/signup</td><td>GET, POST</td><td>Registration form and account creation</td></tr>
+<tr><td>/dashboard</td><td>GET</td><td>Post-login landing page</td></tr>
+<tr><td>/search</td><td>GET</td><td>Journey search form</td></tr>
+<tr><td>/results</td><td>GET</td><td>Matching buses for a route</td></tr>
+<tr><td>/seat_selection</td><td>GET</td><td>Visual seat layout</td></tr>
+<tr><td>/payment</td><td>GET</td><td>Payment method selection</td></tr>
+<tr><td>/success</td><td>GET</td><td>Booking confirmation and e-ticket</td></tr>
+<tr><td>/my_bookings</td><td>GET</td><td>Booking history (JOIN query)</td></tr>
+<tr><td>/profile</td><td>GET</td><td>Account details of the logged-in user</td></tr>
+<tr><td>/about</td><td>GET</td><td>Static informational page</td></tr>
+<tr><td>/contact</td><td>GET</td><td>Static informational page</td></tr>
+<tr><td>/logout</td><td>GET</td><td>Clear session and redirect home</td></tr>
+<tr><td>/admin, /admin_dashboard</td><td>GET, POST</td><td>Add and list bus records</td></tr>
+</table>
+
+<h2>4.7 DATABASE DESIGN AND SCHEMA</h2>
+
+<p>The database was designed before any route was written, because almost every other decision
+depends on it. Three entities were identified from the requirement: a person who books
+(<i>users</i>), a service being booked (<i>bus</i>), and the transaction connecting the two
+(<i>bookings</i>). The <i>bookings</i> table holds two foreign keys, <i>user_id</i> and
+<i>bus_id</i>, giving each booking a traceable owner and a traceable service.</p>
+
+<pre class="diagram">
+   +-------------------+            +----------------------+           +---------------------+
+   |      USERS        |            |       BOOKINGS       |           |         BUS         |
+   +-------------------+            +----------------------+           +---------------------+
+   | PK id             |<---------o | FK user_id           |           | PK id               |
+   |    name           |   1    N   | PK booking_id         |  N     1  | bus_name             |
+   |    email  (UNIQUE) |            | FK bus_id            |o--------->| from_city            |
+   |    phone           |            |    journey_date       |           | to_city              |
+   |    password        |            |    seat_numbers        |           | departure            |
+   +-------------------+            |    passengers          |           | arrival              |
+                                     |    amount               |           | price                |
+                                     |    payment_method        |           | available_seats       |
+                                     |    booking_time           |           +---------------------+
+                                     +----------------------+
+       One user places many bookings.        Many bookings can reference one bus.
+</pre>
+<p class="figcap">Figure 4.15: Entity&ndash;Relationship diagram of the database</p>
+
+<p class="tblcap">Table 4.7: Structure of the users table</p>
+<table>
+<tr><th style="width:1.1in;">Column</th><th style="width:1.1in;">Type</th><th style="width:1in;">Constraint</th><th>Description</th></tr>
+<tr><td>id</td><td>INTEGER</td><td>PRIMARY KEY, AUTOINCREMENT</td><td>Unique identifier for each user</td></tr>
+<tr><td>name</td><td>TEXT</td><td>NOT NULL</td><td>Full name of the user</td></tr>
+<tr><td>email</td><td>TEXT</td><td>UNIQUE, NOT NULL</td><td>Login identifier; duplicates rejected by the database itself</td></tr>
+<tr><td>phone</td><td>TEXT</td><td>&mdash;</td><td>Contact number</td></tr>
+<tr><td>password</td><td>TEXT</td><td>NOT NULL</td><td>Stored in plain text in the present version (Section 4.12)</td></tr>
+</table>
+
+<p class="tblcap">Table 4.8: Structure of the bus table</p>
+<table>
+<tr><th style="width:1.3in;">Column</th><th style="width:1in;">Type</th><th>Description</th></tr>
+<tr><td>id</td><td>INTEGER PK</td><td>Unique identifier for each bus record, auto-incremented</td></tr>
+<tr><td>bus_name</td><td>TEXT</td><td>Operator / bus name, e.g. &ldquo;Royal Travels&rdquo;</td></tr>
+<tr><td>from_city</td><td>TEXT</td><td>Source city</td></tr>
+<tr><td>to_city</td><td>TEXT</td><td>Destination city</td></tr>
+<tr><td>departure</td><td>TEXT</td><td>Departure time</td></tr>
+<tr><td>arrival</td><td>TEXT</td><td>Arrival time</td></tr>
+<tr><td>price</td><td>INTEGER</td><td>Fare per seat, in rupees</td></tr>
+<tr><td>available_seats</td><td>INTEGER</td><td>Seats available on the route</td></tr>
+</table>
+
+<p class="tblcap">Table 4.9: Structure of the bookings table</p>
+<table>
+<tr><th style="width:1.3in;">Column</th><th style="width:1in;">Type</th><th>Description</th></tr>
+<tr><td>booking_id</td><td>INTEGER PK</td><td>Unique identifier for each booking, auto-incremented</td></tr>
+<tr><td>user_id</td><td>INTEGER (FK &rarr; users.id)</td><td>References the user who made the booking</td></tr>
+<tr><td>bus_id</td><td>INTEGER (FK &rarr; bus.id)</td><td>References the bus booked</td></tr>
+<tr><td>journey_date</td><td>TEXT</td><td>Date of travel entered during search</td></tr>
+<tr><td>seat_numbers</td><td>TEXT</td><td>Comma-separated seat codes, e.g. &ldquo;A1,A2&rdquo;</td></tr>
+<tr><td>passengers</td><td>INTEGER</td><td>Number of passengers on this booking</td></tr>
+<tr><td>amount</td><td>INTEGER</td><td>Total amount paid</td></tr>
+<tr><td>payment_method</td><td>TEXT</td><td>UPI / Card / Net Banking</td></tr>
+<tr><td>booking_time</td><td>TIMESTAMP</td><td>Defaults to CURRENT_TIMESTAMP; used to order history</td></tr>
+</table>
+
+<p class="tblcap">Table 4.10: Relationships between the database tables</p>
+<table>
+<tr><th style="width:1.6in;">Relationship</th><th>Cardinality</th><th>Enforced by</th></tr>
+<tr><td>users &rarr; bookings</td><td>One user can have many bookings (1:N)</td><td>bookings.user_id references users.id</td></tr>
+<tr><td>bus &rarr; bookings</td><td>One bus can appear in many bookings (1:N)</td><td>bookings.bus_id references bus.id</td></tr>
+</table>
+
+<p>It should be stated candidly that the foreign key relationships are <b>logical rather than
+enforced</b> in the present schema: <i>PRAGMA foreign_keys</i> is not switched on, so SQLite does not
+reject a booking referencing a non-existent user or bus. The relationship is honoured correctly by
+every route in the application, since <i>user_id</i> is always taken from a verified session and
+<i>bus_id</i> is always looked up before insertion, but enabling the pragma explicitly would make the
+guarantee database-level rather than merely application-level, and is listed as a corrective item in
+Section 4.12.</p>
+
+<h3>Database Schema (SQL)</h3>
+<p>The schema is created by <i>database.py</i>, executed once before the application is run for the
+first time, using <i>CREATE TABLE IF NOT EXISTS</i> so that re-running it is harmless.</p>
+
+<pre class="code">CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    phone TEXT,
+    password TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS bus (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    bus_name TEXT NOT NULL,
+    from_city TEXT NOT NULL,
+    to_city TEXT NOT NULL,
+    departure TEXT,
+    arrival TEXT,
+    price INTEGER,
+    available_seats INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    bus_id INTEGER,
+    journey_date TEXT,
+    seat_numbers TEXT,
+    passengers INTEGER,
+    amount INTEGER,
+    payment_method TEXT,
+    booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+
+<p class="tblcap">Table 4.11: Sample records inserted into the bus table</p>
+<table>
+<tr><th>bus_name</th><th>from_city</th><th>to_city</th><th>departure</th><th>arrival</th><th>price</th><th>available_seats</th></tr>
+<tr><td>Royal Travels</td><td>Hyderabad</td><td>Bangalore</td><td>08:00 PM</td><td>06:00 AM</td><td>1050</td><td>32</td></tr>
+<tr><td>Orange Travels</td><td>Hyderabad</td><td>Bangalore</td><td>09:30 PM</td><td>07:15 AM</td><td>1200</td><td>25</td></tr>
+<tr><td>VRL Travels</td><td>Hyderabad</td><td>Bangalore</td><td>10:00 PM</td><td>07:30 AM</td><td>980</td><td>18</td></tr>
+</table>
+
+<h2>4.8 PROJECT WORKFLOW</h2>
+
+<p>The complete booking journey, from the moment a visitor opens the site to the point where a
+ticket exists permanently in the database, follows a fixed sequence of pages. Figure 4.16 presents
+this sequence as a flowchart, and the accompanying description explains the decision points.</p>
+
+<pre class="diagram">
+        [ START ]
+            |
+            v
+      +-----------+
+      | HOME PAGE |
+      +-----------+
+            |
+            v
+     &lt; Logged in? &gt;--No--&gt; [ LOGIN / SIGN UP ] --&gt; (credentials OK?)--No--&gt; back to LOGIN
+            |Yes                                          |Yes
+            v                                              v
+      +-----------+                                  +-----------+
+      | DASHBOARD | &lt;--------------------------------| SESSION SET|
+      +-----------+
+            |
+            v
+      +--------------+
+      |  SEARCH BUS  |  (from, to, date, passengers)
+      +--------------+
+            |
+            v
+      +----------------+
+      | RESULTS PAGE   |----&gt; (no match) --&gt; message + Search Again
+      +----------------+
+            | select bus
+            v
+      +--------------------+
+      | SEAT SELECTION     |--&gt; (seats != passengers) --&gt; stay on page
+      +--------------------+
+            | seats == passengers
+            v
+      +--------------+
+      |   PAYMENT    |----&gt; (no method chosen) --&gt; stay on page
+      +--------------+
+            | method chosen
+            v
+      +-----------------------+
+      | BOOKING CONFIRMATION  |  INSERT INTO bookings ...
+      +-----------------------+
+            |
+            v
+      +----------------+
+      |  MY BOOKINGS   |
+      +----------------+
+            |
+            v
+        [ END ]
+</pre>
+<p class="figcap">Figure 4.16: Flowchart of the complete ticket booking process</p>
+
+<p>Two decision points deserve special mention. The <b>login check</b> is not a single gate at the
+front of the site; it is repeated independently at every route that touches personal data
+(<i>/dashboard</i> is not itself protected in the present version, but <i>/my_bookings</i>,
+<i>/profile</i> and <i>/success</i> each check <i>"user_id" not in session"</i> and redirect to login
+if it is absent). The <b>seat-count check</b> is enforced twice &mdash; once by the client-side
+JavaScript disabling the Continue button, and implicitly again by the fact that the amount computed
+and carried forward is simply seats &times; price, so a mismatched count would only produce an
+incorrect total rather than a rejected request. This is one of the points revisited under Limitations
+in Section 4.12.</p>
+
+<h2>4.9 UML DIAGRAMS</h2>
+
+<p>Six UML diagrams are presented to describe the system from complementary viewpoints: what a user
+can do, how one activity unfolds, how objects interact over time, what the static structure of the
+data looks like, how the software is componentised, and how it is deployed physically.</p>
+
+<h3>4.9.1 Use Case Diagram</h3>
+<pre class="diagram">
+                          +-----------------------------------+
+                          |          EasyBus Pro               |
+   (Visitor) o----------&gt;| Register              Login          |
+                          | Search Buses          View Results   |&lt;----------o (Registered User)
+                          | Select Seats          Make Payment    |
+                          | Confirm Booking        View My Bookings|
+                          | View Profile           Logout           |
+                          +-----------------------------------+
+                          | Add Bus                View All Buses   |&lt;----------o (Administrator)
+                          +-----------------------------------+
+</pre>
+<p class="figcap">Figure 4.17: Use case diagram</p>
+<p>A <b>Visitor</b> can only register or log in. A <b>Registered User</b> gains access to search,
+seat selection, payment, booking confirmation, booking history, profile and logout &mdash; every use
+case builds on the login use case, shown by the implicit dependency of the personal pages on an
+existing session. An <b>Administrator</b> additionally has access to the bus administration use
+cases; in the present version this role is not separated by a permission check, which is noted as a
+limitation in Section 4.12.</p>
+
+<h3>4.9.2 Activity Diagram (Booking Activity)</h3>
+<pre class="diagram">
+  (start) -&gt; Search Bus -&gt; [Buses Found?] --No--&gt; Show "No Buses" -&gt; (end)
+                                |Yes
+                                v
+                         Select Bus -&gt; Choose Seats -&gt; [Seats == Passengers?]
+                                                              |No -&gt; (loop back to Choose Seats)
+                                                              |Yes
+                                                              v
+                                                     Select Payment Method
+                                                              |
+                                                              v
+                                                     Confirm &amp; Insert Booking
+                                                              |
+                                                              v
+                                                       Display E-Ticket -&gt; (end)
+</pre>
+<p class="figcap">Figure 4.18: Activity diagram for the booking activity</p>
+
+<h3>4.9.3 Sequence Diagram (Booking a Ticket)</h3>
+<pre class="diagram">
+User        Browser        Flask (app.py)        SQLite (database.db)
+ |             |                  |                        |
+ |--search---&gt;|                  |                        |
+ |             |--GET /results-&gt;|                        |
+ |             |                  |--SELECT * FROM bus--&gt;|
+ |             |                  |&lt;----rows returned-----|
+ |             |&lt;--results.html--|                        |
+ |--select seats/pay-------------&gt;|                        |
+ |             |--GET /success---&gt;|                        |
+ |             |                  |--SELECT id FROM bus--&gt;|
+ |             |                  |&lt;----bus_id------------|
+ |             |                  |--INSERT INTO bookings-&gt;|
+ |             |                  |&lt;----commit OK----------|
+ |             |&lt;--success.html---|                        |
+ |&lt;--e-ticket--|                  |                        |
+</pre>
+<p class="figcap">Figure 4.19: Sequence diagram for booking a ticket</p>
+
+<h3>4.9.4 Class Diagram</h3>
+<pre class="diagram">
+  +-------------------+        +----------------------+        +---------------------+
+  |       User         |        |       Booking         |        |         Bus          |
+  +-------------------+        +----------------------+        +---------------------+
+  | id : int           |        | booking_id : int      |        | id : int             |
+  | name : str         |        | user_id : int (FK)    |        | bus_name : str       |
+  | email : str        |        | bus_id : int (FK)     |        | from_city : str      |
+  | phone : str        |        | journey_date : str    |        | to_city : str        |
+  | password : str     |        | seat_numbers : str    |        | departure : str      |
+  +-------------------+        | passengers : int      |        | arrival : str        |
+  | register()         |        | amount : int          |        | price : int          |
+  | login()             |        | payment_method : str  |        | available_seats : int|
+  +-------------------+        +----------------------+        +---------------------+
+           1                              N     N                          1
+           +------------------------------+     +----------------------------+
+                    places
+</pre>
+<p class="figcap">Figure 4.20: Class diagram of the system entities</p>
+<p>The class diagram mirrors the database tables closely because the application does not use an
+ORM layer that would otherwise introduce separate model classes; <i>User</i>, <i>Booking</i> and
+<i>Bus</i> here represent the data as it is read into Python (through <i>sqlite3.Row</i>) rather than
+as declared Python classes.</p>
+
+<h3>4.9.5 Component Diagram</h3>
+<pre class="diagram">
+  +----------------+     +--------------------+     +----------------------+
+  |  Templates      |&lt;---|  Flask App (app.py) |---&gt;|  sqlite3 module       |
+  |  (Jinja2, HTML) |     |  - Routing           |     |  (DB access layer)    |
+  +----------------+     |  - Session mgmt      |     +----------------------+
+                          |  - View functions     |                 |
+  +----------------+     +--------------------+                 v
+  |  Static assets  |&lt;---|                      |     +----------------------+
+  |  (CSS, JS, img)  |    +----------------------+     |   database.db         |
+  +----------------+                                  +----------------------+
+</pre>
+<p class="figcap">Figure 4.21: Component diagram</p>
+
+<h3>4.9.6 Deployment Diagram</h3>
+<pre class="diagram">
+  +----------------------------------------------------------+
+  |                  Client Machine (Browser)                 |
+  |     Chrome / Firefox / Edge  --  renders HTML/CSS/JS       |
+  +---------------------------+--------------------------------+
+                              | HTTP (localhost:5000)
+                              v
+  +----------------------------------------------------------+
+  |               Development Machine (Windows)                |
+  |   Flask development server (Werkzeug)                       |
+  |   Python 3.x runtime  +  app.py                              |
+  |   SQLite3 database file: database.db                        |
+  +----------------------------------------------------------+
+</pre>
+<p class="figcap">Figure 4.22: Deployment diagram</p>
+<p>In the present version, client and server run on the same physical machine, since the application
+was developed and demonstrated using the Flask development server on <i>127.0.0.1</i>. A production
+deployment would replace the development server with a WSGI server such as Gunicorn behind Nginx, as
+discussed in the Future Enhancements chapter.</p>

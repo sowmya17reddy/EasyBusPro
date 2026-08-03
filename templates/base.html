@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}EasyBus Pro{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="icon"
+      href="{{ url_for('static', filename='images/logo.jpg') }}">
+    </head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <a href="/" class="brand">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}"
+                 alt="EasyBus Pro Logo">
+
+            <span>EasyBus<span class="brand-highlight">Pro</span></span>
+        </a>
+
+        <nav class="nav-links">
+
+    <a href="/">Home</a>
+
+    <a href="/about">About</a>
+
+    <a href="/contact">Contact</a>
+
+    {% if session.get('user_name') %}
+
+        <span class="welcome-user">
+            👋 Welcome, {{ session['user_name'] }}
+        </span>
+
+        <a href="/my_bookings">My Bookings</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/logout" class="signin-btn">
+            Logout
+        </a>
+
+    {% else %}
+
+        <a href="/signin" class="signin-btn">
+            Sign In
+        </a>
+
+        <a href="/signup" class="signup-btn">
+            Get Started
+        </a>
+
+    {% endif %}
+
+</nav>
+
+    </header>
+
+    <!-- Page-specific content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-about">
+            <h2>🚌 EasyBus<span>Pro</span></h2>
+            <p>
+                Making bus travel simple, comfortable and reliable.
+                Book your journey with confidence.
+            </p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <a href="/">Home</a>
+            <a href="/search">Search Buses</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Support</h3>
+            <a href="#">Help Center</a>
+            <a href="#">Cancellation</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <p>📧 support@easybuspro.com</p>
+            <p>📞 +91 98765 43210</p>
+            <p>📍 India</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+    <p>© 2026 EasyBus Pro | Developed by Soumya Reddy | All Rights Reserved.</p>
+</div>
+
+</footer>
+
+</body>
+</html>

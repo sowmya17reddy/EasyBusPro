@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search Buses | EasyBus Pro
+{% endblock %}
+
+{% block content %}
+
+<section class="search-page">
+
+    <div class="search-page-header">
+        <span>PLAN YOUR JOURNEY</span>
+        <h1>Where would you like to go?</h1>
+        <p>Search and discover the best bus for your journey.</p>
+    </div>
+
+    <div class="journey-search-card">
+
+        <form action="/results" method="GET" class="journey-search-form">
+
+            <div class="journey-field">
+                <label>📍 FROM</label>
+                <input
+                    type="text"
+                    name="from"
+                    placeholder="Enter departure city"
+                    required>
+            </div>
+
+            <div class="journey-swap">⇄</div>
+
+            <div class="journey-field">
+                <label>📍 TO</label>
+                <input
+                    type="text"
+                    name="to"
+                    placeholder="Enter destination city"
+                    required>
+            </div>
+
+            <div class="journey-field">
+                <label>📅 JOURNEY DATE</label>
+                <input
+                    type="date"
+                    name="date"
+                    required>
+            </div>
+
+            <div class="journey-field">
+                <label>👤 PASSENGERS</label>
+                <select name="passengers">
+                    <option value="1">1 Passenger</option>
+                    <option value="2">2 Passengers</option>
+                    <option value="3">3 Passengers</option>
+                    <option value="4">4 Passengers</option>
+                </select>
+            </div>
+
+            <button type="submit" class="journey-search-btn">
+                Search Buses →
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="search-benefits">
+
+        <div>
+            <span>🚌</span>
+            <h3>Multiple Bus Options</h3>
+            <p>Choose from comfortable and reliable buses.</p>
+        </div>
+
+        <div>
+            <span>💺</span>
+            <h3>Easy Seat Selection</h3>
+            <p>Select your preferred seats before booking.</p>
+        </div>
+
+        <div>
+            <span>🔒</span>
+            <h3>Secure Booking</h3>
+            <p>Enjoy a simple and secure booking experience.</p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

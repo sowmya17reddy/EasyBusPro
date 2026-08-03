@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+
+<section class="results-page">
+
+    <div class="results-container">
+
+        <div class="results-header">
+            <div>
+                <span class="results-label">MY PROFILE</span>
+                <h1>Welcome, {{ user['name'] }}</h1>
+            </div>
+        </div>
+
+        <div class="result-bus-card">
+
+            <p><strong>👤 Name:</strong> {{ user['name'] }}</p>
+            <br>
+
+            <p><strong>📧 Email:</strong> {{ user['email'] }}</p>
+            <br>
+
+            <p><strong>📱 Phone:</strong> {{ user['phone'] }}</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

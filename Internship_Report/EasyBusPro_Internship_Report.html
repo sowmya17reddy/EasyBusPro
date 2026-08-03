@@ -1,0 +1,2173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EasyBus Pro - Summer Internship Report</title>
+<style>
+@page { size: A4; margin: 0.7in 0.85in 0.7in 0.95in; }
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+    color: #000000;
+    margin: 0 auto;
+    max-width: 6.6in;
+}
+
+h1 {
+    font-size: 16pt; font-weight: bold; text-align: center; line-height: 1.3;
+    margin: 0 0 8pt 0; page-break-before: always; page-break-after: avoid;
+}
+h1.first { page-break-before: auto; }
+
+h2 { font-size: 14pt; font-weight: bold; text-align: left; line-height: 1.3;
+     margin: 9pt 0 3pt 0; page-break-after: avoid; }
+
+h3 { font-size: 12pt; font-weight: bold; text-align: left; line-height: 1.3;
+     margin: 6pt 0 2pt 0; page-break-after: avoid; }
+
+p { margin: 0 0 5pt 0; }
+ul, ol { margin: 0 0 5pt 0; padding-left: 0.28in; }
+li { margin-bottom: 0; text-align: justify; }
+
+table { border-collapse: collapse; width: 100%; margin: 2pt 0 6pt 0;
+        font-size: 9.5pt; line-height: 1.1; page-break-inside: avoid; }
+th, td { border: 1px solid #000000; padding: 1.5pt 4pt; text-align: left; vertical-align: top; }
+th { font-weight: bold; background-color: #e9e9e9; }
+
+.tblcap { font-size: 10pt; font-weight: bold; text-align: center;
+          margin: 6pt 0 2pt 0; line-height: 1.15; page-break-after: avoid; }
+.figcap { font-size: 10pt; font-weight: bold; text-align: center;
+          margin: 2pt 0 6pt 0; line-height: 1.15; }
+
+pre.diagram { font-family: "Consolas","Courier New",monospace; font-size: 6.5pt;
+    line-height: 0.95; text-align: left; border: 1px solid #000000; padding: 3pt;
+    margin: 5pt 0 2pt 0; white-space: pre; page-break-inside: avoid; }
+
+pre.code { font-family: "Consolas","Courier New",monospace; font-size: 8.5pt;
+    line-height: 1.1; text-align: left; border-left: 3px solid #000000;
+    background-color: #f4f4f4; padding: 4pt 7pt; margin: 4pt 0 5pt 0;
+    white-space: pre; page-break-inside: avoid; }
+
+.shot { border: 1.5px dashed #000000; height: 1.15in; margin: 5pt 0 2pt 0;
+    text-align: center; font-size: 10pt; font-style: italic; color: #444444;
+    padding-top: 0.48in; page-break-inside: avoid; }
+
+.shotimg { display: block; max-width: 92%; max-height: 2.3in; width: auto; height: auto;
+    margin: 6pt auto 2pt auto; border: 1px solid #999999; page-break-inside: avoid; }
+
+.cover { text-align: center; page-break-after: always; }
+.cover p { text-align: center; margin: 0 0 6pt 0; }
+.t1 { font-size: 20pt; font-weight: bold; }
+.t2 { font-size: 14pt; font-weight: bold; }
+.t3 { font-size: 13pt; font-weight: bold; }
+.center { text-align: center; }
+.sp { height: 0.22in; }
+
+.toc td { border: none; padding: 2pt 2pt; font-size: 12pt; }
+.toc .b { font-weight: bold; }
+.toc .in { padding-left: 0.3in !important; }
+.toc .pg { text-align: right; width: 0.55in; }
+
+.note { border: 1px solid #888888; background-color: #f2f2f2; padding: 6pt 8pt;
+        font-size: 10.5pt; font-style: italic; margin: 8pt 0; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER PAGE ============ -->
+<div class="cover">
+
+<p class="t1">EASYBUS PRO</p>
+<p class="t2">(Bus Ticket Booking System using Python, Flask and SQLite3)</p>
+
+<div class="sp"></div>
+
+<p>Summer Internship Report Submitted in partial fulfilment<br>
+of the requirement for undergraduate degree of</p>
+
+<p class="t2">Bachelor of Technology<br>In<br>COMPUTER SCIENCE AND ENGINEERING</p>
+
+<div class="sp"></div>
+
+<p>By</p>
+<p class="t3">S. SOWMYA<br>2023003449</p>
+
+<div class="sp"></div>
+
+<p>Under the Guidance of</p>
+<p class="t3">&lt;&lt; GUIDE NAME &gt;&gt;<br>Assistant Professor</p>
+
+<div class="sp"></div>
+
+<p><i>&lt;&lt; Insert University Logo Here &gt;&gt;</i></p>
+<div class="shot" style="height:1.1in; padding-top:0.45in; width:1.9in; margin-left:auto; margin-right:auto;">[ GITAM Logo ]</div>
+
+<div class="sp"></div>
+
+<p class="t3">Department Of Computer Science and Engineering<br>
+GITAM School of Technology<br>
+GITAM (Deemed to be University)<br>
+Hyderabad-502329</p>
+
+<p class="t3">July 2026</p>
+
+</div>
+
+<!-- ============ DECLARATION ============ -->
+<h1 class="first">DECLARATION</h1>
+
+<p>I submit this industrial training work entitled <b>&ldquo;EasyBus Pro &ndash; Bus Ticket Booking
+System using Python, Flask and SQLite3&rdquo;</b> to GITAM (Deemed To Be University), Hyderabad in
+partial fulfilment of the requirements for the award of the degree of <b>&ldquo;Bachelor of
+Technology&rdquo;</b> in <b>&ldquo;Computer Science and Engineering&rdquo;</b>. I declare that it was
+carried out independently by me under the guidance of &lt;&lt; Guide Name &gt;&gt;, Asst. Professor,
+GITAM (Deemed To Be University), Hyderabad, India.</p>
+
+<p>I further declare that the analysis, database design, source code, screenshots and test results
+presented in this report are the outcome of the work performed by me during the internship period,
+and that all material drawn from books, official documentation and websites has been acknowledged in
+the References section. The limitations of the present version of the system have been reported
+honestly instead of being concealed.</p>
+
+<p>The results embodied in this report have not been submitted to any other University or Institute
+for the award of any degree or diploma.</p>
+
+<div style="height:0.5in;"></div>
+
+<table style="border:none;">
+<tr>
+<td style="border:none; width:50%;">Place: HYDERABAD<br>Date: 25-07-2026</td>
+<td style="border:none; width:50%;">Name: S. SOWMYA<br>
+Student Roll No: 2023003449</td>
+</tr>
+</table>
+
+<!-- ============ CERTIFICATE (FACULTY) ============ -->
+<h1>CERTIFICATE</h1>
+
+<p class="center"><b>GITAM (DEEMED TO BE UNIVERSITY)</b><br>
+Hyderabad-502329, India<br>
+Dated: 25-07-2026</p>
+
+<div class="sp"></div>
+
+<p>This is to certify that the Industrial Training Report entitled <b>&ldquo;EasyBus Pro &ndash; Bus
+Ticket Booking System using Python, Flask and SQLite3&rdquo;</b> is being submitted by
+<b>S. SOWMYA (2023003449)</b> in partial fulfilment of the requirement for the award of Bachelor of
+Technology in Computer Science and Engineering at GITAM (Deemed to Be University), Hyderabad during
+the academic year 2025 - 2026.</p>
+
+<p>It is a faithful record of the work carried out by her at DayLearner Private Limited, Kakinada,
+during a two-month industrial training programme from 25 May 2026 to 25 July 2026, under the guidance
+and supervision named below.</p>
+
+<div style="height:0.55in;"></div>
+
+<table style="border:none;">
+<tr>
+<td style="border:none; width:50%;">&lt;&lt; Guide Name &gt;&gt;<br>Assistant Professor<br>
+Department of CSE</td>
+<td style="border:none; width:50%; text-align:right;">&lt;&lt; HOD Name &gt;&gt;<br>
+Professor and HOD<br>Department of CSE</td>
+</tr>
+</table>
+
+<!-- ============ CERTIFICATE (COMPANY / ORGANIZATION) ============ -->
+<h1>INTERNSHIP COMPLETION CERTIFICATE (ORGANIZATION)</h1>
+
+<p>The certificate below was issued by DayLearner Private Limited, Kakinada, on completion of the
+two-month industrial training programme in Python Full Stack Web Development with Artificial
+Intelligence and Prompt Engineering, during which the EasyBus Pro project described in this report
+was developed.</p>
+
+<div class="sp"></div>
+<div style="text-align:center;">
+<img src="certificate.png" alt="Internship Completion Certificate issued by DayLearner Private Limited"
+     style="max-width:100%; height:auto; border:1px solid #999999;">
+</div>
+<p class="figcap">Figure A: Internship Completion Certificate &ndash; DayLearner Private Limited</p>
+
+<!-- ============ ACKNOWLEDGEMENT ============ -->
+<h1>ACKNOWLEDGEMENT</h1>
+
+<p>Apart from my effort, the success of this internship largely depends on the encouragement and
+guidance of many others. I take this opportunity to express my gratitude to the people who have
+helped me in the successful completion of this internship.</p>
+
+<p>I would like to thank <b>DayLearner Private Limited</b> for accepting my
+application and for giving me the opportunity to work in a professional development environment. I am
+especially grateful to my mentor, <b>&lt;&lt; Mentor Name &gt;&gt;</b>, who reviewed my code every
+week, pointed out mistakes without discouraging me, and insisted that I should understand why
+something works rather than merely make it work. The habit of reading an error message carefully
+before changing a single line of code came directly from those review sessions.</p>
+
+<p>I would like to thank respected <b>Dr. D. Sambasiva Rao</b>, Pro Vice Chancellor, GITAM Hyderabad
+and <b>Dr. N. Seetharamaiah</b>, Principal, GITAM Hyderabad.</p>
+
+<p>I would like to thank respected <b>&lt;&lt; HOD Name &gt;&gt;</b>, Head of the Department of
+Computer Science and Engineering, for giving me such a wonderful opportunity to expand my knowledge
+in my own branch and for the guidelines given to present this internship report. It helped me a lot
+to realise the purpose of what we study.</p>
+
+<p>I would like to thank the respected faculty <b>&lt;&lt; Guide Name &gt;&gt;</b>, who supervised
+this work academically and whose suggestions on documentation, diagram preparation and test case
+design have shaped the structure of this report.</p>
+
+<p>On a personal note, I owe more than I can express to my <b>parents</b>, for their constant
+encouragement and for their patience on the many evenings when the work continued well beyond normal
+hours. Finally, I would also like to thank my <b>friends</b>, who tested the application on their own
+laptops, reported the errors they encountered and suggested changes to the user interface, and who
+helped me to make my work more organized and well-stacked till the end.</p>
+
+<p>Any shortcomings that remain in this work are entirely my own.</p>
+
+<div style="height:0.4in;"></div>
+<p style="text-align:right;"><b>S. SOWMYA</b><br>2023003449</p>
+
+<!-- ============ ABSTRACT ============ -->
+<h1>ABSTRACT</h1>
+
+<p>Intercity bus ticketing for small and medium operators is still largely handled at counters and
+over the telephone, where a passenger cannot compare operators, cannot see the seat layout before
+choosing a seat and receives only a paper slip as proof of booking. This internship addresses that
+problem through the design and development of a web-based bus ticket reservation system named
+<b>EasyBus Pro</b>, built using the Flask micro web framework on Python 3 with SQLite3 as the
+database engine, HTML5 and CSS3 for the interface, the Jinja2 templating engine for server-side page
+generation and a small amount of JavaScript for interactive seat selection.</p>
+
+<p>The application allows a traveller to register an account, log in, search for buses between two
+cities on a chosen date, compare the buses returned by the search with their timings, fares and seat
+availability, select seats from a visual coach layout, choose a payment method, receive a confirmed
+electronic ticket and view the complete history of bookings made from that account. An
+administrative facility is also provided through which new buses can be added to the system. The
+database consists of three tables &mdash; <i>users</i>, <i>bus</i> and <i>bookings</i> &mdash; in
+which the bookings table maintains references to the other two, so that every ticket can be traced
+back to the passenger who booked it and the bus on which the seat was reserved.</p>
+
+<p>The technical learning obtained during the internship covers Flask routing and the
+request&ndash;response cycle, the correct use of the GET and POST methods, template inheritance
+using Jinja2 blocks, safe parameterised SQL queries, the four CRUD operations, the practical meaning
+of primary and foreign keys, signed cookie-based session management and systematic debugging using
+the Werkzeug interactive debugger. The report also records the difficulties actually encountered
+during development &mdash; template-not-found errors, an <i>OperationalError</i> caused by a missing
+table, duplicated seed data, a re-submission problem on the confirmation page and a reserved-keyword
+conflict in a URL parameter named <i>from</i> &mdash; together with the way each was diagnosed and
+resolved.</p>
+
+<p>The outcome of the internship is a working application that completes the entire booking cycle
+with data stored permanently in a relational database, supported by system architecture, ER and UML
+diagrams, a documented database schema and a set of executed test cases. The known limitations of the
+present version, principally plain-text password storage and the absence of a real payment gateway,
+are stated openly, and a realistic set of future enhancements is proposed in the concluding chapter.</p>
+
+<!-- ============ TABLE OF CONTENTS ============ -->
+<h1>TABLE OF CONTENTS</h1>
+
+<div class="toc">
+<table>
+<tr><td class="b">DECLARATION</td><td class="pg">ii</td></tr>
+<tr><td class="b">CERTIFICATE</td><td class="pg">iii</td></tr>
+<tr><td class="b">ACKNOWLEDGEMENT</td><td class="pg">iv</td></tr>
+<tr><td class="b">ABSTRACT</td><td class="pg">v</td></tr>
+
+<tr><td>&nbsp;</td><td></td></tr>
+<tr><td class="b">CHAPTER 1: INTRODUCTION</td><td class="pg">1</td></tr>
+<tr><td class="in">1.1 OVERVIEW OF THE INTERNSHIP</td><td class="pg">1</td></tr>
+<tr><td class="in">1.2 OBJECTIVES OF THE INTERNSHIP</td><td class="pg">2</td></tr>
+<tr><td class="in">1.3 PURPOSE AND SCOPE OF THE WORK</td><td class="pg">2</td></tr>
+<tr><td class="in">1.4 IMPORTANCE OF THE INTERNSHIP</td><td class="pg">3</td></tr>
+<tr><td class="in">1.5 EXPECTED OUTCOMES</td><td class="pg">3</td></tr>
+<tr><td class="in">1.6 INTERNSHIP SCHEDULE</td><td class="pg">4</td></tr>
+
+<tr><td>&nbsp;</td><td></td></tr>
+<tr><td class="b">CHAPTER 2: ORGANIZATION PROFILE</td><td class="pg">5</td></tr>
+<tr><td class="in">2.1 COMPANY OVERVIEW</td><td class="pg">5</td></tr>
+<tr><td class="in">2.2 MISSION AND VISION</td><td class="pg">5</td></tr>
+<tr><td class="in">2.3 SERVICES OFFERED</td><td class="pg">6</td></tr>
+<tr><td class="in">2.4 TECHNOLOGIES USED IN THE ORGANIZATION</td><td class="pg">6</td></tr>
+<tr><td class="in">2.5 DEPARTMENTS</td><td class="pg">7</td></tr>
+<tr><td class="in">2.6 SOFTWARE DEVELOPMENT PROCESS FOLLOWED</td><td class="pg">7</td></tr>
+<tr><td class="in">2.7 FUTURE SCOPE OF THE ORGANIZATION</td><td class="pg">8</td></tr>
+
+<tr><td>&nbsp;</td><td></td></tr>
+<tr><td class="b">CHAPTER 3: TECHNOLOGY OVERVIEW</td><td class="pg">9</td></tr>
+<tr><td class="in">3.1 PYTHON</td><td class="pg">9</td></tr>
+<tr><td class="in">3.2 FLASK WEB FRAMEWORK</td><td class="pg">10</td></tr>
+<tr><td class="in">3.3 JINJA2 TEMPLATE ENGINE</td><td class="pg">12</td></tr>
+<tr><td class="in">3.4 SQLITE3 DATABASE</td><td class="pg">13</td></tr>
+<tr><td class="in">3.5 HTML5, CSS3 AND JAVASCRIPT</td><td class="pg">14</td></tr>
+<tr><td class="in">3.6 VISUAL STUDIO CODE AND SUPPORTING TOOLS</td><td class="pg">15</td></tr>
+<tr><td class="in">3.7 JUSTIFICATION OF THE TECHNOLOGY STACK</td><td class="pg">15</td></tr>
+
+<tr><td>&nbsp;</td><td></td></tr>
+<tr><td class="b">CHAPTER 4: PROJECT &ndash; EASYBUS PRO</td><td class="pg">16</td></tr>
+<tr><td class="in">4.1 PROJECT OVERVIEW</td><td class="pg">16</td></tr>
+<tr><td class="in">4.2 EXISTING SYSTEM AND ITS LIMITATIONS</td><td class="pg">17</td></tr>
+<tr><td class="in">4.3 PROPOSED SYSTEM AND ITS ADVANTAGES</td><td class="pg">18</td></tr>
+<tr><td class="in">4.4 SYSTEM REQUIREMENTS</td><td class="pg">19</td></tr>
+<tr><td class="in">4.5 MODULES OF THE SYSTEM</td><td class="pg">21</td></tr>
+<tr><td class="in">4.6 SYSTEM ARCHITECTURE</td><td class="pg">30</td></tr>
+<tr><td class="in">4.7 DATABASE DESIGN AND SCHEMA</td><td class="pg">32</td></tr>
+<tr><td class="in">4.8 PROJECT WORKFLOW</td><td class="pg">35</td></tr>
+<tr><td class="in">4.9 UML DIAGRAMS</td><td class="pg">36</td></tr>
+<tr><td class="in">4.10 CHALLENGES FACED AND SOLUTIONS</td><td class="pg">40</td></tr>
+<tr><td class="in">4.11 TESTING</td><td class="pg">42</td></tr>
+<tr><td class="in">4.12 LIMITATIONS OF THE PRESENT VERSION</td><td class="pg">45</td></tr>
+
+<tr><td>&nbsp;</td><td></td></tr>
+<tr><td class="b">CHAPTER 5: LEARNING OUTCOMES</td><td class="pg">46</td></tr>
+<tr><td class="in">5.1 TECHNICAL SKILLS ACQUIRED</td><td class="pg">46</td></tr>
+<tr><td class="in">5.2 PROBLEM SOLVING AND DEBUGGING</td><td class="pg">47</td></tr>
+<tr><td class="in">5.3 DATABASE AND FLASK DEVELOPMENT SKILLS</td><td class="pg">47</td></tr>
+<tr><td class="in">5.4 USER INTERFACE DESIGN AND PROJECT ORGANIZATION</td><td class="pg">48</td></tr>
+<tr><td class="in">5.5 PROFESSIONAL SKILLS</td><td class="pg">48</td></tr>
+
+<tr><td>&nbsp;</td><td></td></tr>
+<tr><td class="b">CONCLUSION</td><td class="pg">49</td></tr>
+<tr><td class="b">FUTURE ENHANCEMENTS</td><td class="pg">50</td></tr>
+<tr><td class="b">REFERENCES</td><td class="pg">51</td></tr>
+</table>
+</div>
+
+<div class="note">
+Note for compilation: the page numbers listed above are indicative. After opening this document in a
+word processor, insert page numbers in the footer &mdash; Roman numerals for the front matter and
+Arabic numerals from Chapter 1 onwards &mdash; and update this list so that the numbers match the
+final printed layout.
+</div>
+
+<!-- ============ CHAPTER 1 ============ -->
+<h1>CHAPTER 1: INTRODUCTION</h1>
+
+<h2>1.1 OVERVIEW OF THE INTERNSHIP</h2>
+
+<p>The B.Tech curriculum requires every student to complete an industrial internship before the
+final year project. The reason for this requirement becomes clear only when it is experienced. A
+student who has written laboratory programs has never had to make software work for someone other
+than himself. A laboratory program is graded on whether the expected output appears on the console;
+real software is judged on whether a person who did not write it can use it without confusion,
+whether it stores data correctly, whether it behaves reasonably when the user does something
+unexpected, and whether another developer can read the code six months later. This internship was my
+first opportunity to work under those conditions.</p>
+
+<p>The internship was carried out at DayLearner Private Limited over a period of
+eight weeks (two months) in the domain of web application development. At the beginning I was
+told that I would not be given a step-by-step procedure to follow. Instead I was given a problem
+statement &mdash; build a working online bus ticket booking system &mdash; and a technology stack,
+and I was expected to analyse the problem, design the database, write the code, test it and
+demonstrate the result at the end of every week. My mentor reviewed the work weekly, pointed out
+what was wrong and let me correct it myself. This method was slower than being given the answer, but
+it is the reason I can now explain every line of the application that was built.</p>
+
+<p>The application developed during the internship is called <b>EasyBus Pro</b>. It is a web-based
+bus ticket reservation system in which a traveller creates an account, logs in, searches for buses
+running between two cities on a chosen date, examines the buses returned along with their timings,
+fares and seat availability, selects the required number of seats from a visual coach layout,
+chooses a payment method, receives a confirmed electronic ticket and can later view every ticket
+booked from that account. An administrative facility for adding new buses was also implemented so
+that bus data could be maintained without editing the database file by hand.</p>
+
+<p>The technology stack was fixed at the start: <b>Python 3</b> as the language, <b>Flask</b> as the
+web framework, <b>SQLite3</b> as the database engine, <b>HTML5</b> and <b>CSS3</b> for the
+interface, <b>Jinja2</b> for server-side templating and a small amount of <b>JavaScript</b> for the
+interactive parts of the interface. All development was carried out in <b>Visual Studio Code</b> on a
+Windows system. The reasons behind this choice are discussed in Chapter 3.</p>
+
+<p>Working on the server side of a web application introduced four problems that a console program
+never presents. The first is <b>statelessness</b>: HTTP remembers nothing between two requests, so
+when a user logs in on one page and moves to another, the server has no inherent knowledge that the
+two requests came from the same person. The second is the <b>separation of presentation from
+logic</b>: the Python code that queries the database and the HTML that displays the result must not
+be mixed, or the application becomes impossible to modify. The third is <b>persistence</b>: a
+booking made today must still exist next week, which requires a database and a schema designed in
+advance. The fourth is <b>untrusted input</b>: every value arriving from a browser may be empty, of
+the wrong type, or a deliberate attempt to break the SQL query. Working through all four in a single
+application is what made the internship valuable.</p>
+
+<h2>1.2 OBJECTIVES OF THE INTERNSHIP</h2>
+
+<p>The objectives agreed with the mentor at the start of the internship were as follows.</p>
+
+<ol>
+<li><b>To understand the structure of a web application</b> &mdash; how a browser request reaches a
+server, how the server decides which function handles it, how that function produces a response, and
+how the response is rendered back in the browser.</li>
+
+<li><b>To learn Flask practically</b> &mdash; to define routes, handle GET and POST requests, read
+form data and query-string parameters, render templates with dynamic data, redirect between pages
+and manage sessions without referring to a tutorial at every step.</li>
+
+<li><b>To apply database theory to a real schema</b> &mdash; to design tables for an actual
+requirement, choose appropriate data types, define primary keys, establish relationships and write
+queries that answer real questions such as &ldquo;show all tickets booked by this user&rdquo;.</li>
+
+<li><b>To perform CRUD operations from application code</b> &mdash; to connect a Python program to a
+database, execute parameterised queries, commit transactions and close connections properly.</li>
+
+<li><b>To build a usable and presentable interface</b> &mdash; to write clean HTML structure, style
+it with CSS so that the result resembles a real booking website rather than a plain form, and make
+the layout adjust on smaller screens.</li>
+
+<li><b>To learn systematic debugging</b> &mdash; to read a traceback from bottom to top, identify the
+line that raised the error, form a hypothesis, test it, and fix the actual defect rather than the
+symptom.</li>
+
+<li><b>To learn to test one's own work</b> &mdash; to prepare test cases before demonstrating a
+feature, including cases where the user does something wrong, and to record the results honestly.</li>
+
+<li><b>To develop professional working habits</b> &mdash; a clean folder structure, meaningful names,
+a daily record of work done, adherence to review deadlines and clear communication of progress and
+problems.</li>
+</ol>
+
+<h2>1.3 PURPOSE AND SCOPE OF THE WORK</h2>
+
+<p>A bus ticket booking system was chosen deliberately. The domain is familiar to everybody, so no
+time was lost in understanding what the software should do; at the same time the problem is not
+trivial, because it involves several related entities, a multi-step process in which information
+collected on one screen must be carried to the next, a state that must persist across pages, and a
+final transaction written permanently to a database. It therefore exercises almost every concept a
+beginner in web development needs to learn, without requiring domain expertise.</p>
+
+<p><b>Included in the scope:</b> registration with password confirmation and duplicate e-mail
+detection; login authentication and session creation; search for buses by source, destination, date
+and passenger count; display of matching buses with timings, fare and availability; interactive seat
+selection limited to the number of passengers; a payment screen offering UPI, card and net banking;
+permanent storage of the confirmed booking and generation of an on-screen e-ticket; a booking history
+page built with an SQL join; a profile page; About and Contact pages with a common navigation bar and
+footer; and an administrative page for inserting and listing bus records.</p>
+
+<p><b>Excluded from the scope:</b> integration with a real payment gateway, which requires a merchant
+account and cannot be tested in an academic setting; online cancellation and refunds; e-mail, SMS and
+OTP verification; real-time GPS tracking; and deployment on a public cloud server, since the
+application was executed on the local development server. These exclusions were discussed with the
+mentor and consciously accepted so that the features within scope could be completed properly rather
+than leaving a larger number of features half-finished. Most of them reappear in the Future
+Enhancements chapter as the natural next steps.</p>
+
+<h2>1.4 IMPORTANCE OF THE INTERNSHIP</h2>
+
+<p><b>Academically</b>, the internship connected subjects that had until then been studied in
+isolation. Python Programming taught the language, Database Management Systems taught normalisation
+and SQL, Web Technologies taught HTML and CSS, and Software Engineering taught the development life
+cycle and testing. None of these subjects, on its own, produces a working application. The internship
+forced all of them to be used together, and in the process it became clear why each is taught &mdash;
+the theory of primary and foreign keys, for example, became concrete only when a join query had to be
+written to connect a booking to the bus on which it was made.</p>
+
+<p><b>Practically</b>, the internship taught skills that are not part of the syllabus: interpreting a
+stack trace, finding out why a template is not located, structuring a project folder, searching
+official documentation instead of guessing, and avoiding the temptation to change five things at once
+while debugging. These came from making mistakes and being required to correct them.</p>
+
+<p><b>Professionally</b>, it was the first exposure to an environment where progress has to be
+reported, where code is read by someone else, where feedback must be accepted without defensiveness,
+and where an honest statement that a feature is not yet working is more useful than an optimistic one
+that is untrue.</p>
+
+<h2>1.5 EXPECTED OUTCOMES</h2>
+
+<p>The outcomes expected at the start, and the extent to which they were achieved, are stated below.
+A <i>working application</i> capable of completing the entire journey from registration to booking
+history &mdash; <b>achieved</b>. A <i>designed and populated database</i> with correct relationships
+&mdash; <b>achieved</b>, with three tables created through a Python setup script. <i>Practical command
+of Flask</i> &mdash; <b>achieved</b>, with fifteen routes covering GET and POST handling, query
+parameters, redirects, sessions and template rendering. <i>Understanding of session management</i>
+&mdash; <b>achieved</b>. <i>Improvement in interface skills</i> &mdash; <b>achieved</b>, with a
+hand-written stylesheet of roughly one thousand lines producing a consistent design across all pages.
+<i>Testing discipline</i> &mdash; <b>partially achieved</b>: manual unit, functional, integration and
+acceptance testing was carried out and documented, but automated testing with a framework such as
+<i>pytest</i> could not be taken up in the available time, and this is recorded honestly as an area
+for improvement. <i>Documentation</i> &mdash; <b>achieved</b>, in the form of this report with its
+diagrams, schema description and test tables.</p>
+
+<h2>1.6 INTERNSHIP SCHEDULE</h2>
+
+<p>The internship was organised into weekly milestones, each ending with a demonstration to the
+mentor, after which the plan for the following week was decided on the basis of what was completed
+and what was found to be defective. Table 1.1 records the schedule as it was actually followed; it
+differs slightly from the plan made in the first week, because the seat selection and payment screens
+took longer than estimated.</p>
+
+<p class="tblcap">Table 1.1: Week-wise schedule of internship activities</p>
+<table>
+<tr><th style="width:0.6in;">Week</th><th>Activities Carried Out</th><th style="width:1.5in;">Deliverable</th></tr>
+<tr><td>1</td><td>Orientation; introduction to the problem statement; revision of Python
+fundamentals; installation of Python, Flask and Visual Studio Code; execution of a first Flask
+application; study of the request&ndash;response cycle.</td><td>Development environment ready; first
+route executed.</td></tr>
+<tr><td>2</td><td>Requirement analysis; listing of functional requirements; identification of
+entities; design of the three tables; study of the <i>sqlite3</i> module; writing of the database
+creation script.</td><td><i>database.py</i> written; <i>database.db</i> created with sample bus
+records.</td></tr>
+<tr><td>3</td><td>Design of the base template with common navigation bar and footer; landing page
+with hero section, feature cards, statistics and popular routes; writing of the main
+stylesheet.</td><td>Home page complete; template inheritance working.</td></tr>
+<tr><td>4</td><td>Registration and login modules; INSERT and SELECT from Flask; duplicate e-mail
+handling through <i>IntegrityError</i>; introduction of session variables; dashboard
+page.</td><td>Authentication working; session-based greeting in the navigation bar.</td></tr>
+<tr><td>5</td><td>Search module and results page; reading of query-string parameters; SELECT filtered
+by source and destination; use of <i>sqlite3.Row</i>; handling of the &ldquo;no buses found&rdquo;
+case.</td><td>Search and results pages functional against real records.</td></tr>
+<tr><td>6</td><td>Seat selection screen with generated seat grid, client-side JavaScript for
+selection and total calculation, and hidden fields to carry data forward; payment page with method
+selection.</td><td>Seat selection and payment screens completed and linked.</td></tr>
+<tr><td>7</td><td>Booking confirmation; insertion of the booking record; My Bookings page using a
+JOIN query; profile page; logout; protection of private pages using session
+checks.</td><td>Complete booking cycle working with persistent storage.</td></tr>
+<tr><td>8</td><td>Administrative pages for adding and listing buses; About and Contact pages;
+interface refinement; complete testing cycle; correction of defects; preparation of diagrams,
+screenshots and this report.</td><td>Final application demonstrated; report submitted.</td></tr>
+</table>
+
+
+<!-- ============ CHAPTER 2 ============ -->
+<h1>CHAPTER 2: ORGANIZATION PROFILE</h1>
+
+<div class="note">
+Note: The registered name, year of incorporation and location of the organization given below are
+taken directly from the internship completion certificate. Employee strength and other internal
+figures that are not stated on the certificate have not been invented; what follows is the working
+environment, process and practices actually observed during the internship period.
+</div>
+
+<h2>2.1 COMPANY OVERVIEW</h2>
+
+<p>The internship was carried out at <b>DayLearner Private Limited</b>, located at
+<b>Kakinada, Andhra Pradesh</b>. The organization was incorporated in 2022 and works in the field of
+software development and information technology training, its principal activity being the design
+and development of web-based applications alongside structured training programmes for engineering
+students in current development technologies. The internship completed under this report was
+formally titled <i>&ldquo;Python Full Stack Web Development with Artificial Intelligence and Prompt
+Engineering&rdquo;</i> and ran for two months, from 25 May 2026 to 25 July 2026 (Appendix &ndash;
+Certificate).</p>
+
+<p>The organization operates from a single development centre in which the technical team, the
+training division and the administrative staff work in the same premises. During the internship the
+office followed a five-and-a-half day working week with a short daily stand-up meeting at the start
+of the day. Interns were seated with the technical team rather than in a separate room, which meant
+that ordinary professional conversations &mdash; a discussion about a defect, a review of somebody's
+code, an argument about how a table should be designed &mdash; happened within hearing distance. A
+good part of the practical learning came from listening to these conversations.</p>
+
+<p>Interns are taken in from engineering colleges at fixed intervals during the year. Each intern is
+assigned a mentor from the technical team, given an individual problem statement and expected to
+deliver a working application by the end of the internship. The position stated during the induction
+session was that an intern should leave with one project that he or she can explain completely,
+rather than with exposure to five projects that he or she cannot.</p>
+
+<h2>2.2 MISSION AND VISION</h2>
+
+<p>The <b>mission</b> of the organization, as presented during induction, is to deliver dependable,
+maintainable and cost-effective software solutions to its clients and, at the same time, to prepare
+students and fresh graduates for the software industry by involving them in real development work
+rather than in demonstration exercises. Three principles were repeated throughout the internship and
+appear to express this mission in practice. <i>Correctness comes before appearance</i> &mdash; a
+screen that looks attractive but stores the wrong value is a defective screen, so functionality is
+verified first and the interface refined afterwards. <i>Code is written for the next person who reads
+it</i> &mdash; meaningful names, consistent formatting and short functions were treated as
+requirements and not as matters of personal taste. <i>Problems must be reported early</i> &mdash; an
+intern who says on Monday that a feature is not working can be helped; one who says the same thing on
+Friday evening cannot.</p>
+
+<p>The <b>vision</b> expressed by the management is to grow into a development partner that clients
+approach for complete solutions rather than for isolated pieces of work, and to build a technical
+team capable of adopting new platforms quickly as the industry changes. Within the training division
+the stated aim is to reduce the distance between what a student learns in college and what an
+employer expects on the first day of work, particularly in version control, debugging, testing and
+technical documentation, which are usually not practised sufficiently during the degree programme.</p>
+
+<h2>2.3 SERVICES OFFERED</h2>
+
+<p>Based on the induction session and on the work observed during the internship, the services
+offered fall into five categories. <b>Web application development</b> covers database-driven
+applications for small and medium clients, including requirement gathering, database design,
+server-side development, interface development and post-delivery maintenance; the project described
+in this report belongs to this category. <b>Website design and development</b> covers informational
+and business websites, with emphasis on presentation, page loading performance and compatibility
+across browsers and screen sizes. <b>Database design and migration</b> covers the design of
+relational schemas, the writing of queries and the transfer of data from spreadsheets or legacy
+systems into structured databases. <b>Application maintenance and support</b> covers correction of
+reported defects, addition of features to delivered applications and periodic updating of software
+dependencies. <b>Technical training and internships</b> covers structured programmes in Python, web
+development, database systems and software testing, together with the supervised internship
+programme under which this work was completed.</p>
+
+<h2>2.4 TECHNOLOGIES USED IN THE ORGANIZATION</h2>
+
+<p>The stack used varies with the requirements of each client project. Table 2.1 lists the
+technologies that were actually seen in use within the development centre during the internship
+period; nothing has been added for the sake of completeness.</p>
+
+<p class="tblcap">Table 2.1: Technology stack commonly used in the organization</p>
+<table>
+<tr><th style="width:1.6in;">Category</th><th>Technologies</th><th style="width:1.8in;">Typical use</th></tr>
+<tr><td>Programming languages</td><td>Python, JavaScript, PHP, Java</td><td>Server-side application logic</td></tr>
+<tr><td>Web frameworks</td><td>Flask, Django</td><td>Rapid development of web applications</td></tr>
+<tr><td>Front-end technologies</td><td>HTML5, CSS3, JavaScript, Bootstrap</td><td>Interface construction and styling</td></tr>
+<tr><td>Template engines</td><td>Jinja2</td><td>Server-side generation of dynamic HTML</td></tr>
+<tr><td>Databases</td><td>SQLite3, MySQL, PostgreSQL</td><td>Persistent storage of application data</td></tr>
+<tr><td>Development tools</td><td>Visual Studio Code, PyCharm</td><td>Code editing and debugging</td></tr>
+<tr><td>Version control</td><td>Git, GitHub</td><td>Source code management and collaboration</td></tr>
+<tr><td>Testing</td><td>Manual test plans, pytest, browser developer tools</td><td>Verification of functionality and interface</td></tr>
+<tr><td>Documentation</td><td>Microsoft Word, draw.io</td><td>Reports, diagrams and technical notes</td></tr>
+</table>
+
+<p>Of these, the technologies used directly by me were Python, Flask, Jinja2, SQLite3, HTML5, CSS3,
+JavaScript and Visual Studio Code. The remainder were observed in use by the development team on
+client projects.</p>
+
+<h2>2.5 DEPARTMENTS</h2>
+
+<p>The organization is small enough that a person often works across two functions, but the following
+divisions were clearly identifiable.</p>
+
+<p class="tblcap">Table 2.2: Departments and their responsibilities</p>
+<table>
+<tr><th style="width:1.9in;">Department</th><th>Principal responsibilities</th></tr>
+<tr><td>Development</td><td>Application code, database design and implementation, code review and
+defect correction. The intern group was attached to this department.</td></tr>
+<tr><td>Design</td><td>Page layouts, colour schemes, logos and image assets; review of the interface
+for consistency and readability.</td></tr>
+<tr><td>Testing / Quality</td><td>Test plans and test cases, execution of functional and regression
+tests, reporting of defects to the development team.</td></tr>
+<tr><td>Training</td><td>Technical training programmes, allocation of mentors to interns, monitoring
+of weekly progress and issue of completion certificates.</td></tr>
+<tr><td>Project management</td><td>Client communication, requirement collection, effort estimation,
+scheduling and delivery tracking.</td></tr>
+<tr><td>Administration and HR</td><td>Recruitment, attendance, documentation and office
+administration.</td></tr>
+</table>
+
+<p>The reporting structure during the internship was straightforward: I reported to my mentor in the
+Development department, who reported to the project lead. Weekly progress was reviewed by the mentor
+and recorded by the Training department, and that record was used at the end of the internship to
+issue the completion certificate.</p>
+
+<h2>2.6 SOFTWARE DEVELOPMENT PROCESS FOLLOWED</h2>
+
+<p>The organization follows an iterative and incremental process. It is not a formal certified
+methodology with documentation at every stage; it is a light-weight Agile approach adapted to the
+size of the team. The same process, in simplified form, was applied to the internship project.</p>
+
+<p><b>Requirement collection and analysis.</b> Requirements are collected through discussion and
+written down as a list of features. For the internship project the mentor acted as the client. The
+requirement was stated in one sentence &mdash; &ldquo;a user should be able to search for a bus, book
+a seat and see his tickets later&rdquo; &mdash; and I was asked to expand it into a complete list of
+functional requirements myself. This was harder than expected: questions such as &ldquo;what happens
+if the user searches a route on which no bus exists?&rdquo; and &ldquo;can a user book three seats
+after entering two passengers?&rdquo; appear only when the requirement is examined closely.</p>
+
+<p><b>Design.</b> Design is carried out at two levels. The database design is prepared first, because
+almost every other decision depends on it: entities are identified, tables and fields decided, and
+relationships fixed. The screen design follows as a rough sketch of each page and the order in which
+the pages appear. For this project the database design was reviewed before any code was written, and
+one change was made at that stage &mdash; the seat numbers were stored as a single comma-separated
+text field in the booking record rather than as a separate row per seat, a decision whose
+consequences are examined in Section 4.7.</p>
+
+<p><b>Implementation.</b> Development proceeds module by module. A module is coded and made to work
+with real data before the next one is started, which prevents the common student mistake of building
+all the screens first and discovering at the end that data does not flow between them. The order
+followed here was: base template and home page, registration and login, search and results, seat
+selection and payment, booking confirmation and history, and finally the administrative and
+informational pages.</p>
+
+<p><b>Code review.</b> Each week the mentor read through the code written during that week, and the
+review was not limited to whether the code worked. Comments received included the use of string
+concatenation in an SQL query instead of a parameter placeholder, connections left open after a
+query, duplicated blocks of HTML that belonged in the base template, and variable names carrying no
+meaning. Every comment had to be addressed before the next review.</p>
+
+<p><b>Testing and delivery.</b> Testing is performed by the developer first and then independently by
+another person; defects are corrected and the affected flow re-tested. The completed module is
+demonstrated, feedback is collected, and requested changes are taken into the next iteration. The
+final demonstration of EasyBus Pro was conducted at the end of the eighth week before the mentor and
+two members of the development team, who used the application themselves and questioned the design
+decisions taken.</p>
+
+<pre class="diagram">
+      REQUIREMENT              DESIGN                 IMPLEMENTATION
+      ANALYSIS      ------&gt;    (DB + Screens)  ----&gt;  (module by module)
+          ^                                                  |
+          |                                                  v
+          |                                             CODE REVIEW
+          |                                                  |
+          |                                                  v
+      FEEDBACK        &lt;-----   DELIVERY        &lt;-----     TESTING
+      (next iteration)         (demonstration)         (unit + functional)
+</pre>
+<p class="figcap">Figure 2.1: Iterative development process followed in the organization</p>
+
+<p>Two practices of the working environment influenced the way the project was carried out. The
+<b>daily stand-up meeting</b> required each person, interns included, to state in under a minute what
+was completed the previous day, what would be taken up that day and what was blocking progress.
+Having to say aloud what was completed yesterday is an effective discipline, because it discourages
+spending a whole day on an activity that cannot be described as an outcome. The second was the
+attitude towards <b>asking questions</b>: an intern was expected to attempt a problem seriously,
+search the official documentation, and then ask &mdash; but the question had to include what was
+tried and what happened. Framing a question in that form very often produced the answer before it had
+to be asked.</p>
+
+<h2>2.7 FUTURE SCOPE OF THE ORGANIZATION</h2>
+
+<p>Discussions with the team indicated the following directions of growth. These are stated as
+directions expressed during the internship and not as announced commitments. <b>Cloud-based
+delivery</b> &mdash; moving client applications from shared hosting to cloud platforms so that
+scaling, backup and monitoring can be handled better. <b>API-driven architecture</b> &mdash; building
+applications in which the server exposes REST APIs and the interface is developed separately, so that
+a mobile application can later use the same backend. <b>Mobile application development</b> &mdash;
+extending the existing web offerings, as several clients now request both. <b>Stronger automated
+testing</b> &mdash; introducing automated suites so that regression testing does not depend entirely
+on manual effort. <b>Expansion of the training programme</b> &mdash; increasing the intake of interns
+and structuring the programme around complete projects, as was done in this case.</p>
+
+<p>A project such as EasyBus Pro fits naturally into the first two of these directions. Its data
+layer could be moved to a client&ndash;server database, its booking logic could be exposed as an API,
+and the same data could then serve both a website and a mobile application. These possibilities are
+taken up again in the Future Enhancements chapter.</p>
+
+
+<!-- ============ CHAPTER 3 ============ -->
+<h1>CHAPTER 3: TECHNOLOGY OVERVIEW</h1>
+
+<p>This chapter describes the technologies used to build EasyBus Pro. Each is introduced briefly and
+then tied to the specific way it was used in this project, rather than reproduced as a textbook
+definition.</p>
+
+<h2>3.1 PYTHON</h2>
+
+<p>Python was created by Guido van Rossum and released publicly in 1991, with Python 3 &mdash; the
+version used in this project &mdash; released in 2008 and now the standard for new development. It
+is an interpreted, dynamically typed, object-oriented language known for readable, indentation-based
+syntax and an extensive standard library. Table 3.1 summarises the features most relevant to this
+internship.</p>
+
+<p class="tblcap">Table 3.1: Key features of Python used in this project</p>
+<table>
+<tr><th style="width:1.6in;">Feature</th><th>Relevance to EasyBus Pro</th></tr>
+<tr><td>Interpreted, no compile step</td><td>Shortened the edit&ndash;run&ndash;test cycle during
+weekly development</td></tr>
+<tr><td>Extensive standard library</td><td>The <i>sqlite3</i> module is built in, so no database
+driver had to be installed</td></tr>
+<tr><td>Exception handling</td><td>Used to catch <i>sqlite3.IntegrityError</i> and detect duplicate
+e-mail registration</td></tr>
+<tr><td>Readable, concise syntax</td><td>Allowed the entire server-side logic to fit in one
+reviewable file of under 400 lines</td></tr>
+<tr><td>Large third-party ecosystem (pip)</td><td>Used to install Flask and its dependencies with a
+single command</td></tr>
+</table>
+
+<p><b>Why Python was chosen:</b> it was already familiar from coursework, so effort could go into
+learning Flask and SQL instead of syntax; the <i>sqlite3</i> module needs no separate installation;
+Flask itself is a Python framework; and the concise syntax kept the whole application small enough to
+be explained completely in a viva. The main limitation accepted knowingly was slower raw execution
+than a compiled language, which is irrelevant here since response time is dominated by database
+access rather than computation.</p>
+
+<h2>3.2 FLASK WEB FRAMEWORK</h2>
+
+<p>Flask is a Python <i>micro</i> web framework, first released in 2010 by Armin Ronacher. It is
+called &ldquo;micro&rdquo; not because it is limited to small applications but because it does not
+force a particular database layer, form library or project structure on the developer &mdash; it
+supplies routing, request/response handling, templating and sessions, and leaves the rest to be
+decided. It is built on <b>Werkzeug</b>, which handles the low-level HTTP communication and supplies
+the interactive debugger, and <b>Jinja2</b>, the template engine described in Section 3.3.</p>
+
+<p><b>The request&ndash;response cycle.</b> Understanding this cycle was the most useful concept
+learned in the first week, because every later topic &mdash; sessions, forms, redirects &mdash;
+builds on it. When a browser requests a URL, Flask matches it against the routes registered with
+<i>@app.route()</i> and calls the corresponding view function. That function reads input, queries the
+database if required, and returns a rendered template or a redirect, which Flask wraps into an HTTP
+response sent back to the browser.</p>
+
+<pre class="diagram">
+BROWSER --1. GET /results?from=..&amp;to=..--&gt; FLASK APP
+                                              | 2. Match route -&gt; results()
+                                              | 3. request.args.get(), session[..]
+                                              v
+                                       SQLite3 (database.db)
+                                              | 4. SELECT * FROM bus WHERE ...
+                                              v
+                                       render_template('results.html', buses=..)
+                                              | 5. Jinja2 builds final HTML
+BROWSER &lt;--6. HTTP response (HTML page)------+
+</pre>
+<p class="figcap">Figure 3.1: Request&ndash;response cycle of a Flask application</p>
+
+<p><b>Routing.</b> The <i>@app.route()</i> decorator connects a URL to a Python function. A route
+accepts GET only unless <i>methods=['GET','POST']</i> is declared, in which case
+<i>request.method</i> is checked to decide whether the page is being displayed (GET) or a form has
+been submitted (POST) &mdash; used in the <i>/signin</i>, <i>/signup</i> and <i>/admin</i> routes of
+this project. The route path and the Python function name are independent; <i>url_for()</i> in
+templates refers to the <b>function name</b>, not the URL &mdash; a distinction that caused a
+<i>BuildError</i> until it was understood, since the route <i>/seat_selection</i> is handled by a
+function named <i>seat</i>.</p>
+
+<p><b>Reading input.</b> <i>request.form['field']</i> reads a POST form value (used for login and
+registration, since a password must never appear in a URL); <i>request.args.get('field')</i> reads a
+query-string value from a GET request (used for search, seat selection, payment and confirmation, so
+that a booking in progress can be bookmarked or the back button used without a resubmission
+warning).</p>
+
+<p><b>Templates and static files.</b> Flask expects templates in a <i>templates</i> folder and assets
+in a <i>static</i> folder; renaming either causes a <i>TemplateNotFound</i> error. Pages are produced
+with <i>render_template()</i>, whose keyword arguments become variables inside the template; static
+assets are always referenced through <i>url_for('static', filename=...)</i> rather than a hard-coded
+path, so the stylesheet and logo resolve correctly regardless of how the application is run.</p>
+
+<p><b>Sessions.</b> Because HTTP is stateless, Flask's <i>session</i> object &mdash; a dictionary
+whose contents are serialised, signed with the application's secret key and stored in a cookie
+&mdash; is what lets the server recognise a returning user. The signature does not encrypt the data
+but guarantees it has not been tampered with; editing the cookie to change the stored user id simply
+invalidates the session. In this project, login stores the user's id, name and e-mail in the session,
+every protected route checks for <i>"user_id" in session</i>, and logout calls
+<i>session.clear()</i>.</p>
+
+<p><b>Debug mode.</b> <i>app.run(debug=True)</i> enables the auto-reloader, so saving a file is
+enough to see the change after a browser refresh, and the interactive debugger, which shows the full
+traceback with the offending line highlighted directly in the browser &mdash; used constantly while
+diagnosing the errors described in Section 4.10. It was stressed during review that debug mode must
+never be enabled on a server exposed to the public, since the debugger permits arbitrary code
+execution.</p>
+
+<p class="tblcap">Table 3.2: Comparison between Flask and Django</p>
+<table>
+<tr><th style="width:1.5in;">Criterion</th><th>Flask</th><th>Django</th></tr>
+<tr><td>Type</td><td>Micro framework, minimal core</td><td>Full-stack, batteries included</td></tr>
+<tr><td>Database access</td><td>Developer's choice; raw SQL used here</td><td>Built-in ORM</td></tr>
+<tr><td>Learning curve</td><td>Gentle, concepts introduced one at a time</td><td>Steeper</td></tr>
+<tr><td>Suitability for learning SQL directly</td><td>High</td><td>Lower &mdash; the ORM writes queries</td></tr>
+</table>
+<p>Flask was selected because one objective of the internship was to learn SQL and the
+request&ndash;response cycle directly, without an ORM hiding either.</p>
+
+<h2>3.3 JINJA2 TEMPLATE ENGINE</h2>
+
+<p>Jinja2 allows an HTML page to be written once with placeholders that are filled with real values
+when the page is generated, avoiding the alternative of building HTML through string concatenation in
+Python, which becomes unreadable within a few dozen lines.</p>
+
+<p class="tblcap">Table 3.3: Commonly used Jinja2 syntax elements</p>
+<table>
+<tr><th style="width:2in;">Syntax</th><th>Meaning</th><th>Example from this project</th></tr>
+<tr><td>{{ variable }}</td><td>Print a value</td><td>{{ bus['bus_name'] }}</td></tr>
+<tr><td>{% if %}...{% else %}...{% endif %}</td><td>Conditional rendering</td><td>&ldquo;No buses found&rdquo; when results are empty</td></tr>
+<tr><td>{% for x in list %}...{% endfor %}</td><td>Loop over a collection</td><td>One card per bus returned</td></tr>
+<tr><td>{% extends "base.html" %}</td><td>Inherit from a parent template</td><td>Used at the top of every page</td></tr>
+<tr><td>{% block name %}...{% endblock %}</td><td>Replaceable region</td><td>The content block of base.html</td></tr>
+<tr><td>{{ value | filter }}</td><td>Apply a filter</td><td>{{ range(10000,99999)|random }}</td></tr>
+</table>
+
+<p><b>Template inheritance</b> gave the greatest saving of effort in this project. The parent
+template, <i>base.html</i>, defines the head section, the navigation bar and the footer once; each of
+the thirteen page templates declares <i>{% extends "base.html" %}</i> and supplies only its own
+content block. When a link had to be added to the footer late in the project, the change was made
+once and appeared everywhere &mdash; had the footer been copied into each file, one copy would
+certainly have been missed. Jinja2 also <b>escapes HTML automatically</b>, so a user name containing
+script tags is displayed as harmless text rather than executed, which was verified deliberately during
+security testing (Section 4.11).</p>
+
+<h2>3.4 SQLITE3 DATABASE</h2>
+
+<p>SQLite is a relational database engine that is not a server: there is no process to start and no
+account to create, since the entire database is stored in a single file, <i>database.db</i> in this
+project, that any program can read and write directly. It is bundled with Python's standard library,
+so no driver installation was needed, and it supports the full range of standard SQL used here
+&mdash; SELECT, INSERT, JOIN, ORDER BY and transactions with commit.</p>
+
+<p class="tblcap">Table 3.4: CRUD operations and their use in EasyBus Pro</p>
+<table>
+<tr><th style="width:0.9in;">Operation</th><th style="width:0.9in;">Statement</th><th>Use in EasyBus Pro</th></tr>
+<tr><td>Create</td><td>INSERT</td><td>New user at registration; new booking after payment; new bus
+via the admin page</td></tr>
+<tr><td>Read</td><td>SELECT</td><td>Login check; bus search; profile lookup; bookings via JOIN;
+listing all buses</td></tr>
+<tr><td>Update</td><td>UPDATE</td><td>Not used in the present version &mdash; needed for profile
+editing (Future Enhancements)</td></tr>
+<tr><td>Delete</td><td>DELETE</td><td>Not used in the present version &mdash; needed for ticket
+cancellation (Future Enhancements)</td></tr>
+</table>
+
+<p>Every query in the project uses a database connection opened with <i>sqlite3.connect()</i>, a
+cursor to execute the statement, and <i>conn.commit()</i> after any write, followed by
+<i>conn.close()</i>. Two practices matter most. <b>Parameterised queries</b> pass user input as a
+separate tuple of values rather than concatenating it into the SQL string:</p>
+
+<pre class="code">cursor.execute("SELECT * FROM users WHERE email=? AND password=?", (email, password))</pre>
+
+<p>Building the same query by string concatenation would allow a value such as
+<i>' OR '1'='1</i> typed into the e-mail field to bypass the login check entirely &mdash; a SQL
+injection vulnerability. This was tested deliberately, and the result is recorded as a test case in
+Section 4.11. <b>Row factory:</b> setting <i>conn.row_factory = sqlite3.Row</i> before creating the
+cursor allows a fetched row to be addressed by column name &mdash; <i>bus['bus_name']</i> instead of
+the unreadable and fragile <i>bus[1]</i> &mdash; and is used in the results, bookings and profile
+routes.</p>
+
+<h2>3.5 HTML5, CSS3 AND JAVASCRIPT</h2>
+
+<p><b>HTML5</b> supplies the page structure, using semantic elements &mdash; <i>&lt;header&gt;</i>,
+<i>&lt;nav&gt;</i>, <i>&lt;main&gt;</i>, <i>&lt;section&gt;</i>, <i>&lt;footer&gt;</i> &mdash; that
+describe the role of a region rather than only its appearance. Its form attributes reduced the amount
+of validation code needed: <i>required</i> stops an empty submission; <i>type="email"</i> and
+<i>type="password"</i> apply basic format checks and masking; <i>type="date"</i> produces a date
+picker and guarantees the value arrives as YYYY-MM-DD; <i>type="hidden"</i> carries the bus, route,
+date, seats and total amount forward from the seat selection page through payment to confirmation. It
+was made clear during review that these are conveniences for the user, not security &mdash; a
+determined user can send any value directly to the server, so every value is treated as untrusted on
+arrival.</p>
+
+<p><b>CSS3</b> controls presentation and is contained in one hand-written stylesheet of roughly one
+thousand lines, deliberately written without a framework such as Bootstrap so that the box model,
+Flexbox and Grid had to be understood rather than assumed. Flexbox arranges the navigation bar, result
+cards and footer columns; CSS Grid produces the feature cards, the popular-routes section and, most
+usefully, the four-column seat layout with a central gap that reads as the bus aisle; media queries
+collapse multi-column layouts to one column on narrow screens.</p>
+
+<p><b>JavaScript</b> is used on exactly one screen &mdash; seat selection &mdash; since the server
+side was the focus of the internship. The script attaches a click handler to every seat, maintains an
+array of selected seats, refuses a selection beyond the passenger count, and updates the on-screen
+total and the hidden form fields in real time. Writing it surfaced a genuine defect: before values
+read from the page were converted with <i>Number()</i>, two seats at &#8377;1050 displayed as
+&ldquo;10501050&rdquo; because the strings were concatenated instead of added &mdash; corrected once
+the string-versus-number distinction in JavaScript was understood.</p>
+
+<h2>3.6 VISUAL STUDIO CODE AND SUPPORTING TOOLS</h2>
+
+<p>Visual Studio Code was used throughout for its integrated terminal (running the Flask server
+alongside the code), Python extension (highlighting undefined names before the program was even
+run), Emmet abbreviations for HTML, and global search (used to find every occurrence of a route name
+when it had to be renamed). Table 3.5 lists the complete toolset used during development.</p>
+
+<p class="tblcap">Table 3.5: Development tools used during the internship</p>
+<table>
+<tr><th style="width:2.1in;">Tool</th><th>Purpose</th></tr>
+<tr><td>Python 3.x interpreter, pip</td><td>Running the application; installing Flask</td></tr>
+<tr><td>Flask development server</td><td>Local hosting during development</td></tr>
+<tr><td>Visual Studio Code</td><td>Code editing, integrated terminal, navigation</td></tr>
+<tr><td>Google Chrome + developer tools</td><td>Testing pages, inspecting the session cookie</td></tr>
+<tr><td>DB Browser for SQLite</td><td>Viewing database.db to confirm records were written</td></tr>
+<tr><td>draw.io</td><td>Preparing the architecture, ER and UML diagrams</td></tr>
+</table>
+
+<p>Git and GitHub were explained during induction and used by the development team on client
+projects, but the EasyBus Pro project itself was kept in a plain folder backed up by copying it
+rather than by committing to a repository &mdash; a decision that cost real time when a working
+version of the seat selection template was overwritten during an experiment and had to be rewritten
+from memory. This is recorded honestly here and revisited in Section 4.10 and the Future
+Enhancements chapter, since placing the project under version control is the most concrete process
+lesson taken from the internship.</p>
+
+<h2>3.7 JUSTIFICATION OF THE TECHNOLOGY STACK</h2>
+
+<p>The complete stack &mdash; Flask on Python for the server, SQLite3 for storage, HTML5/CSS3/Jinja2
+with a small amount of JavaScript for the interface &mdash; suits this project on four counts. It is
+<b>lightweight</b>: the application runs on a laptop with nothing to install or configure, which
+mattered because it had to be demonstrated on several different machines during reviews. It is
+<b>transparent</b>: no ORM generates queries and no scaffolding generates pages, so every SQL
+statement and every route was written and understood explicitly &mdash; the actual objective of the
+internship. It is <b>coherent</b>: Flask, Jinja2 and Werkzeug install together and <i>sqlite3</i>
+ships with Python, keeping the number of moving parts small. And it is <b>relevant</b>: Python and
+Flask are used in industry, and SQL written for SQLite transfers to MySQL or PostgreSQL with modest
+changes, so nothing learned here is confined to the classroom.</p>
+
+
+<!-- ============ CHAPTER 4 ============ -->
+<h1>CHAPTER 4: PROJECT &ndash; EASYBUS PRO</h1>
+
+<h2>4.1 PROJECT OVERVIEW</h2>
+
+<p><b>Project Title:</b> EasyBus Pro &ndash; A Bus Ticket Booking System using Python, Flask and
+SQLite3.</p>
+
+<p>EasyBus Pro is a web application through which a traveller can search for buses between two
+cities, examine the options available, reserve specific seats, pay for the ticket and retain a
+permanent record of the booking. Every action taken by the user results in a corresponding database
+operation: registration writes a row into the <i>users</i> table, a search executes a filtered SELECT
+on the <i>bus</i> table, and a confirmed booking writes a row into the <i>bookings</i> table that
+references both of the other two tables &mdash; which is what distinguishes the project from a static
+website.</p>
+
+<p><b>Problem statement.</b> Intercity bus ticketing for many small and medium operators is still
+handled at counters or over the telephone. A passenger must contact the operator directly to learn
+what buses are available, has no way to compare operators at the same time, cannot see the seat
+layout before choosing a seat, and receives only a paper slip &mdash; easily lost &mdash; as proof of
+booking. The operator, in turn, maintains availability in a register or spreadsheet that must be
+consulted and updated manually for every enquiry.</p>
+
+<p><b>Motivation.</b> A booking system was chosen because it exercises almost every concept the
+internship was meant to teach &mdash; related entities, a multi-step transaction spread across
+several pages, state preserved between requests, authentication and a permanent database record
+&mdash; while remaining a domain that needs no explanation to an examiner or a mentor.</p>
+
+<p><b>Objective.</b> To design and implement an application that lets a passenger register and log
+in securely, search buses by route and date, view a visual seat layout and select exactly the seats
+required, pay through a chosen method, receive a stored, confirmed booking with an electronic ticket,
+review the complete booking history at any time, and lets an administrator add new buses to the
+system.</p>
+
+<p><b>Solution approach.</b> The application is organised as a three-tier system. The presentation
+tier is thirteen Jinja2 templates styled by one stylesheet; the application tier is a Flask program
+of fifteen routes, each reading input, performing the required database operation and rendering a
+template; the data tier is a single SQLite3 file with three tables. The user's <b>identity</b> is
+kept in the server-side session because it must be available on every page and must not be editable
+by the user; the <b>details of the journey being booked</b> are carried forward as URL parameters and
+hidden form fields because they are meaningful only for the duration of that one booking. This
+distinction, and its consequences, are discussed further in Sections 4.6 and 4.12.</p>
+
+<h2>4.2 EXISTING SYSTEM AND ITS LIMITATIONS</h2>
+
+<p>The existing system considered here is the conventional counter- or telephone-based booking
+practice: a passenger contacts the operator, the operator consults a register to check availability,
+the fare and timing are quoted verbally, the seat is recorded by hand against payment in cash, and a
+paper slip is issued. Its limitations are listed in the order they were identified during requirement
+analysis.</p>
+
+<ol>
+<li><b>Restricted availability</b> &mdash; bookings are possible only during counter hours.</li>
+<li><b>No basis for comparison</b> &mdash; each operator answers only for its own buses, so comparing
+three operators means three separate enquiries.</li>
+<li><b>Seat selection is not visual</b> &mdash; the passenger is told a seat number with no idea of
+its position in the coach.</li>
+<li><b>Manual record-keeping errors</b> &mdash; registers are subject to double booking and illegible
+or missed entries.</li>
+<li><b>No permanent record for the passenger</b> &mdash; a lost slip leaves no proof of booking and
+no history of past journeys.</li>
+<li><b>Cash dependence</b> and <b>duplicated staff effort</b> for every enquiry, whether or not it
+results in a booking.</li>
+</ol>
+
+<h2>4.3 PROPOSED SYSTEM AND ITS ADVANTAGES</h2>
+
+<p>EasyBus Pro replaces this manual process with a web application. A passenger registers once, logs
+in with an e-mail address and password, searches by source, destination, date and passenger count,
+compares every matching bus on one screen, selects seats from a visual layout that enforces the
+correct seat count, pays through UPI, card or net banking, and receives an on-screen electronic
+ticket that is also stored permanently under My Bookings.</p>
+
+<p class="tblcap">Table 4.1: Existing system versus proposed system</p>
+<table>
+<tr><th style="width:2.3in;">Existing (manual) system</th><th>EasyBus Pro (proposed system)</th></tr>
+<tr><td>Available only during counter/call hours</td><td>Available at any time from any browser</td></tr>
+<tr><td>One operator's information per enquiry</td><td>All matching buses compared on one screen</td></tr>
+<tr><td>Seat number quoted verbally</td><td>Visual seat layout with click-to-select</td></tr>
+<tr><td>Fare totalled by hand</td><td>Total computed automatically as seats &times; fare</td></tr>
+<tr><td>Paper slip, easily lost</td><td>Permanent record in the bookings table, viewable anytime</td></tr>
+<tr><td>Register updated manually per booking</td><td>Record created automatically as part of the booking transaction</td></tr>
+</table>
+
+<h2>4.4 SYSTEM REQUIREMENTS</h2>
+
+<p class="tblcap">Table 4.2: Functional requirements of EasyBus Pro</p>
+<table>
+<tr><th style="width:0.55in;">ID</th><th style="width:1.4in;">Requirement</th><th>Description</th></tr>
+<tr><td>FR-01</td><td>User registration</td><td>Create an account with name, e-mail, phone and
+password (entered twice); reject on password mismatch or duplicate e-mail.</td></tr>
+<tr><td>FR-02</td><td>User login</td><td>Authenticate against stored credentials; reject invalid
+attempts with a message.</td></tr>
+<tr><td>FR-03</td><td>Session management</td><td>Create a session on login holding user id, name and
+e-mail; show the user's name in the navigation bar.</td></tr>
+<tr><td>FR-04</td><td>Access control</td><td>Redirect an unauthenticated visitor to login when a
+personal-data page is requested.</td></tr>
+<tr><td>FR-05</td><td>Bus search</td><td>Accept source, destination, date and passenger count; return
+matching buses.</td></tr>
+<tr><td>FR-06</td><td>Display of results</td><td>Show operator, timings, fare, seats available and
+amenities for each match; show a clear message when none match.</td></tr>
+<tr><td>FR-07</td><td>Seat selection</td><td>Display a seat layout; allow selection up to, but not
+beyond, the number of passengers entered.</td></tr>
+<tr><td>FR-08</td><td>Fare calculation</td><td>Compute and update the total as fare &times; seats
+selected.</td></tr>
+<tr><td>FR-09</td><td>Payment method selection</td><td>Offer UPI, card and net banking; require one
+choice before confirming.</td></tr>
+<tr><td>FR-10</td><td>Booking confirmation</td><td>Insert the booking into the database and display
+an electronic ticket.</td></tr>
+<tr><td>FR-11</td><td>Booking history</td><td>List all bookings of the logged-in user, most recent
+first, via a JOIN with the bus table.</td></tr>
+<tr><td>FR-12</td><td>Profile and logout</td><td>Display account details; clear the session on
+logout.</td></tr>
+<tr><td>FR-13</td><td>Bus administration</td><td>Allow an administrator to add and list bus
+records.</td></tr>
+</table>
+
+<p class="tblcap">Table 4.3: Non-functional requirements of EasyBus Pro</p>
+<table>
+<tr><th style="width:0.9in;">Requirement</th><th>How it is addressed</th></tr>
+<tr><td>Usability</td><td>Consistent navigation bar, clear labels, a visible seat-and-price summary
+during selection</td></tr>
+<tr><td>Performance</td><td>Single-table and two-table queries against a small database respond in
+well under a second</td></tr>
+<tr><td>Reliability</td><td>Every write is committed immediately, so confirmed bookings survive a
+server restart</td></tr>
+<tr><td>Security</td><td>Parameterised SQL prevents injection; signed sessions prevent tampering;
+Jinja2 auto-escaping prevents script injection (password storage weakness noted in Section 4.12)</td></tr>
+<tr><td>Maintainability</td><td>Shared base template and single stylesheet; one route/template per
+page</td></tr>
+<tr><td>Portability</td><td>Runs anywhere Python is installed, with the database as a single file</td></tr>
+<tr><td>Responsiveness</td><td>Media queries collapse multi-column layouts on narrow screens</td></tr>
+</table>
+
+<p class="tblcap">Table 4.4: Software and hardware requirements</p>
+<table>
+<tr><th style="width:1.6in;">Category</th><th>Specification</th></tr>
+<tr><td>Operating system</td><td>Windows 10/11 (development); any OS with Python 3 support</td></tr>
+<tr><td>Language / framework</td><td>Python 3.x, Flask (with Werkzeug, Jinja2)</td></tr>
+<tr><td>Database</td><td>SQLite3 via the built-in <i>sqlite3</i> module</td></tr>
+<tr><td>Front end</td><td>HTML5, CSS3, JavaScript</td></tr>
+<tr><td>Editor / browser</td><td>Visual Studio Code; Chrome, Firefox or Edge</td></tr>
+<tr><td>Processor / RAM (minimum)</td><td>Dual-core 1.6 GHz / 2 GB RAM</td></tr>
+<tr><td>Processor / RAM (used)</td><td>Intel Core i5 equivalent / 8 GB RAM</td></tr>
+<tr><td>Disk space</td><td>Approximately 500 MB &ndash; 1 GB</td></tr>
+</table>
+
+<h2>4.5 MODULES OF THE SYSTEM</h2>
+
+<p>The application is organised into the modules listed in Table 4.5. A module here means a
+self-contained route in <i>app.py</i> together with the template it renders and the database
+operations it performs. Each module below is described under a uniform structure &mdash; purpose,
+workflow, inputs, outputs, screenshot and explanation.</p>
+
+<p class="tblcap">Table 4.5: Module list with corresponding routes and templates</p>
+<table>
+<tr><th style="width:0.35in;">#</th><th style="width:1.3in;">Module</th><th style="width:1.2in;">Route</th><th style="width:1.2in;">Template</th><th>Database access</th></tr>
+<tr><td>1</td><td>Landing / Home</td><td>/</td><td>landing.html</td><td>None</td></tr>
+<tr><td>2</td><td>User Login</td><td>/signin</td><td>signin.html</td><td>SELECT users</td></tr>
+<tr><td>3</td><td>User Registration</td><td>/signup</td><td>signup.html</td><td>INSERT users</td></tr>
+<tr><td>4</td><td>Dashboard</td><td>/dashboard</td><td>dashboard.html</td><td>None</td></tr>
+<tr><td>5</td><td>Search Bus</td><td>/search</td><td>search.html</td><td>None</td></tr>
+<tr><td>6</td><td>Bus Results</td><td>/results</td><td>results.html</td><td>SELECT bus</td></tr>
+<tr><td>7</td><td>Seat Selection</td><td>/seat_selection</td><td>seat_selection.html</td><td>None</td></tr>
+<tr><td>8</td><td>Payment</td><td>/payment</td><td>payment.html</td><td>None</td></tr>
+<tr><td>9</td><td>Booking Confirmation</td><td>/success</td><td>success.html</td><td>SELECT bus, INSERT bookings</td></tr>
+<tr><td>10</td><td>My Bookings</td><td>/my_bookings</td><td>my_bookings.html</td><td>SELECT with JOIN</td></tr>
+<tr><td>11</td><td>Profile</td><td>/profile</td><td>profile.html</td><td>SELECT users</td></tr>
+<tr><td>12</td><td>About</td><td>/about</td><td>about.html</td><td>None</td></tr>
+<tr><td>13</td><td>Contact</td><td>/contact</td><td>contact.html</td><td>None</td></tr>
+<tr><td>14</td><td>Logout</td><td>/logout</td><td>&mdash; (redirect)</td><td>None</td></tr>
+<tr><td>15</td><td>Bus Administration</td><td>/admin, /admin_dashboard</td><td>admin.html, admin_dashboard.html</td><td>INSERT / SELECT bus</td></tr>
+<tr><td>16</td><td>Navigation Bar &amp; Footer</td><td>&mdash; (shared)</td><td>base.html</td><td>Reads session only</td></tr>
+</table>
+
+<h3>4.5.1 Landing / Home Page</h3>
+<p><b>Purpose &amp; workflow:</b> The entry point of the site. The route <i>/</i> renders
+<i>landing.html</i> without touching the database, presenting a hero section with an embedded search
+form, a &ldquo;why choose us&rdquo; feature grid, a statistics band, popular routes and a coach
+showcase. Submitting the embedded search sends a GET request straight to <i>/results</i>.<br>
+<b>Inputs:</b> none on arrival; optionally source, destination, date, passengers if the search form is
+used.<br>
+<b>Outputs:</b> the rendered home page, or a redirect to the results page.</p>
+
+<img class="shotimg" src="screenshots/fig_4_1_home.png" alt="Home page of EasyBus Pro">
+<p class="figcap">Figure 4.1: Home page of EasyBus Pro</p>
+
+<p><b>Explanation:</b> The navigation bar shows <i>Sign In</i>/<i>Get Started</i> when logged out and
+switches to a welcome message with <i>My Bookings</i>, <i>Profile</i> and <i>Logout</i> once logged in
+(Section 4.5.16). The statistics and popular-route figures are static content written into the
+template rather than values read from the database.</p>
+
+<h3>4.5.2 User Login</h3>
+<p><b>Purpose &amp; workflow:</b> Verifies a returning user's credentials and establishes the session
+that represents that user for the rest of the visit. <i>/signin</i> renders the form on GET; on POST
+it reads the e-mail and password, executes a parameterised SELECT against <i>users</i>, and if a row
+is returned, stores the user's id, name and e-mail in the session before redirecting to the
+dashboard.<br>
+<b>Inputs:</b> e-mail, password (POST).<br>
+<b>Outputs:</b> a populated session and redirect to <i>/dashboard</i>, or an error message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_2_login.png" alt="User login page">
+<p class="figcap">Figure 4.2: User login page</p>
+
+<pre class="code">if user:
+    session["user_id"]    = user[0]
+    session["user_name"]  = user[1]
+    session["user_email"] = user[2]
+    return redirect('/dashboard')</pre>
+
+<p><b>Explanation:</b> These three lines are the mechanism that lets every later page recognise the
+user. Because the cookie is signed, editing it to change <i>user_id</i> simply invalidates the
+session rather than granting access to another account &mdash; verified using the browser's developer
+tools. The password is compared in plain text because it is stored in plain text; this is the most
+significant weakness of the present version and is addressed in Section 4.12.</p>
+
+<h3>4.5.3 User Registration</h3>
+<p><b>Purpose &amp; workflow:</b> Creates a new account. <i>/signup</i> renders the form on GET; on
+POST it compares the two password fields and rejects the request if they differ, then attempts an
+INSERT into <i>users</i> inside a <i>try</i> block, catching <i>sqlite3.IntegrityError</i> if the
+e-mail already exists (enforced by a UNIQUE constraint) rather than performing a separate check
+first.<br>
+<b>Inputs:</b> name, e-mail, phone, password, confirm password (POST).<br>
+<b>Outputs:</b> a new row in <i>users</i> and redirect to <i>/signin</i>, or an error message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_3_registration.png" alt="User registration page">
+<p class="figcap">Figure 4.3: User registration page</p>
+
+<p><b>Explanation:</b> Letting the database enforce uniqueness, instead of a SELECT-then-INSERT
+sequence, was a code-review suggestion that removes a possible race condition. This path was tested
+by registering the same e-mail twice; the result is test case UT-04 (Section 4.11).</p>
+
+<h3>4.5.4 Dashboard</h3>
+<p><b>Purpose &amp; workflow:</b> A personal landing page reached after login, from which the common
+actions are started. <i>/dashboard</i> renders <i>dashboard.html</i>; the greeting is produced by the
+base template from the session, so this route does not query the database.<br>
+<b>Inputs:</b> none directly (session supplies the name).<br>
+<b>Outputs:</b> summary cards, quick-action links and an upcoming-journey panel.</p>
+
+<img class="shotimg" src="screenshots/fig_4_4_dashboard.png" alt="User dashboard after login">
+<p class="figcap">Figure 4.4: User dashboard after successful login</p>
+
+<p><b>Explanation:</b> The three summary cards and the Upcoming Journey panel show placeholder values
+rather than figures calculated from the <i>bookings</i> table, since priority went to completing the
+booking cycle before the internship ended. Making them live &mdash; a <i>SELECT COUNT(*)</i> filtered
+by <i>user_id</i>, and a date comparison for upcoming versus completed &mdash; is listed first among
+the corrections in Section 4.12.</p>
+
+<h3>4.5.5 Search Bus</h3>
+<p><b>Purpose &amp; workflow:</b> Collects journey details for a fresh search. <i>/search</i> renders
+a GET-method form whose action is <i>/results</i>, so the four values are appended to the URL as a
+query string. No database access occurs here.<br>
+<b>Inputs:</b> source, destination, date, passengers.<br>
+<b>Outputs:</b> a GET request to <i>/results</i> carrying these four values.</p>
+
+<img class="shotimg" src="screenshots/fig_4_5_search.png" alt="Bus search page">
+<p class="figcap">Figure 4.5: Bus search page</p>
+
+<p><b>Explanation:</b> GET, not POST, is used because the search does not modify server state, the
+result can be bookmarked, and pressing the back button after viewing results does not trigger a
+resubmission warning. The same reasoning does not apply to login or registration, whose POST forms
+keep a password out of the URL and the browser history.</p>
+
+<h3>4.5.6 Bus Results</h3>
+<p><b>Purpose &amp; workflow:</b> Queries the buses matching the requested route. <i>/results</i>
+reads the four query parameters, sets <i>conn.row_factory = sqlite3.Row</i>, executes a SELECT
+filtered by source and destination, and renders the matches with the original search values (needed
+by the next page).<br>
+<b>Inputs:</b> query-string from, to, date, passengers.<br>
+<b>Outputs:</b> a list of bus cards, or a &ldquo;no buses found&rdquo; message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_6_results.png" alt="Bus results page">
+<p class="figcap">Figure 4.6: Search results showing available buses</p>
+
+<p><b>Explanation:</b> Handling the empty case was added after a review in which the mentor searched
+a route absent from the database and was shown a blank page &mdash; indistinguishable from a broken
+site. The <i>Select Seats</i> link on each card carries the bus name, route, date, passenger count and
+fare forward using <i>url_for()</i>, which is where the reserved-keyword difficulty with the parameter
+<i>from</i> arose (Section 4.10, Challenge 4). The query filters on city names only; the date entered
+is stored with the eventual booking but does not itself restrict which buses are shown, since the
+<i>bus</i> table represents a daily schedule rather than dated departures (Section 4.12).</p>
+
+<h3>4.5.7 Seat Selection</h3>
+<p><b>Purpose &amp; workflow:</b> Presents a visual coach layout and restricts selection to the
+requested passenger count. <i>/seat_selection</i> only forwards the values received from the results
+page to the template; all interactivity is client-side JavaScript, which toggles a seat's selected
+state, refuses a selection beyond the passenger count, and recalculates the running total.<br>
+<b>Inputs:</b> bus, from, to, date, passengers, price (query string).<br>
+<b>Outputs:</b> a GET request to <i>/payment</i> carrying the selected seats and total.</p>
+
+<img class="shotimg" src="screenshots/fig_4_7_seat_selection.png" alt="Seat selection page">
+<p class="figcap">Figure 4.7: Seat selection screen with bus layout</p>
+
+<p><b>Explanation:</b> The seats are laid out as a 24-seat, four-column grid (A&ndash;D, rows 1&ndash;6)
+using CSS Grid with a central gap representing the aisle. The <i>Continue to Payment</i> button stays
+disabled until the number of seats selected exactly equals the passenger count, which is enforced in
+the click handler shown below.</p>
+
+<pre class="code">if (selectedSeats.length >= maxSeats) {
+    alert("You can select only " + maxSeats + " seat(s).");
+    return;
+}
+selectedSeats.push(seatNumber);
+continueBtn.disabled = selectedSeats.length !== maxSeats;</pre>
+
+<h3>4.5.8 Payment</h3>
+<p><b>Purpose &amp; workflow:</b> Offers a choice of payment method and shows a journey summary
+before the booking is confirmed. <i>/payment</i> forwards the received values into the template,
+which presents UPI, card and net-banking options as required radio buttons in a form whose action is
+<i>/success</i>.<br>
+<b>Inputs:</b> bus, from, to, date, passengers, seats, total (query string).<br>
+<b>Outputs:</b> a GET request to <i>/success</i> including the chosen payment method.</p>
+
+<img class="shotimg" src="screenshots/fig_4_8_payment.png" alt="Payment page">
+<p class="figcap">Figure 4.8: Payment method selection page</p>
+
+<p><b>Explanation:</b> No real payment gateway is contacted; the page simulates the choice, which was
+agreed with the mentor as outside the scope of an academic project (Section 1.3). The <i>required</i>
+attribute on the radio group ensures a method must be chosen before the form can be submitted.</p>
+
+<h3>4.5.9 Booking Confirmation</h3>
+<p><b>Purpose &amp; workflow:</b> Finalises the booking and writes it to the database.
+<i>/success</i> first checks <i>"user_id" not in session</i> and redirects to login if the user is
+not authenticated, then looks up the bus id from its name, inserts a row into <i>bookings</i> with the
+user id, bus id, date, seats, passenger count, amount and payment method, commits the transaction and
+renders an electronic ticket.<br>
+<b>Inputs:</b> all journey and payment values (query string); session user id.<br>
+<b>Outputs:</b> a new row in <i>bookings</i> and a rendered ticket.</p>
+
+<img class="shotimg" src="screenshots/fig_4_9_success.png" alt="Booking confirmation page">
+<p class="figcap">Figure 4.9: Booking confirmation page with e-ticket</p>
+
+<p><b>Explanation:</b> This is the one page in the application that both reads and writes the
+database in the same request, and the session check placed at the top of the function is what
+prevents an unauthenticated visitor from reaching a URL that would otherwise insert a booking with no
+associated user. The booking identifier shown on the ticket in the present version is generated as a
+random number for display rather than read back from the row just inserted &mdash; a cosmetic
+shortcut that is corrected in the recommendation given in Section 4.12.</p>
+
+<h3>4.5.10 My Bookings</h3>
+<p><b>Purpose &amp; workflow:</b> Displays the complete booking history of the logged-in user.
+<i>/my_bookings</i> checks the session, then executes a SELECT that joins <i>bookings</i> with
+<i>bus</i> on <i>bookings.bus_id = bus.id</i>, filtered by <i>user_id</i> and ordered by
+<i>booking_time</i> descending.<br>
+<b>Inputs:</b> session user id.<br>
+<b>Outputs:</b> a list of past bookings with route, date, seats, amount and payment method, or an
+empty-state message.</p>
+
+<img class="shotimg" src="screenshots/fig_4_10_my_bookings.png" alt="My Bookings page">
+<p class="figcap">Figure 4.10: My Bookings page listing past tickets</p>
+
+<p><b>Explanation:</b> This module is the clearest demonstration of why the <i>bookings</i> table
+stores a <i>bus_id</i> foreign key rather than repeating the bus name as text: the JOIN reconstructs
+the full journey detail from two small tables instead of duplicating that data into every booking
+row. The screenshot above happens to show three separate bookings for the same Royal Travels journey
+&mdash; these were created while reproducing the refresh-duplication defect described as Challenge 5
+in Section 4.10 and test case IT-03 in Section 4.11, and are left visible here as genuine evidence of
+that behaviour rather than tidied away.</p>
+
+<h3>4.5.11 Profile</h3>
+<p><b>Purpose &amp; workflow:</b> Displays the logged-in user's account details. <i>/profile</i>
+checks the session, then selects the matching row from <i>users</i> by id.<br>
+<b>Inputs:</b> session user id.<br>
+<b>Outputs:</b> name, e-mail and phone number.</p>
+
+<img class="shotimg" src="screenshots/fig_4_11_profile.png" alt="User profile page">
+<p class="figcap">Figure 4.11: User profile page</p>
+
+<p><b>Explanation:</b> The page is read-only in the present version; an editable profile with an
+UPDATE query is listed under Future Enhancements.</p>
+
+<h3>4.5.12 About and 4.5.13 Contact</h3>
+<p><b>Purpose &amp; workflow:</b> Static informational pages reachable from the navigation bar on
+every screen, rendered directly without any database access.<br>
+<b>Inputs:</b> none. <b>Outputs:</b> the rendered page.</p>
+
+<img class="shotimg" src="screenshots/fig_4_12_about.png" alt="About page">
+<p class="figcap">Figure 4.12: About page</p>
+
+<img class="shotimg" src="screenshots/fig_4_13_contact.png" alt="Contact page">
+<p class="figcap">Figure 4.13: Contact page</p>
+
+<p><b>Explanation:</b> Both pages inherit the same base template as every other page, so they carry
+the identical navigation bar and footer without any additional code.</p>
+
+<h3>4.5.14 Logout, 4.5.15 Bus Administration and 4.5.16 Navigation Bar &amp; Footer</h3>
+
+<p><b>Logout</b> (<i>/logout</i>) calls <i>session.clear()</i> and redirects to the home page,
+removing the user id, name and e-mail from the session in one call.</p>
+
+<p><b>Bus Administration</b> (<i>/admin</i>, <i>/admin_dashboard</i>) lets an administrator insert a
+new bus record through a form (bus name, cities, timings, price, seats) and lists every bus currently
+stored. It was built so that new routes could be added for testing without editing the database file
+directly, and carries no access restriction in the present version &mdash; a limitation noted in
+Section 4.12.</p>
+
+<p>The <b>navigation bar and footer</b>, defined once in <i>base.html</i>, read the session to decide
+whether to show <i>Sign In</i>/<i>Get Started</i> or the welcome message with <i>My Bookings</i>,
+<i>Profile</i> and <i>Logout</i>. The footer repeats this structure on every page through template
+inheritance (Section 3.3), and is the reason a single edit is enough to change a link across all
+thirteen templates at once.</p>
+
+
+<h2>4.6 SYSTEM ARCHITECTURE</h2>
+
+<p>EasyBus Pro follows a three-tier architecture, separating what the user sees, what processes the
+request, and what stores the data. The three tiers communicate in one direction only &mdash; the
+browser never accesses the database directly, and every database operation is mediated by a Flask
+route.</p>
+
+<pre class="diagram">
++-----------------------------------------------------------------------------+
+|                         PRESENTATION TIER (Client)                          |
+|   Browser  ->  HTML5 / CSS3 pages rendered from Jinja2 templates            |
+|               (landing, signin, signup, dashboard, search, results,         |
+|                seat_selection, payment, success, my_bookings, profile,      |
+|                about, contact)  +  client-side JavaScript (seat selection)  |
++-------------------------------------+-----------------------------------------+
+                                      | HTTP request  (GET / POST)
+                                      v
++-----------------------------------------------------------------------------+
+|                         APPLICATION TIER (Flask - app.py)                   |
+|  Routing  ->  View functions  ->  Session management  ->  Template render   |
+|  15 routes: /, /signin, /signup, /dashboard, /search, /results,             |
+|  /seat_selection, /payment, /success, /my_bookings, /profile, /about,      |
+|  /contact, /logout, /admin, /admin_dashboard                                |
++-------------------------------------+-----------------------------------------+
+                                      | sqlite3 module (parameterised SQL)
+                                      v
++-----------------------------------------------------------------------------+
+|                         DATA TIER (SQLite3 - database.db)                   |
+|          users            bus              bookings                        |
+|      (id, name, email, (id, bus_name,   (booking_id, user_id, bus_id,       |
+|       phone, password)   from_city,      journey_date, seat_numbers,       |
+|                           to_city,        passengers, amount,               |
+|                           departure,      payment_method, booking_time)     |
+|                           arrival,                                          |
+|                           price,                                            |
+|                           available_seats)                                  |
++-----------------------------------------------------------------------------+
+</pre>
+<p class="figcap">Figure 4.14: Three-tier system architecture of EasyBus Pro</p>
+
+<p>The <b>presentation tier</b> has no knowledge of the database; it only receives values that the
+application tier has already fetched and formatted. The <b>application tier</b> is the only layer
+permitted to open a database connection, and every route follows the same pattern &mdash; connect,
+execute a parameterised query, fetch, close &mdash; described in Section 3.4. The <b>data tier</b> is
+a single portable file, which is why the application could be copied and demonstrated on different
+laptops without any database server installation.</p>
+
+<p>Table 4.6 lists the complete route map of the application, summarising the fifteen routes defined
+in <i>app.py</i> and the method(s) each accepts.</p>
+
+<p class="tblcap">Table 4.6: Complete route map of the application</p>
+<table>
+<tr><th style="width:1.4in;">Route</th><th style="width:0.8in;">Method(s)</th><th>Purpose</th></tr>
+<tr><td>/</td><td>GET</td><td>Home / landing page</td></tr>
+<tr><td>/signin</td><td>GET, POST</td><td>Login form and authentication</td></tr>
+<tr><td>/signup</td><td>GET, POST</td><td>Registration form and account creation</td></tr>
+<tr><td>/dashboard</td><td>GET</td><td>Post-login landing page</td></tr>
+<tr><td>/search</td><td>GET</td><td>Journey search form</td></tr>
+<tr><td>/results</td><td>GET</td><td>Matching buses for a route</td></tr>
+<tr><td>/seat_selection</td><td>GET</td><td>Visual seat layout</td></tr>
+<tr><td>/payment</td><td>GET</td><td>Payment method selection</td></tr>
+<tr><td>/success</td><td>GET</td><td>Booking confirmation and e-ticket</td></tr>
+<tr><td>/my_bookings</td><td>GET</td><td>Booking history (JOIN query)</td></tr>
+<tr><td>/profile</td><td>GET</td><td>Account details of the logged-in user</td></tr>
+<tr><td>/about</td><td>GET</td><td>Static informational page</td></tr>
+<tr><td>/contact</td><td>GET</td><td>Static informational page</td></tr>
+<tr><td>/logout</td><td>GET</td><td>Clear session and redirect home</td></tr>
+<tr><td>/admin, /admin_dashboard</td><td>GET, POST</td><td>Add and list bus records</td></tr>
+</table>
+
+<h2>4.7 DATABASE DESIGN AND SCHEMA</h2>
+
+<p>The database was designed before any route was written, because almost every other decision
+depends on it. Three entities were identified from the requirement: a person who books
+(<i>users</i>), a service being booked (<i>bus</i>), and the transaction connecting the two
+(<i>bookings</i>). The <i>bookings</i> table holds two foreign keys, <i>user_id</i> and
+<i>bus_id</i>, giving each booking a traceable owner and a traceable service.</p>
+
+<pre class="diagram">
+   +-------------------+            +----------------------+           +---------------------+
+   |      USERS        |            |       BOOKINGS       |           |         BUS         |
+   +-------------------+            +----------------------+           +---------------------+
+   | PK id             |<---------o | FK user_id           |           | PK id               |
+   |    name           |   1    N   | PK booking_id         |  N     1  | bus_name             |
+   |    email  (UNIQUE) |            | FK bus_id            |o--------->| from_city            |
+   |    phone           |            |    journey_date       |           | to_city              |
+   |    password        |            |    seat_numbers        |           | departure            |
+   +-------------------+            |    passengers          |           | arrival              |
+                                     |    amount               |           | price                |
+                                     |    payment_method        |           | available_seats       |
+                                     |    booking_time           |           +---------------------+
+                                     +----------------------+
+       One user places many bookings.        Many bookings can reference one bus.
+</pre>
+<p class="figcap">Figure 4.15: Entity&ndash;Relationship diagram of the database</p>
+
+<p class="tblcap">Table 4.7: Structure of the users table</p>
+<table>
+<tr><th style="width:1.1in;">Column</th><th style="width:1.1in;">Type</th><th style="width:1in;">Constraint</th><th>Description</th></tr>
+<tr><td>id</td><td>INTEGER</td><td>PRIMARY KEY, AUTOINCREMENT</td><td>Unique identifier for each user</td></tr>
+<tr><td>name</td><td>TEXT</td><td>NOT NULL</td><td>Full name of the user</td></tr>
+<tr><td>email</td><td>TEXT</td><td>UNIQUE, NOT NULL</td><td>Login identifier; duplicates rejected by the database itself</td></tr>
+<tr><td>phone</td><td>TEXT</td><td>&mdash;</td><td>Contact number</td></tr>
+<tr><td>password</td><td>TEXT</td><td>NOT NULL</td><td>Stored in plain text in the present version (Section 4.12)</td></tr>
+</table>
+
+<p class="tblcap">Table 4.8: Structure of the bus table</p>
+<table>
+<tr><th style="width:1.3in;">Column</th><th style="width:1in;">Type</th><th>Description</th></tr>
+<tr><td>id</td><td>INTEGER PK</td><td>Unique identifier for each bus record, auto-incremented</td></tr>
+<tr><td>bus_name</td><td>TEXT</td><td>Operator / bus name, e.g. &ldquo;Royal Travels&rdquo;</td></tr>
+<tr><td>from_city</td><td>TEXT</td><td>Source city</td></tr>
+<tr><td>to_city</td><td>TEXT</td><td>Destination city</td></tr>
+<tr><td>departure</td><td>TEXT</td><td>Departure time</td></tr>
+<tr><td>arrival</td><td>TEXT</td><td>Arrival time</td></tr>
+<tr><td>price</td><td>INTEGER</td><td>Fare per seat, in rupees</td></tr>
+<tr><td>available_seats</td><td>INTEGER</td><td>Seats available on the route</td></tr>
+</table>
+
+<p class="tblcap">Table 4.9: Structure of the bookings table</p>
+<table>
+<tr><th style="width:1.3in;">Column</th><th style="width:1in;">Type</th><th>Description</th></tr>
+<tr><td>booking_id</td><td>INTEGER PK</td><td>Unique identifier for each booking, auto-incremented</td></tr>
+<tr><td>user_id</td><td>INTEGER (FK &rarr; users.id)</td><td>References the user who made the booking</td></tr>
+<tr><td>bus_id</td><td>INTEGER (FK &rarr; bus.id)</td><td>References the bus booked</td></tr>
+<tr><td>journey_date</td><td>TEXT</td><td>Date of travel entered during search</td></tr>
+<tr><td>seat_numbers</td><td>TEXT</td><td>Comma-separated seat codes, e.g. &ldquo;A1,A2&rdquo;</td></tr>
+<tr><td>passengers</td><td>INTEGER</td><td>Number of passengers on this booking</td></tr>
+<tr><td>amount</td><td>INTEGER</td><td>Total amount paid</td></tr>
+<tr><td>payment_method</td><td>TEXT</td><td>UPI / Card / Net Banking</td></tr>
+<tr><td>booking_time</td><td>TIMESTAMP</td><td>Defaults to CURRENT_TIMESTAMP; used to order history</td></tr>
+</table>
+
+<p class="tblcap">Table 4.10: Relationships between the database tables</p>
+<table>
+<tr><th style="width:1.6in;">Relationship</th><th>Cardinality</th><th>Enforced by</th></tr>
+<tr><td>users &rarr; bookings</td><td>One user can have many bookings (1:N)</td><td>bookings.user_id references users.id</td></tr>
+<tr><td>bus &rarr; bookings</td><td>One bus can appear in many bookings (1:N)</td><td>bookings.bus_id references bus.id</td></tr>
+</table>
+
+<p>It should be stated candidly that the foreign key relationships are <b>logical rather than
+enforced</b> in the present schema: <i>PRAGMA foreign_keys</i> is not switched on, so SQLite does not
+reject a booking referencing a non-existent user or bus. The relationship is honoured correctly by
+every route in the application, since <i>user_id</i> is always taken from a verified session and
+<i>bus_id</i> is always looked up before insertion, but enabling the pragma explicitly would make the
+guarantee database-level rather than merely application-level, and is listed as a corrective item in
+Section 4.12.</p>
+
+<h3>Database Schema (SQL)</h3>
+<p>The schema is created by <i>database.py</i>, executed once before the application is run for the
+first time, using <i>CREATE TABLE IF NOT EXISTS</i> so that re-running it is harmless.</p>
+
+<pre class="code">CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    phone TEXT,
+    password TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS bus (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    bus_name TEXT NOT NULL,
+    from_city TEXT NOT NULL,
+    to_city TEXT NOT NULL,
+    departure TEXT,
+    arrival TEXT,
+    price INTEGER,
+    available_seats INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    bus_id INTEGER,
+    journey_date TEXT,
+    seat_numbers TEXT,
+    passengers INTEGER,
+    amount INTEGER,
+    payment_method TEXT,
+    booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+
+<p class="tblcap">Table 4.11: Sample records inserted into the bus table</p>
+<table>
+<tr><th>bus_name</th><th>from_city</th><th>to_city</th><th>departure</th><th>arrival</th><th>price</th><th>available_seats</th></tr>
+<tr><td>Royal Travels</td><td>Hyderabad</td><td>Bangalore</td><td>08:00 PM</td><td>06:00 AM</td><td>1050</td><td>32</td></tr>
+<tr><td>Orange Travels</td><td>Hyderabad</td><td>Bangalore</td><td>09:30 PM</td><td>07:15 AM</td><td>1200</td><td>25</td></tr>
+<tr><td>VRL Travels</td><td>Hyderabad</td><td>Bangalore</td><td>10:00 PM</td><td>07:30 AM</td><td>980</td><td>18</td></tr>
+</table>
+
+<h2>4.8 PROJECT WORKFLOW</h2>
+
+<p>The complete booking journey, from the moment a visitor opens the site to the point where a
+ticket exists permanently in the database, follows a fixed sequence of pages. Figure 4.16 presents
+this sequence as a flowchart, and the accompanying description explains the decision points.</p>
+
+<pre class="diagram">
+        [ START ]
+            |
+            v
+      +-----------+
+      | HOME PAGE |
+      +-----------+
+            |
+            v
+     &lt; Logged in? &gt;--No--&gt; [ LOGIN / SIGN UP ] --&gt; (credentials OK?)--No--&gt; back to LOGIN
+            |Yes                                          |Yes
+            v                                              v
+      +-----------+                                  +-----------+
+      | DASHBOARD | &lt;--------------------------------| SESSION SET|
+      +-----------+
+            |
+            v
+      +--------------+
+      |  SEARCH BUS  |  (from, to, date, passengers)
+      +--------------+
+            |
+            v
+      +----------------+
+      | RESULTS PAGE   |----&gt; (no match) --&gt; message + Search Again
+      +----------------+
+            | select bus
+            v
+      +--------------------+
+      | SEAT SELECTION     |--&gt; (seats != passengers) --&gt; stay on page
+      +--------------------+
+            | seats == passengers
+            v
+      +--------------+
+      |   PAYMENT    |----&gt; (no method chosen) --&gt; stay on page
+      +--------------+
+            | method chosen
+            v
+      +-----------------------+
+      | BOOKING CONFIRMATION  |  INSERT INTO bookings ...
+      +-----------------------+
+            |
+            v
+      +----------------+
+      |  MY BOOKINGS   |
+      +----------------+
+            |
+            v
+        [ END ]
+</pre>
+<p class="figcap">Figure 4.16: Flowchart of the complete ticket booking process</p>
+
+<p>Two decision points deserve special mention. The <b>login check</b> is not a single gate at the
+front of the site; it is repeated independently at every route that touches personal data
+(<i>/dashboard</i> is not itself protected in the present version, but <i>/my_bookings</i>,
+<i>/profile</i> and <i>/success</i> each check <i>"user_id" not in session"</i> and redirect to login
+if it is absent). The <b>seat-count check</b> is enforced twice &mdash; once by the client-side
+JavaScript disabling the Continue button, and implicitly again by the fact that the amount computed
+and carried forward is simply seats &times; price, so a mismatched count would only produce an
+incorrect total rather than a rejected request. This is one of the points revisited under Limitations
+in Section 4.12.</p>
+
+<h2>4.9 UML DIAGRAMS</h2>
+
+<p>Six UML diagrams are presented to describe the system from complementary viewpoints: what a user
+can do, how one activity unfolds, how objects interact over time, what the static structure of the
+data looks like, how the software is componentised, and how it is deployed physically.</p>
+
+<h3>4.9.1 Use Case Diagram</h3>
+<pre class="diagram">
+                          +-----------------------------------+
+                          |          EasyBus Pro               |
+   (Visitor) o----------&gt;| Register              Login          |
+                          | Search Buses          View Results   |&lt;----------o (Registered User)
+                          | Select Seats          Make Payment    |
+                          | Confirm Booking        View My Bookings|
+                          | View Profile           Logout           |
+                          +-----------------------------------+
+                          | Add Bus                View All Buses   |&lt;----------o (Administrator)
+                          +-----------------------------------+
+</pre>
+<p class="figcap">Figure 4.17: Use case diagram</p>
+<p>A <b>Visitor</b> can only register or log in. A <b>Registered User</b> gains access to search,
+seat selection, payment, booking confirmation, booking history, profile and logout &mdash; every use
+case builds on the login use case, shown by the implicit dependency of the personal pages on an
+existing session. An <b>Administrator</b> additionally has access to the bus administration use
+cases; in the present version this role is not separated by a permission check, which is noted as a
+limitation in Section 4.12.</p>
+
+<h3>4.9.2 Activity Diagram (Booking Activity)</h3>
+<pre class="diagram">
+  (start) -&gt; Search Bus -&gt; [Buses Found?] --No--&gt; Show "No Buses" -&gt; (end)
+                                |Yes
+                                v
+                         Select Bus -&gt; Choose Seats -&gt; [Seats == Passengers?]
+                                                              |No -&gt; (loop back to Choose Seats)
+                                                              |Yes
+                                                              v
+                                                     Select Payment Method
+                                                              |
+                                                              v
+                                                     Confirm &amp; Insert Booking
+                                                              |
+                                                              v
+                                                       Display E-Ticket -&gt; (end)
+</pre>
+<p class="figcap">Figure 4.18: Activity diagram for the booking activity</p>
+
+<h3>4.9.3 Sequence Diagram (Booking a Ticket)</h3>
+<pre class="diagram">
+User        Browser        Flask (app.py)        SQLite (database.db)
+ |             |                  |                        |
+ |--search---&gt;|                  |                        |
+ |             |--GET /results-&gt;|                        |
+ |             |                  |--SELECT * FROM bus--&gt;|
+ |             |                  |&lt;----rows returned-----|
+ |             |&lt;--results.html--|                        |
+ |--select seats/pay-------------&gt;|                        |
+ |             |--GET /success---&gt;|                        |
+ |             |                  |--SELECT id FROM bus--&gt;|
+ |             |                  |&lt;----bus_id------------|
+ |             |                  |--INSERT INTO bookings-&gt;|
+ |             |                  |&lt;----commit OK----------|
+ |             |&lt;--success.html---|                        |
+ |&lt;--e-ticket--|                  |                        |
+</pre>
+<p class="figcap">Figure 4.19: Sequence diagram for booking a ticket</p>
+
+<h3>4.9.4 Class Diagram</h3>
+<pre class="diagram">
+  +-------------------+        +----------------------+        +---------------------+
+  |       User         |        |       Booking         |        |         Bus          |
+  +-------------------+        +----------------------+        +---------------------+
+  | id : int           |        | booking_id : int      |        | id : int             |
+  | name : str         |        | user_id : int (FK)    |        | bus_name : str       |
+  | email : str        |        | bus_id : int (FK)     |        | from_city : str      |
+  | phone : str        |        | journey_date : str    |        | to_city : str        |
+  | password : str     |        | seat_numbers : str    |        | departure : str      |
+  +-------------------+        | passengers : int      |        | arrival : str        |
+  | register()         |        | amount : int          |        | price : int          |
+  | login()             |        | payment_method : str  |        | available_seats : int|
+  +-------------------+        +----------------------+        +---------------------+
+           1                              N     N                          1
+           +------------------------------+     +----------------------------+
+                    places
+</pre>
+<p class="figcap">Figure 4.20: Class diagram of the system entities</p>
+<p>The class diagram mirrors the database tables closely because the application does not use an
+ORM layer that would otherwise introduce separate model classes; <i>User</i>, <i>Booking</i> and
+<i>Bus</i> here represent the data as it is read into Python (through <i>sqlite3.Row</i>) rather than
+as declared Python classes.</p>
+
+<h3>4.9.5 Component Diagram</h3>
+<pre class="diagram">
+  +----------------+     +--------------------+     +----------------------+
+  |  Templates      |&lt;---|  Flask App (app.py) |---&gt;|  sqlite3 module       |
+  |  (Jinja2, HTML) |     |  - Routing           |     |  (DB access layer)    |
+  +----------------+     |  - Session mgmt      |     +----------------------+
+                          |  - View functions     |                 |
+  +----------------+     +--------------------+                 v
+  |  Static assets  |&lt;---|                      |     +----------------------+
+  |  (CSS, JS, img)  |    +----------------------+     |   database.db         |
+  +----------------+                                  +----------------------+
+</pre>
+<p class="figcap">Figure 4.21: Component diagram</p>
+
+<h3>4.9.6 Deployment Diagram</h3>
+<pre class="diagram">
+  +----------------------------------------------------------+
+  |                  Client Machine (Browser)                 |
+  |     Chrome / Firefox / Edge  --  renders HTML/CSS/JS       |
+  +---------------------------+--------------------------------+
+                              | HTTP (localhost:5000)
+                              v
+  +----------------------------------------------------------+
+  |               Development Machine (Windows)                |
+  |   Flask development server (Werkzeug)                       |
+  |   Python 3.x runtime  +  app.py                              |
+  |   SQLite3 database file: database.db                        |
+  +----------------------------------------------------------+
+</pre>
+<p class="figcap">Figure 4.22: Deployment diagram</p>
+<p>In the present version, client and server run on the same physical machine, since the application
+was developed and demonstrated using the Flask development server on <i>127.0.0.1</i>. A production
+deployment would replace the development server with a WSGI server such as Gunicorn behind Nginx, as
+discussed in the Future Enhancements chapter.</p>
+
+
+<h2>4.10 CHALLENGES FACED AND SOLUTIONS</h2>
+
+<p>This section records genuine difficulties encountered during development, in the order they
+occurred, rather than a generic list. Each was diagnosed by reading the actual error rather than
+guessing at a fix, which was the central debugging lesson of the internship.</p>
+
+<p class="tblcap">Table 4.12: Challenges faced during development and their solutions</p>
+<table>
+<tr><th style="width:0.35in;">#</th><th style="width:1.5in;">Challenge</th><th>Cause and Solution</th></tr>
+<tr><td>1</td><td>Jinja2 <i>TemplateNotFound</i> error</td><td>The HTML files had initially been
+placed directly in the project root instead of a folder named <i>templates</i>, which Flask requires
+by convention. Moving them into <i>templates/</i> resolved the error immediately.</td></tr>
+<tr><td>2</td><td><i>sqlite3.OperationalError: no such table: bookings</i></td><td>The booking
+confirmation route was tested before <i>database.py</i> had been re-run after the bookings table was
+added to the schema script, so the table simply did not exist yet in the existing <i>database.db</i>
+file. Re-running the setup script created it.</td></tr>
+<tr><td>3</td><td>Duplicate seed data in the bus table</td><td>Running <i>database.py</i> more than
+once during early testing inserted the same three bus records repeatedly, since the INSERT
+statements were not initially guarded. Changing them to <i>INSERT OR IGNORE</i> made the script
+idempotent, so re-running it is now harmless.</td></tr>
+<tr><td>4</td><td>Reserved-keyword conflict in a URL parameter named <i>from</i></td><td>The results
+page needed a link built with <i>url_for('seat', from=from_city, ...)</i>, but <i>from</i> is a
+reserved keyword in Python and cannot be used as a keyword argument in a Python-side call. The
+solution actually used was to build this particular link directly inside the Jinja2 template, where
+<i>from</i> is a valid dictionary/keyword-style argument to the template's own <i>url_for()</i> call,
+rather than constructing the URL in <i>app.py</i>.</td></tr>
+<tr><td>5</td><td>Form resubmission on the confirmation page</td><td>Refreshing the browser on
+<i>/success</i> re-sent the same GET request and inserted a duplicate booking row, since the route
+performs a write on every GET. This was reproduced deliberately during testing (test case IT-03) and
+is documented as an open issue with a recommended fix (redirect-after-POST / a re-submission guard)
+in Section 4.12, rather than silently left unmentioned.</td></tr>
+<tr><td>6</td><td>Session not persisting across pages</td><td>Early in development, <i>app.secret_key</i>
+had not been set, so Flask raised a <i>RuntimeError</i> when <i>session[...]</i> was first assigned.
+Setting a fixed secret key at the top of <i>app.py</i> resolved it, though a hard-coded key is itself
+listed as a limitation in Section 4.12.</td></tr>
+<tr><td>7</td><td>Incorrect total on the seat selection page</td><td>The running total briefly showed
+concatenated digits, e.g. &ldquo;10501050&rdquo; instead of 2100 for two seats, because values read
+from the DOM are strings in JavaScript and were being added without conversion. Wrapping both operands
+with <i>Number()</i> fixed the arithmetic.</td></tr>
+<tr><td>8</td><td>Losing a working template during an experiment</td><td>A working version of
+<i>seat_selection.html</i> was overwritten while testing an alternative layout and had to be rewritten
+from memory, since the project was not under version control at the time. This is the direct
+motivation for placing Git version control first in the Future Enhancements list.</td></tr>
+<tr><td>9</td><td>Inconsistent spacing and duplicated CSS rules</td><td>As the stylesheet grew past a
+few hundred lines, similar rules were written more than once with slightly different values for the
+same visual element, causing inconsistent card spacing across pages. This was corrected by
+consolidating shared rules under common class names during a dedicated clean-up pass before the final
+demonstration.</td></tr>
+</table>
+
+<p>Beyond these specific defects, three broader debugging habits were formed during the internship.
+First, reading the <b>full traceback from the bottom line upward</b>, since the bottom line names the
+exact statement that failed, while the lines above only show how execution reached it. Second,
+<b>changing one thing at a time</b> and re-testing immediately, instead of editing several files
+together and losing track of which change fixed or broke the behaviour. Third, <b>verifying against
+the actual database</b> using DB Browser for SQLite rather than trusting the application's own output,
+since a page can render correctly from a stale variable even when the underlying INSERT silently
+failed.</p>
+
+<h2>4.11 TESTING</h2>
+
+<p>Four levels of testing were carried out. <b>Unit testing</b> exercised individual routes with both
+valid and invalid input, checked in isolation. <b>Functional testing</b> verified that a complete
+page-level feature behaved as specified. <b>Integration testing</b> checked that data produced by one
+module was correctly consumed by the next &mdash; for instance, that the seat and total values
+computed on the seat selection page arrived unchanged at the payment page. <b>User acceptance
+testing</b> was carried out by asking classmates unfamiliar with the code to complete a booking
+unaided and to report anything confusing.</p>
+
+<p class="tblcap">Table 4.13: Unit test cases and results</p>
+<table>
+<tr><th style="width:0.5in;">ID</th><th style="width:1.5in;">Test Case</th><th style="width:1.6in;">Input</th><th style="width:1.3in;">Expected Result</th><th>Actual Result</th></tr>
+<tr><td>UT-01</td><td>Registration with matching passwords</td><td>Valid name, e-mail, phone, password
+= confirm password</td><td>Account created, redirect to login</td><td>Pass</td></tr>
+<tr><td>UT-02</td><td>Registration with mismatched passwords</td><td>Password &ne; confirm
+password</td><td>Registration rejected with message</td><td>Pass</td></tr>
+<tr><td>UT-03</td><td>Login with correct credentials</td><td>Registered e-mail and correct
+password</td><td>Session created, redirect to dashboard</td><td>Pass</td></tr>
+<tr><td>UT-04</td><td>Duplicate e-mail registration</td><td>E-mail already present in users
+table</td><td>&ldquo;Email already registered!&rdquo; message</td><td>Pass</td></tr>
+<tr><td>UT-05</td><td>Login with incorrect password</td><td>Registered e-mail, wrong password</td><td>&ldquo;Invalid
+Email or Password!&rdquo; message</td><td>Pass</td></tr>
+<tr><td>UT-06</td><td>SQL injection attempt on login</td><td>Email = <i>' OR '1'='1</i></td><td>Login
+rejected, no bypass</td><td>Pass</td></tr>
+<tr><td>UT-07</td><td>Search with no matching route</td><td>from = &ldquo;Delhi&rdquo;, to =
+&ldquo;Timbuktu&rdquo;</td><td>&ldquo;No buses found&rdquo; message displayed</td><td>Pass</td></tr>
+<tr><td>UT-08</td><td>Seat selection beyond passenger count</td><td>2 passengers, 3 seats
+clicked</td><td>Alert shown, third seat not added</td><td>Pass</td></tr>
+</table>
+
+<p class="tblcap">Table 4.14: Functional and integration test cases</p>
+<table>
+<tr><th style="width:0.5in;">ID</th><th style="width:1.6in;">Test Case</th><th style="width:1.6in;">Steps</th><th>Result</th></tr>
+<tr><td>FT-01</td><td>Complete booking flow</td><td>Register &rarr; login &rarr; search Hyderabad to
+Bangalore &rarr; select bus &rarr; select 2 seats &rarr; pay by UPI &rarr; confirm</td><td>Pass
+&mdash; booking row inserted, e-ticket displayed, entry visible under My Bookings</td></tr>
+<tr><td>FT-02</td><td>Accessing My Bookings while logged out</td><td>Clear session cookie, request
+<i>/my_bookings</i> directly</td><td>Pass &mdash; redirected to <i>/signin</i></td></tr>
+<tr><td>FT-03</td><td>Accessing the booking confirmation route directly, logged out</td><td>Clear
+session, request <i>/success</i> with arbitrary query parameters</td><td>Pass &mdash; redirected to
+<i>/signin</i>, no booking inserted</td></tr>
+<tr><td>IT-01</td><td>Seat and total carried from seat selection to payment</td><td>Select seats A1,
+A2 at &#8377;1050 each</td><td>Pass &mdash; payment page shows &ldquo;A1, A2&rdquo; and
+&#8377;2100</td></tr>
+<tr><td>IT-02</td><td>Booking record matches selections made across three pages</td><td>Compare seats,
+date and amount shown on the ticket with the values entered in search and seat selection</td><td>Pass
+&mdash; all values consistent</td></tr>
+<tr><td>IT-03</td><td>Browser refresh on the confirmation page</td><td>Complete a booking, then press
+F5 on <i>/success</i></td><td>Fail &mdash; a duplicate booking row is inserted; documented as a known
+issue in Section 4.12</td></tr>
+<tr><td>IT-04</td><td>Adding a bus through the admin page and finding it in search</td><td>Insert a
+new bus for Chennai&ndash;Coimbatore, then search that route</td><td>Pass &mdash; new bus appears in
+results immediately</td></tr>
+</table>
+
+<p class="tblcap">Table 4.15: User acceptance testing feedback</p>
+<table>
+<tr><th style="width:1.6in;">Tester Task</th><th style="width:1.9in;">Observation</th><th>Action Taken</th></tr>
+<tr><td>Book a ticket without instructions</td><td>Completed successfully; found the seat legend
+(available/selected/booked) useful</td><td>No change required</td></tr>
+<tr><td>Search a route with no buses</td><td>Initially confused by a blank page (before the fix)</td>
+<td>Added the &ldquo;No buses found&rdquo; message and Search Again link</td></tr>
+<tr><td>Register with an already-used e-mail</td><td>Message was clear but appeared as a plain text
+page rather than styled</td><td>Noted as a cosmetic improvement for a future iteration</td></tr>
+<tr><td>Select fewer seats than passengers</td><td>Continue button correctly stayed disabled</td>
+<td>No change required</td></tr>
+<tr><td>Try the back button after payment</td><td>Returned to seat selection with the previous
+selection cleared</td><td>Noted as acceptable for the present scope; not corrected</td></tr>
+</table>
+
+<h2>4.12 LIMITATIONS OF THE PRESENT VERSION</h2>
+
+<p>An honest report must state plainly what the delivered version does not yet do well, since a
+student project defended without acknowledging its limitations invites the examiner to find them
+instead. The following limitations are known and are the direct basis for the Future Enhancements
+chapter.</p>
+
+<ol>
+<li><b>Plain-text password storage.</b> Passwords are stored and compared exactly as entered, with no
+hashing. This is acceptable only because the database never leaves the development machine; a
+production system must hash passwords, for example with <i>werkzeug.security.generate_password_hash</i>.</li>
+
+<li><b>No real payment gateway.</b> The payment page simulates a choice of method without contacting
+any external processor, which was a deliberate scope decision (Section 1.3) rather than an
+oversight.</li>
+
+<li><b>Dashboard statistics are not live.</b> The Total Bookings, Upcoming Trips and Completed Trips
+figures on the dashboard are placeholder values rather than the result of a query against the
+<i>bookings</i> table (Section 4.5.4).</li>
+
+<li><b>Re-submission on booking confirmation.</b> Refreshing <i>/success</i> re-inserts the booking,
+as recorded in test case IT-03, because the route performs a write on a GET request with no guard
+against repeated submission.</li>
+
+<li><b>Foreign keys are not enforced by the database.</b> <i>PRAGMA foreign_keys</i> is not enabled,
+so the relationships in Section 4.7 are honoured by the application's logic rather than guaranteed by
+SQLite itself.</li>
+
+<li><b>Search does not filter by date.</b> The <i>bus</i> table models a daily schedule rather than
+dated departures, so the journey date is stored with the booking but does not restrict which buses
+are shown.</li>
+
+<li><b>No administrative access control.</b> The <i>/admin</i> and <i>/admin_dashboard</i> routes are
+reachable by anyone who knows the URL, with no role-based restriction.</li>
+
+<li><b>No cancellation or editing.</b> UPDATE and DELETE operations are not used in the present
+version, so a booking cannot be cancelled and a profile cannot be edited once created.</li>
+
+<li><b>No automated tests.</b> All testing described in Section 4.11 was performed manually; a suite
+using <i>pytest</i> would allow the same checks to be repeated automatically after every change.</li>
+
+<li><b>Hard-coded secret key.</b> <i>app.secret_key</i> is a fixed string in the source file rather
+than an environment-specific value, which is unsuitable for a deployed application.</li>
+</ol>
+
+<p>None of these points were discovered by an external reviewer after the fact; each was noted during
+development or during the testing described above and left unresolved consciously, given the time
+available, rather than overlooked. They form the basis of the Future Enhancements chapter that
+follows the concluding chapters of this report.</p>
+
+
+<!-- ============ CHAPTER 5 ============ -->
+<h1>CHAPTER 5: LEARNING OUTCOMES</h1>
+
+<h2>5.1 TECHNICAL SKILLS ACQUIRED</h2>
+
+<p>The clearest technical outcome of the internship is a working, practical understanding of how a
+multi-page web application actually fits together, as opposed to knowing the individual pieces in
+isolation. Before the internship, Python meant writing standalone scripts that took input from the
+keyboard; it now also means writing a view function that must cooperate with a browser, a session and
+a database within the space of a single request. HTML and CSS, which had previously been used for
+static pages built as classroom exercises, were used here to build thirteen templates that share a
+common layout and respond consistently across screen sizes.</p>
+
+<p>Specifically, the internship gave working familiarity with: defining and distinguishing GET and
+POST routes; reading input through <i>request.form</i> and <i>request.args</i>; rendering dynamic
+pages with Jinja2, including loops, conditionals and template inheritance; writing parameterised SQL
+statements and understanding why string concatenation in a query is dangerous; using
+<i>sqlite3.Row</i> for column access by name; performing INSERT and SELECT operations, including a
+two-table JOIN; managing user identity through signed sessions; and writing enough client-side
+JavaScript to make one screen properly interactive without depending on a library.</p>
+
+<h2>5.2 PROBLEM SOLVING AND DEBUGGING</h2>
+
+<p>Of everything learned, the change in debugging habit is the one most likely to transfer to future
+work regardless of the technology involved. At the start of the internship, an error message was
+treated as an obstacle to be removed by trial and error &mdash; changing a line, running the program
+again, and repeating until the error happened to disappear. By the middle of the internship this had
+changed to a fixed sequence: read the last line of the traceback first, since it names the exact
+statement and exception type; identify which value at that point could plausibly cause the failure;
+form one hypothesis about the cause; test that hypothesis directly, for example by printing the
+suspect value, rather than editing code speculatively; and only then make the correction.</p>
+
+<p>The nine challenges recorded in Table 4.12 were each resolved using this sequence rather than by
+guesswork, and the habit of verifying a fix against the actual database contents using DB Browser for
+SQLite &mdash; rather than trusting that the page looked correct &mdash; caught more than one case
+where a query appeared to succeed but had silently written the wrong value.</p>
+
+<h2>5.3 DATABASE AND FLASK DEVELOPMENT SKILLS</h2>
+
+<p>The database-related learning went beyond syntax. Designing the <i>users</i>, <i>bus</i> and
+<i>bookings</i> tables before writing any route made clear why database design is usually placed
+before implementation in a software development process: a mistake made in the schema, such as
+storing seat numbers as a single text field rather than as individual rows, has consequences that
+surface much later, when a feature such as per-seat cancellation is attempted (Section 4.12). The
+practical meaning of a foreign key also became concrete only once the <i>my_bookings</i> query had to
+join <i>bookings</i> with <i>bus</i> to reconstruct a complete ticket from two small tables instead of
+one wide, repetitive one.</p>
+
+<p>On the Flask side, the internship clarified exactly what the framework does and does not do
+automatically. Nothing about routing, sessions or database access happens without an explicit line of
+code, which made the framework demanding to learn at first but easy to reason about once the
+request&ndash;response cycle in Figure 3.1 was internalised. Building fifteen routes across one file
+also taught, by direct experience of the alternative, why larger Flask applications are usually split
+into blueprints once a single file grows unmanageable.</p>
+
+<h2>5.4 USER INTERFACE DESIGN AND PROJECT ORGANIZATION</h2>
+
+<p>Writing the entire stylesheet by hand, without a CSS framework, was more time-consuming than using
+Bootstrap would have been, but it produced an understanding of the box model, Flexbox and CSS Grid
+that would likely not have developed otherwise. The seat selection layout in particular required
+working out how to represent an aisle using a grid gap, and how to reflect a client-side state change
+(a selected seat) purely through a CSS class rather than inline styles.</p>
+
+<p>On project organization, keeping the presentation layer (templates and CSS) cleanly separated from
+the application layer (<i>app.py</i>) made it possible to change how a page looked without touching
+the routes that fed it data, and vice versa. The one clear organizational lesson learned the hard way
+was the absence of version control: losing a working template to an overwritten experiment (Challenge
+8, Section 4.10) demonstrated directly why every professional codebase is kept under Git, a practice
+this project did not follow but should have from its first day.</p>
+
+<h2>5.5 PROFESSIONAL SKILLS</h2>
+
+<p>Beyond the technical content, the internship required skills that a purely academic assignment
+does not exercise. <b>Communication</b> was tested every week in the review with the mentor, where a
+feature had to be explained, defended and sometimes admitted to be incomplete without becoming
+defensive about the criticism received. <b>Time management</b> was tested by the fixed weekly
+milestones in Table 1.1; the seat selection and payment screens took longer than planned, which meant
+the schedule for later weeks had to be adjusted honestly rather than the shortfall being hidden.
+<b>Accepting and acting on feedback</b> was perhaps the most valuable soft skill, since several of the
+improvements recorded in this report &mdash; the empty-search message, the duplicate-e-mail check
+using <i>IntegrityError</i>, the numeric conversion in the seat selection script &mdash; originated
+directly from a mentor's review comment rather than from independent discovery.</p>
+
+<p>Finally, the discipline of <b>reporting a problem honestly rather than concealing it</b> &mdash;
+stating in this very report, for instance, that the dashboard statistics are not yet calculated from
+real data, or that a page refresh can duplicate a booking &mdash; was itself presented during the
+internship as a professional expectation rather than an admission of failure, and is reflected
+throughout Chapter 4 of this report.</p>
+
+<!-- ============ CONCLUSION ============ -->
+<h1>CONCLUSION</h1>
+
+<p>This internship set out to provide practical exposure to the complete cycle of web application
+development &mdash; requirement analysis, database design, server-side programming, interface
+development, testing and documentation &mdash; through a single project rather than through isolated
+exercises, and that objective has been met. The outcome, EasyBus Pro, is a working bus ticket booking
+system built on Python, Flask and SQLite3 that takes a traveller through registration, login, search,
+comparison, seat selection, payment and confirmation, and preserves a permanent, retrievable record of
+every completed booking.</p>
+
+<p>The project succeeded in exercising, in a connected way, concepts that had previously been studied
+as separate subjects. The request&ndash;response cycle, template inheritance, parameterised queries,
+session management and the relational design of the <i>users</i>, <i>bus</i> and <i>bookings</i>
+tables were not abstract topics by the end of the internship; each one had a specific line of code, a
+specific defect, or a specific review comment attached to it. The fifteen Flask routes, thirteen
+Jinja2 templates and roughly one thousand lines of hand-written CSS that make up the application were
+all written, tested and understood personally, which is precisely what an academic internship is
+meant to verify.</p>
+
+<p>Equally important is what the internship revealed about the gap between a program that runs and a
+program that is ready to be relied upon. Several genuine shortcomings surfaced during development and
+testing &mdash; plain-text password storage, a dashboard whose statistics are not yet live, a booking
+confirmation page that can be duplicated by a browser refresh, foreign key relationships that are
+honoured by the application but not enforced by the database, and the absence of role-based access
+control on the administrative pages. Rather than conceal these, this report has stated them plainly
+in Section 4.12, because recognising the difference between a feature that works under normal use and
+one that is safe under every use is itself one of the more mature lessons of the internship.</p>
+
+<p>The debugging habits formed during the internship &mdash; reading a traceback from the bottom
+upward, changing one thing at a time, and verifying against the actual database rather than trusting
+the rendered page &mdash; are not specific to Flask or to SQLite and are expected to transfer directly
+to any future development work, in any language or framework. Similarly, the professional habits
+observed and practised at the organization &mdash; the daily stand-up, the weekly code review, and the
+expectation that a blocked task be reported early rather than late &mdash; are habits of engineering
+discipline that extend well beyond this particular internship.</p>
+
+<p>In summary, the internship achieved its stated objectives to a substantial extent. A complete,
+working application was designed, implemented, tested and documented; the technical skills targeted
+at the outset &mdash; Flask development, database design, session management and debugging &mdash;
+were genuinely acquired rather than only observed; and the professional conduct expected of a working
+environment was practised under real supervision. The limitations that remain in the present version
+of EasyBus Pro are neither hidden nor treated as failures; they are recorded as the deliberate
+starting point for the enhancements proposed in the following section, and they mark out clearly what
+a second iteration of this project would need to address first.</p>
+
+<!-- ============ FUTURE ENHANCEMENTS ============ -->
+<h1>FUTURE ENHANCEMENTS</h1>
+
+<p>The following enhancements are proposed as realistic next steps, arising directly from the
+limitations recorded in Section 4.12 rather than as a generic wish list.</p>
+
+<ol>
+<li><b>Version control from day one.</b> Placing the project under Git and hosting it on GitHub,
+so that a working file can always be recovered and the history of changes is preserved.</li>
+
+<li><b>Password hashing.</b> Replacing plain-text password storage with a salted hash using
+<i>werkzeug.security.generate_password_hash</i> and <i>check_password_hash</i>, removing the
+single most serious security weakness of the present version.</li>
+
+<li><b>Live dashboard statistics.</b> Replacing the placeholder values on the dashboard with real
+queries &mdash; a count of bookings for the logged-in user and a date comparison to separate upcoming
+from completed journeys.</li>
+
+<li><b>Guard against duplicate booking on refresh.</b> Redirecting after the booking INSERT
+(the Post/Redirect/Get pattern) so that refreshing the confirmation page re-displays the ticket instead
+of inserting a second row.</li>
+
+<li><b>Online payment gateway integration.</b> Connecting the payment page to a sandbox gateway such
+as Razorpay or Stripe in place of the current simulated selection.</li>
+
+<li><b>E-mail booking confirmation.</b> Sending a confirmation e-mail with the ticket details using
+Flask-Mail once a booking is confirmed.</li>
+
+<li><b>OTP-based verification.</b> Adding a one-time password step during registration or login for
+stronger identity verification.</li>
+
+<li><b>QR-code ticket and PDF download.</b> Generating a scannable QR code for the booking identifier
+and allowing the e-ticket to be downloaded as a PDF rather than only printed from the browser.</li>
+
+<li><b>Online cancellation.</b> Implementing the DELETE operation on the bookings table, with the
+corresponding seats restored to <i>available_seats</i> on the bus record.</li>
+
+<li><b>Editable profile.</b> Allowing the user to update name and phone number through an UPDATE
+query, completing the CRUD cycle that is currently missing its Update and Delete halves.</li>
+
+<li><b>Date-aware bus scheduling.</b> Extending the <i>bus</i> table to model dated departures
+instead of a fixed daily schedule, so that search results can be filtered by the journey date.</li>
+
+<li><b>Role-based administration.</b> Restricting <i>/admin</i> and <i>/admin_dashboard</i> to an
+authenticated administrator account rather than leaving them open to any visitor.</li>
+
+<li><b>Ratings, reviews and notifications.</b> Allowing a passenger to rate a completed journey, and
+notifying users of upcoming journeys.</li>
+
+<li><b>Bus tracking and analytics dashboard.</b> Adding live location tracking for operators willing
+to share it, and an aggregate dashboard summarising bookings by route and date for administrators.</li>
+
+<li><b>Automated testing.</b> Writing a <i>pytest</i> suite covering the test cases in Tables 4.13 and
+4.14, so that regressions are caught automatically after future changes.</li>
+
+<li><b>Cloud deployment.</b> Moving from the Flask development server to a production WSGI server
+(Gunicorn) behind Nginx, hosted on a cloud platform, with the SQLite file replaced by a
+client&ndash;server database such as PostgreSQL to support concurrent users safely.</li>
+</ol>
+
+<p>These enhancements are ordered roughly by priority: the first four address defects and risks
+already present in the delivered version and would be undertaken before any new feature; the
+remainder extend the functionality of the system in directions consistent with the organization's own
+stated future scope (Section 2.7).</p>
+
+<!-- ============ REFERENCES ============ -->
+<h1>REFERENCES</h1>
+
+<ol>
+<li>Python Software Foundation, <i>The Python Language Reference</i>, https://docs.python.org/3/reference/</li>
+<li>Python Software Foundation, <i>Python 3 Standard Library &ndash; sqlite3</i>, https://docs.python.org/3/library/sqlite3.html</li>
+<li>Pallets Projects, <i>Flask Documentation</i>, https://flask.palletsprojects.com/</li>
+<li>Pallets Projects, <i>Jinja2 Documentation</i>, https://jinja.palletsprojects.com/</li>
+<li>Pallets Projects, <i>Werkzeug Documentation</i>, https://werkzeug.palletsprojects.com/</li>
+<li>SQLite Consortium, <i>SQLite Documentation</i>, https://www.sqlite.org/docs.html</li>
+<li>SQLite Consortium, <i>Datatypes In SQLite</i>, https://www.sqlite.org/datatype3.html</li>
+<li>Mozilla Developer Network, <i>HTML: HyperText Markup Language</i>, https://developer.mozilla.org/en-US/docs/Web/HTML</li>
+<li>Mozilla Developer Network, <i>CSS: Cascading Style Sheets</i>, https://developer.mozilla.org/en-US/docs/Web/CSS</li>
+<li>Mozilla Developer Network, <i>JavaScript Guide</i>, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide</li>
+<li>World Wide Web Consortium (W3C), <i>HTML5 Specification</i>, https://www.w3.org/TR/html52/</li>
+<li>Grinberg, M., <i>Flask Web Development: Developing Web Applications with Python</i>, 2nd Edition, O'Reilly Media, 2018.</li>
+<li>Lutz, M., <i>Learning Python</i>, 5th Edition, O'Reilly Media, 2013.</li>
+<li>Date, C. J., <i>An Introduction to Database Systems</i>, 8th Edition, Pearson Education, 2003.</li>
+<li>Elmasri, R., and Navathe, S. B., <i>Fundamentals of Database Systems</i>, 7th Edition, Pearson, 2016.</li>
+<li>Duckett, J., <i>HTML and CSS: Design and Build Websites</i>, Wiley, 2011.</li>
+<li>Visual Studio Code Documentation, Microsoft, https://code.visualstudio.com/docs</li>
+<li>Git Documentation, https://git-scm.com/doc</li>
+</ol>
+
+
+</body>
+</html>
+
